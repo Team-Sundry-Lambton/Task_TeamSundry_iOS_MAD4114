@@ -9,21 +9,23 @@
 /* Begin PBXBuildFile section */
 		9945FB6529709BCB005463ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6429709BCB005463ED /* AppDelegate.swift */; };
 		9945FB6729709BCB005463ED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6629709BCB005463ED /* SceneDelegate.swift */; };
-		9945FB6929709BCB005463ED /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6829709BCB005463ED /* ViewController.swift */; };
-		9945FB6C29709BCB005463ED /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9945FB6A29709BCB005463ED /* Main.storyboard */; };
+		9945FB6929709BCB005463ED /* NoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6829709BCB005463ED /* NoteListViewController.swift */; };
+		9945FB6C29709BCB005463ED /* NoteList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9945FB6A29709BCB005463ED /* NoteList.storyboard */; };
 		9945FB6E29709BCC005463ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9945FB6D29709BCC005463ED /* Assets.xcassets */; };
 		9945FB7129709BCC005463ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9945FB6F29709BCC005463ED /* LaunchScreen.storyboard */; };
+		9949B63229713F1600BA0FFB /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9949B63029713F1600BA0FFB /* DataModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		9945FB6129709BCB005463ED /* Task_TeamSundry_iOS_MAD4114.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Task_TeamSundry_iOS_MAD4114.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9945FB6429709BCB005463ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9945FB6629709BCB005463ED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9945FB6829709BCB005463ED /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		9945FB6B29709BCB005463ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		9945FB6829709BCB005463ED /* NoteListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListViewController.swift; sourceTree = "<group>"; };
+		9945FB6B29709BCB005463ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/NoteList.storyboard; sourceTree = "<group>"; };
 		9945FB6D29709BCC005463ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9945FB7029709BCC005463ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9945FB7229709BCC005463ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9949B63129713F1600BA0FFB /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +58,96 @@
 		9945FB6329709BCB005463ED /* Task_TeamSundry_iOS_MAD4114 */ = {
 			isa = PBXGroup;
 			children = (
+				9949B62929713D2600BA0FFB /* Support Files */,
+				9949B62829713CCB00BA0FFB /* Controllers */,
+				9949B62729713CBB00BA0FFB /* Views */,
+				9949B62629713CB200BA0FFB /* Models */,
 				9945FB6429709BCB005463ED /* AppDelegate.swift */,
 				9945FB6629709BCB005463ED /* SceneDelegate.swift */,
-				9945FB6829709BCB005463ED /* ViewController.swift */,
-				9945FB6A29709BCB005463ED /* Main.storyboard */,
 				9945FB6D29709BCC005463ED /* Assets.xcassets */,
 				9945FB6F29709BCC005463ED /* LaunchScreen.storyboard */,
 				9945FB7229709BCC005463ED /* Info.plist */,
 			);
 			path = Task_TeamSundry_iOS_MAD4114;
+			sourceTree = "<group>";
+		};
+		9949B62629713CB200BA0FFB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9949B63029713F1600BA0FFB /* DataModel.xcdatamodeld */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9949B62729713CBB00BA0FFB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9949B62F29713E9500BA0FFB /* Note Add */,
+				9949B62E29713E8E00BA0FFB /* Note Detail */,
+				9949B62D29713E8400BA0FFB /* Note List */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		9949B62829713CCB00BA0FFB /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				9949B62C29713E5D00BA0FFB /* Note Add */,
+				9949B62B29713E2B00BA0FFB /* Note Detail */,
+				9949B62A29713E2000BA0FFB /* Note List */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		9949B62929713D2600BA0FFB /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		9949B62A29713E2000BA0FFB /* Note List */ = {
+			isa = PBXGroup;
+			children = (
+				9945FB6829709BCB005463ED /* NoteListViewController.swift */,
+			);
+			path = "Note List";
+			sourceTree = "<group>";
+		};
+		9949B62B29713E2B00BA0FFB /* Note Detail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Note Detail";
+			sourceTree = "<group>";
+		};
+		9949B62C29713E5D00BA0FFB /* Note Add */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Note Add";
+			sourceTree = "<group>";
+		};
+		9949B62D29713E8400BA0FFB /* Note List */ = {
+			isa = PBXGroup;
+			children = (
+				9945FB6A29709BCB005463ED /* NoteList.storyboard */,
+			);
+			path = "Note List";
+			sourceTree = "<group>";
+		};
+		9949B62E29713E8E00BA0FFB /* Note Detail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Note Detail";
+			sourceTree = "<group>";
+		};
+		9949B62F29713E9500BA0FFB /* Note Add */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Note Add";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,7 +210,7 @@
 			files = (
 				9945FB7129709BCC005463ED /* LaunchScreen.storyboard in Resources */,
 				9945FB6E29709BCC005463ED /* Assets.xcassets in Resources */,
-				9945FB6C29709BCB005463ED /* Main.storyboard in Resources */,
+				9945FB6C29709BCB005463ED /* NoteList.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,7 +221,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9945FB6929709BCB005463ED /* ViewController.swift in Sources */,
+				9945FB6929709BCB005463ED /* NoteListViewController.swift in Sources */,
+				9949B63229713F1600BA0FFB /* DataModel.xcdatamodeld in Sources */,
 				9945FB6529709BCB005463ED /* AppDelegate.swift in Sources */,
 				9945FB6729709BCB005463ED /* SceneDelegate.swift in Sources */,
 			);
@@ -147,12 +231,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		9945FB6A29709BCB005463ED /* Main.storyboard */ = {
+		9945FB6A29709BCB005463ED /* NoteList.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				9945FB6B29709BCB005463ED /* Base */,
 			);
-			name = Main.storyboard;
+			name = NoteList.storyboard;
 			sourceTree = "<group>";
 		};
 		9945FB6F29709BCC005463ED /* LaunchScreen.storyboard */ = {
@@ -356,6 +440,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		9949B63029713F1600BA0FFB /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				9949B63129713F1600BA0FFB /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 9949B63129713F1600BA0FFB /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 9945FB5929709BCB005463ED /* Project object */;
 }
