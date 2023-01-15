@@ -7,8 +7,9 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
-class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate, AVAudioRecorderDelegate, AVAudioPlayerDelegate{
     
     static let shared = MediaManager()
     var picker = UIImagePickerController();
@@ -19,6 +20,10 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     var categoryID : String = ""
     var fileID : String = ""
     var fileName : String = ""
+    
+    var audioRecorder:AVAudioRecorder!
+    var audioPlayer:AVAudioPlayer!
+    var playingCallback : ((Bool) -> ())?;
     
     //MARK: Image Selection
     override init(){
@@ -50,6 +55,7 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
 
         viewController.present(alert, animated: true, completion: nil)
     }
+    
     func openCamera(){
         alert.dismiss(animated: true, completion: nil)
         if(UIImagePickerController .isSourceTypeAvailable(.camera)){
@@ -65,22 +71,16 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
             viewController?.present(alertController, animated: true)
         }
     }
+    
     func openGallery(){
         alert.dismiss(animated: true, completion: nil)
         picker.sourceType = .photoLibrary
         self.viewController!.present(picker, animated: true, completion: nil)
     }
-
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
     }
-    //for swift below 4.2
-    //func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-    //    picker.dismiss(animated: true, completion: nil)
-    //    let image = info[UIImagePickerControllerOriginalImage] as! UIImage
-    //    pickImageCallback?(image)
-    //}
     
     // For Swift 4.2+
     func imagePickerController1(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -108,8 +108,114 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
 
     @objc func imagePickerController(_ picker: UIImagePickerController, pickedImage: UIImage?) {
     }
-        
     
+    //MARK: Audio Recording
+    func audioRecording(_ viewController: UIViewController, _ callback: @escaping ((MediaReturnObject?) -> ())) {
+        pickMediaCallback = callback;
+        if audioRecorder == nil {
+            startRecording()
+        } else {
+           finishRecording(success: true)
+        }
+    }
+    
+    func audioPlaying(fileName : String,_ viewController: UIViewController, _ callback: @escaping ((Bool) -> ())) {
+        playingCallback = callback;
+        if audioPlayer == nil{
+            startPlaying(fileName: fileName)
+        } else {
+            finishPlaying(success: true)
+        }
+    }
+    
+    func startRecording() {
+        fileName = generateFileName(audioFile: true)
+            
+            let settings = [
+                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                AVSampleRateKey: 12000,
+                AVNumberOfChannelsKey: 1,
+                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+            ]
+            
+            do {
+                audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+                audioRecorder.delegate = self
+                audioRecorder.record()
+            } catch {
+                finishRecording(success: false)
+            }
+        }
+        
+        func finishRecording(success: Bool) {
+            audioRecorder?.stop()
+            audioRecorder = nil
+            
+            if success {
+                pickMediaCallback?(object)
+            } else {
+                pickMediaCallback?(nil)
+            }
+        }
+    
+    
+    func preparePlayer(fileName : String) {
+        var error: NSError?
+        do {
+            let audioFilename = URL(string: fileName)
+            audioPlayer = try AVAudioPlayer(contentsOf: audioFilename!)
+        } catch let error1 as NSError {
+            error = error1
+            audioPlayer = nil
+        }
+        
+        if let err = error {
+            print("AVAudioPlayer error: \(err.localizedDescription)")
+        } else {
+            audioPlayer.delegate = self
+            audioPlayer.prepareToPlay()
+            audioPlayer.volume = 10.0
+        }
+    }
+    
+    func startPlaying(fileName : String) {
+        preparePlayer(fileName: fileName)
+        audioPlayer.play()
+    }
+    
+    func finishPlaying(success: Bool) {
+        audioPlayer.stop()
+        audioPlayer = nil
+        if success {
+            playingCallback?(true)
+        } else {
+            playingCallback?(false)
+        }
+    }
+        
+    //MARK: Audio Record Delegates
+    func audioRecorderDidFinishRecording(_ recorder: AVAudioRecorder, successfully flag: Bool) {
+        if !flag {
+            finishRecording(success: false)
+        }
+    }
+    
+    func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
+        print("Error while recording audio \(error!.localizedDescription)")
+    }
+    
+    func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
+        if !flag {
+            finishPlaying(success: false)
+        }else{
+            finishPlaying(success: true)
+        }
+    }
+    
+    func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
+        print("Error while playing audio \(error!.localizedDescription)")
+    }
+            
     func generateFileName(audioFile : Bool) -> String{
         let id = UUID().uuidString
         if(audioFile){
@@ -118,7 +224,6 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
             return id + ".png"
         }
     }
-    
 }
 
 struct MediaReturnObject{
