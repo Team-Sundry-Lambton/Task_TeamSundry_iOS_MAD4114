@@ -133,6 +133,12 @@ class FolderManager{
             return nil
     }
     
-    
-
+    func getRecordingFileURL(categoryID : String,fileID : String, fileName : String) -> URL {
+        
+        CreateFileFolderInCategoryDirectory(categoryID: categoryID, fileID: fileID)
+        let url = FolderManager.shared.getFileDirectoryPath(categoryID: categoryID, fileID: fileID)
+          
+        let path = url.appendingPathComponent(fileName)
+        return path
+    }
 }
