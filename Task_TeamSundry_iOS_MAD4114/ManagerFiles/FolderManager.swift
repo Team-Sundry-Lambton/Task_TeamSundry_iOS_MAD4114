@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class FolderManager{
     static let shared = FolderManager()
@@ -97,5 +98,39 @@ class FolderManager{
            for filePath in filePaths {
                try? fileManager.removeItem(at: filePath)
            }
-       }
+    }
+    
+    func saveImageDocumentDirectory(categoryID : String,fileID : String, fileName : String , image : UIImage) -> URL
+    {
+        CreateFileFolderInCategoryDirectory(categoryID: categoryID, fileID: fileID)
+        let url = getFileDirectoryPath(categoryID: categoryID, fileID: fileID)
+          
+        let imagePath = url.appendingPathComponent(fileName)
+        let urlString: String = imagePath.absoluteString
+          
+
+        let imageData = UIImage.pngData(image)
+       
+        fileManager.createFile(atPath: urlString as String, contents: imageData(), attributes: nil)
+        
+        if let imageData = image.jpegData(compressionQuality: 1.0) {
+               try? imageData.write(to: imagePath, options: .atomic)
+             
+            }
+        
+        return imagePath
+     }
+    
+    func getImageFromDocumentDirectory(categoryID : String,fileID : String,imageName : String) -> UIImage?
+    {
+        let imagePath = getFileDirectoryPath(categoryID: categoryID, fileID: fileID).appendingPathComponent(imageName)
+        do {
+                let imageData = try Data(contentsOf: imagePath)
+                return UIImage(data: imageData)
+            } catch {
+                print("Error loading image : \(error)")
+            }
+            return nil
+    }
+
 }

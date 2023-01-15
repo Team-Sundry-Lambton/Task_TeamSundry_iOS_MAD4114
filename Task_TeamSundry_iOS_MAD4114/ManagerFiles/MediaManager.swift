@@ -16,6 +16,9 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     var viewController: UIViewController?
     
     var pickMediaCallback : ((MediaReturnObject?) -> ())?;
+    var categoryID : String = ""
+    var fileID : String = ""
+    var fileName : String = ""
     
     //MARK: Image Selection
     override init(){
@@ -85,11 +88,20 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         guard let image = info[.originalImage] as? UIImage else {
             fatalError("Expected a dictionary containing an image, but was provided the following: \(info)")
         }
+        
+        fileName = generateFileName(audioFile: false)
+        let url = FolderManager.shared.saveImageDocumentDirectory(categoryID: categoryID, fileID: fileID, fileName : fileName, image: image)
+        let object  = MediaReturnObject(fileName: fileName, image: image, filePath: url.absoluteString)
+        pickMediaCallback?(object)
     
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
+        fileName = generateFileName(audioFile: false)
+        let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
+        let url = FolderManager.shared.saveImageDocumentDirectory(categoryID: categoryID, fileID: fileID, fileName : fileName, image: image)
+        let object  = MediaReturnObject(fileName: fileName, image: image, filePath: url.absoluteString)
+        pickMediaCallback?(object)
         picker.dismiss(animated: true, completion: nil)
         
     }
@@ -97,6 +109,15 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     @objc func imagePickerController(_ picker: UIImagePickerController, pickedImage: UIImage?) {
     }
         
+    
+    func generateFileName(audioFile : Bool) -> String{
+        let id = UUID().uuidString
+        if(audioFile){
+            return  id + ".m4a"
+        }else{
+            return id + ".png"
+        }
+    }
     
 }
 
