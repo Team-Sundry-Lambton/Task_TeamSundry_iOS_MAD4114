@@ -130,33 +130,37 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     
     func startRecording() {
         fileName = generateFileName(audioFile: true)
-            
-            let settings = [
-                AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
-                AVSampleRateKey: 12000,
-                AVNumberOfChannelsKey: 1,
-                AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
-            ]
-            
-            do {
-                audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
-                audioRecorder.delegate = self
-                audioRecorder.record()
-            } catch {
-                finishRecording(success: false)
-            }
-        }
+        let audioFilename = FolderManager.shared.getRecordingFileURL(categoryID: categoryID, fileID: fileID, fileName: fileName)
         
-        func finishRecording(success: Bool) {
-            audioRecorder?.stop()
-            audioRecorder = nil
+        let settings = [
+            AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+            AVSampleRateKey: 12000,
+            AVNumberOfChannelsKey: 1,
+            AVEncoderAudioQualityKey: AVAudioQuality.high.rawValue
+        ]
             
-            if success {
-                pickMediaCallback?(object)
-            } else {
-                pickMediaCallback?(nil)
-            }
+        do {
+            audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
+            audioRecorder.delegate = self
+            audioRecorder.record()
+        } catch {
+            finishRecording(success: false)
         }
+    }
+    
+    func finishRecording(success: Bool) {
+        audioRecorder?.stop()
+        audioRecorder = nil
+            
+        let filePath = FolderManager.shared.getRecordingFileURL(categoryID: categoryID, fileID: fileID, fileName: fileName).absoluteString
+        let mediaObject  = MediaReturnObject(fileName: fileName, image: nil, filePath: filePath)
+            
+        if success {
+            pickMediaCallback?(mediaObject)
+        } else {
+            pickMediaCallback?(nil)
+        }
+    }
     
     
     func preparePlayer(fileName : String) {
