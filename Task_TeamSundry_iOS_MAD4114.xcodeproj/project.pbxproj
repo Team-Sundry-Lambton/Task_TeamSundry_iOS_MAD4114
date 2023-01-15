@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2C25D180297394AD00E38BF6 /* MediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C25D17F297394AD00E38BF6 /* MediaManager.swift */; };
+		2C25D1822973960600E38BF6 /* FolderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C25D1812973960600E38BF6 /* FolderManager.swift */; };
 		9945FB6529709BCB005463ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6429709BCB005463ED /* AppDelegate.swift */; };
 		9945FB6729709BCB005463ED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6629709BCB005463ED /* SceneDelegate.swift */; };
 		9945FB6929709BCB005463ED /* NoteListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6829709BCB005463ED /* NoteListViewController.swift */; };
@@ -19,6 +20,7 @@
 
 /* Begin PBXFileReference section */
 		2C25D17F297394AD00E38BF6 /* MediaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaManager.swift; sourceTree = "<group>"; };
+		2C25D1812973960600E38BF6 /* FolderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderManager.swift; sourceTree = "<group>"; };
 		9945FB6129709BCB005463ED /* Task_TeamSundry_iOS_MAD4114.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Task_TeamSundry_iOS_MAD4114.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9945FB6429709BCB005463ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9945FB6629709BCB005463ED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +47,7 @@
 			isa = PBXGroup;
 			children = (
 				2C25D17F297394AD00E38BF6 /* MediaManager.swift */,
+				2C25D1812973960600E38BF6 /* FolderManager.swift */,
 			);
 			path = ManagerFiles;
 			sourceTree = "<group>";
@@ -235,6 +238,7 @@
 				9945FB6929709BCB005463ED /* NoteListViewController.swift in Sources */,
 				9949B63229713F1600BA0FFB /* DataModel.xcdatamodeld in Sources */,
 				9945FB6529709BCB005463ED /* AppDelegate.swift in Sources */,
+				2C25D1822973960600E38BF6 /* FolderManager.swift in Sources */,
 				9945FB6729709BCB005463ED /* SceneDelegate.swift in Sources */,
 				2C25D180297394AD00E38BF6 /* MediaManager.swift in Sources */,
 			);
