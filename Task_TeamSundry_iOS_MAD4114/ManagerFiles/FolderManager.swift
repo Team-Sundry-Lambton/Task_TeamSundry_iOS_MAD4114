@@ -100,7 +100,7 @@ class FolderManager{
            }
     }
     
-    func saveImageDocumentDirectory(categoryID : String,fileID : String, fileName : String , image : UIImage) -> URL
+    func saveImageDocumentDirectory(categoryID : String, fileID : String, fileName : String , image : UIImage) -> URL
     {
         CreateFileFolderInCategoryDirectory(categoryID: categoryID, fileID: fileID)
         let url = getFileDirectoryPath(categoryID: categoryID, fileID: fileID)
@@ -121,9 +121,9 @@ class FolderManager{
         return imagePath
      }
     
-    func getImageFromDocumentDirectory(categoryID : String,fileID : String,imageName : String) -> UIImage?
+    func getImageFromDocumentDirectory(categoryID : String, fileID : String, fileName : String) -> UIImage?
     {
-        let imagePath = getFileDirectoryPath(categoryID: categoryID, fileID: fileID).appendingPathComponent(imageName)
+        let imagePath = getFileDirectoryPath(categoryID: categoryID, fileID: fileID).appendingPathComponent(fileName)
         do {
                 let imageData = try Data(contentsOf: imagePath)
                 return UIImage(data: imageData)
@@ -133,12 +133,20 @@ class FolderManager{
             return nil
     }
     
-    func getRecordingFileURL(categoryID : String,fileID : String, fileName : String) -> URL {
+    func getRecordingFileURL(categoryID : String, fileID : String, fileName : String) -> URL {
         
         CreateFileFolderInCategoryDirectory(categoryID: categoryID, fileID: fileID)
         let url = FolderManager.shared.getFileDirectoryPath(categoryID: categoryID, fileID: fileID)
           
         let path = url.appendingPathComponent(fileName)
         return path
+    }
+    
+    func clearSelectedFile(categoryID :String, fileID : String, fileName : String) {
+        let diskCacheStorageBaseUrl = getFileDirectoryPath(categoryID: categoryID, fileID: fileID).appendingPathComponent(fileName)
+        guard let filePaths = try? fileManager.contentsOfDirectory(at: diskCacheStorageBaseUrl, includingPropertiesForKeys: nil, options: []) else { return }
+        for filePath in filePaths {
+            try? fileManager.removeItem(at: filePath)
+        }
     }
 }
