@@ -21,9 +21,9 @@ class TaskAddEditViewController: UIViewController {
     @IBAction func pickImage(_ sender: Any) {
         MediaManager.shared.categoryID = "Category"
         MediaManager.shared.fileID = "FIle"
-        MediaManager.shared.pickImage(self){ mediaObject in
+        MediaManager.shared.pickMediaFile(self){ mediaObject in
             if let object = mediaObject {
-                self.imageView.image =  FolderManager.shared.getImageFromDocumentDirectory(categoryID: "Category",fileID: "FIle",imageName: object.fileName)  // mediaObject.image
+                self.imageView.image =  FolderManager.shared.getImageFromDocumentDirectory(categoryID: "Category",fileID: "FIle",fileName: object.fileName)  // mediaObject.image
                 self.urlLbl.text = object.filePath
             }
             }

@@ -13,7 +13,7 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     
     static let shared = MediaManager()
     var picker = UIImagePickerController();
-    var alert = UIAlertController(title: "Choose Image to Add", message: nil, preferredStyle: .actionSheet)
+    var alert = UIAlertController(title: "Choose Media file to Add", message: nil, preferredStyle: .actionSheet)
     var viewController: UIViewController?
     
     var pickMediaCallback : ((MediaReturnObject?) -> ())?;
@@ -36,6 +36,10 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
             UIAlertAction in
             self.openGallery()
         }
+        let voiceAction = UIAlertAction(title: "Record Voice", style: .default){
+            UIAlertAction in
+            self.startRecordingView()
+        }
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel){
             UIAlertAction in
         }
@@ -44,10 +48,11 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         picker.delegate = self
         alert.addAction(cameraAction)
         alert.addAction(galleryAction)
+        alert.addAction(voiceAction)
         alert.addAction(cancelAction)
     }
     
-    func pickImage(_ viewController: UIViewController, _ callback: @escaping ((MediaReturnObject?) -> ())) {
+    func pickMediaFile(_ viewController: UIViewController, _ callback: @escaping ((MediaReturnObject?) -> ())) {
         pickMediaCallback = callback;
         self.viewController = viewController;
 
@@ -110,6 +115,30 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     }
     
     //MARK: Audio Recording
+    
+    func startRecordingView(){
+        if audioRecorder == nil {
+            startRecording()
+        }
+        let alertController: UIAlertController = {
+            let controller = UIAlertController(title: "Recorder", message: "Please record your voice and once you finish Please press the 'Done' button ", preferredStyle: .alert)
+           
+            let voiceAction = UIAlertAction(title: "Done", style: .default){
+                UIAlertAction in
+                self.finishRecording(success: true)
+            }
+            controller.addAction(voiceAction)
+            return controller
+        }()
+        viewController?.present(alertController, animated: true)
+        
+//        if audioRecorder == nil {
+//            startRecording()
+//        } else {
+//           finishRecording(success: true)
+//        }
+    }
+    
     func audioRecording(_ viewController: UIViewController, _ callback: @escaping ((MediaReturnObject?) -> ())) {
         pickMediaCallback = callback;
         if audioRecorder == nil {
