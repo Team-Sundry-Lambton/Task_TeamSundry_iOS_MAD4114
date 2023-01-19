@@ -16,7 +16,7 @@ class TaskAddEditViewController: UIViewController {
     var mediaList = [MediaFile]()
     var selectedFile: TaskListObject? {
         didSet {
-            FileId = selectedFile!.name ?? ""
+            FileId = selectedFile?.name ?? ""
             CategoryId = ""
             loadMediaList()
         }
@@ -104,7 +104,7 @@ class TaskAddEditViewController: UIViewController {
         }
     }
     func deleteMediaFile(mediaFile: MediaFile) {
-        FolderManager.shared.clearSelectedFile(categoryID: CategoryId, fileID: FileId, fileName: mediaFile.name!)
+        FolderManager.shared.clearSelectedFile(categoryID: CategoryId, fileID: FileId, fileName: mediaFile.name ?? "")
        context.delete(mediaFile)
         saveMediaFile()
     }

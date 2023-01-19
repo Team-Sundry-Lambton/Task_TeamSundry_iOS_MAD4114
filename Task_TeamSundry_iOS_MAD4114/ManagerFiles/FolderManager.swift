@@ -10,25 +10,20 @@ import UIKit
 
 class FolderManager{
     static let shared = FolderManager()
-    var PorjectName : String = "FinalProject"
+    var ProjectName : String = "FinalProject"
     let fileManager = FileManager.default
     
-    func CreateFolderInDocumentDirectory()
+    func createFolderInDocumentDirectory()
     {
-        let PathWithFolderName = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(PorjectName)
+        let pathWithFolderName = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(ProjectName)
         
-        print("Document Directory Folder Path :- ",PathWithFolderName)
-        
-        if !fileManager.fileExists(atPath: PathWithFolderName)
-        {
-            try! fileManager.createDirectory(atPath: PathWithFolderName, withIntermediateDirectories: true, attributes: nil)
-        }
+        createFolderIfNotExist(pathWithFolderName: pathWithFolderName)
     }
     
     func getProjectDirectoryPath() -> URL
     {
         let documentDirectoryPath = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString)
-        let pathWithFolderName = documentDirectoryPath.appendingPathComponent(PorjectName)
+        let pathWithFolderName = documentDirectoryPath.appendingPathComponent(ProjectName)
     
         let url =  URL(fileURLWithPath: pathWithFolderName) // convert path in url
         
@@ -36,27 +31,35 @@ class FolderManager{
     }
     
     func clearAllInProjectFolder() {
-        let myDocuments = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
-        let diskCacheStorageBaseUrl = myDocuments.appendingPathComponent(PorjectName)
+        let myDocuments = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+        guard let diskCacheStorageBaseUrl = myDocuments?.appendingPathComponent(ProjectName) else { return  }
+        removeAllFilesInPath(diskCacheStorageBaseUrl: diskCacheStorageBaseUrl)
+    }
+    
+    func removeAllFilesInPath(diskCacheStorageBaseUrl : URL){
         guard let filePaths = try? fileManager.contentsOfDirectory(at: diskCacheStorageBaseUrl, includingPropertiesForKeys: nil, options: []) else { return }
         for filePath in filePaths {
             try? fileManager.removeItem(at: filePath)
         }
     }
     
-    func CreateCategoryFolderInProjectDirectory(categoryID : String)
+    func createFolderIfNotExist(pathWithFolderName : String){
+        print("Document Directory Folder Path :- ",pathWithFolderName)
+        
+        if !fileManager.fileExists(atPath: pathWithFolderName)
+        {
+            try? fileManager.createDirectory(atPath: pathWithFolderName, withIntermediateDirectories: true, attributes: nil)
+        }
+    }
+    
+    func createCategoryFolderInProjectDirectory(categoryID : String)
       {
-          CreateFolderInDocumentDirectory()
+          createFolderInDocumentDirectory()
           let url = self.getProjectDirectoryPath()
         
-        let PathWithFolderName = url.appendingPathComponent(categoryID)
-        
-        print("Document Directory Folder Path :- ",PathWithFolderName.absoluteString)
-            
-        if !fileManager.fileExists(atPath: PathWithFolderName.absoluteString)
-        {
-            try! fileManager.createDirectory(at: PathWithFolderName, withIntermediateDirectories: true)
-        }
+          let pathWithFolderName = url.appendingPathComponent(categoryID)
+          
+          createFolderIfNotExist(pathWithFolderName: pathWithFolderName.absoluteString)
       }
     
     func getCategoryDirectoryPath(categoryID : String) -> URL
@@ -66,26 +69,20 @@ class FolderManager{
     }
     
     func clearAllInCategoryFolder(categoryID : String) {
-           let diskCacheStorageBaseUrl = getProjectDirectoryPath().appendingPathComponent(categoryID)
-           guard let filePaths = try? fileManager.contentsOfDirectory(at: diskCacheStorageBaseUrl, includingPropertiesForKeys: nil, options: []) else { return }
-           for filePath in filePaths {
-               try? fileManager.removeItem(at: filePath)
-           }
-       }
-    
-    func CreateFileFolderInCategoryDirectory(categoryID : String,fileID : String)
-      {
-          CreateCategoryFolderInProjectDirectory(categoryID :categoryID)
-          let url = self.getCategoryDirectoryPath(categoryID: categoryID)
-          let PathWithFolderName = url.appendingPathComponent(fileID)
+        let diskCacheStorageBaseUrl = getProjectDirectoryPath().appendingPathComponent(categoryID)
         
-        print("Document Directory Folder Path :- ",PathWithFolderName.absoluteString)
-            
-          if !fileManager.fileExists(atPath: PathWithFolderName.absoluteString)
-        {
-              try! fileManager.createDirectory(at: PathWithFolderName, withIntermediateDirectories: true)
-        }
+        removeAllFilesInPath(diskCacheStorageBaseUrl: diskCacheStorageBaseUrl)
+    }
+    
+    func createFileFolderInCategoryDirectory(categoryID : String,fileID : String)
+      {
+          createCategoryFolderInProjectDirectory(categoryID :categoryID)
+          let url = self.getCategoryDirectoryPath(categoryID: categoryID)
+          let pathWithFolderName = url.appendingPathComponent(fileID)
+        
+          createFolderIfNotExist(pathWithFolderName: pathWithFolderName.absoluteString)
       }
+    
     func getFileDirectoryPath(categoryID : String,fileID : String) -> URL
     {
         let pathWithFileFolderName = getCategoryDirectoryPath(categoryID: categoryID).appendingPathComponent(fileID)
@@ -94,21 +91,18 @@ class FolderManager{
     
     func clearAllInFileFolder(categoryID :String, fileID : String) {
            let diskCacheStorageBaseUrl = getCategoryDirectoryPath(categoryID: categoryID).appendingPathComponent(fileID)
-           guard let filePaths = try? fileManager.contentsOfDirectory(at: diskCacheStorageBaseUrl, includingPropertiesForKeys: nil, options: []) else { return }
-           for filePath in filePaths {
-               try? fileManager.removeItem(at: filePath)
-           }
+        removeAllFilesInPath(diskCacheStorageBaseUrl: diskCacheStorageBaseUrl)
+          
     }
     
     func saveImageDocumentDirectory(categoryID : String, fileID : String, fileName : String , image : UIImage) -> URL
     {
-        CreateFileFolderInCategoryDirectory(categoryID: categoryID, fileID: fileID)
+        createFileFolderInCategoryDirectory(categoryID: categoryID, fileID: fileID)
         let url = getFileDirectoryPath(categoryID: categoryID, fileID: fileID)
           
         let imagePath = url.appendingPathComponent(fileName)
         let urlString: String = imagePath.absoluteString
           
-
         let imageData = UIImage.pngData(image)
        
         fileManager.createFile(atPath: urlString as String, contents: imageData(), attributes: nil)
@@ -135,7 +129,7 @@ class FolderManager{
     
     func getRecordingFileURL(categoryID : String, fileID : String, fileName : String) -> URL {
         
-        CreateFileFolderInCategoryDirectory(categoryID: categoryID, fileID: fileID)
+        createFileFolderInCategoryDirectory(categoryID: categoryID, fileID: fileID)
         let url = FolderManager.shared.getFileDirectoryPath(categoryID: categoryID, fileID: fileID)
           
         let path = url.appendingPathComponent(fileName)
@@ -144,9 +138,6 @@ class FolderManager{
     
     func clearSelectedFile(categoryID :String, fileID : String, fileName : String) {
         let diskCacheStorageBaseUrl = getFileDirectoryPath(categoryID: categoryID, fileID: fileID).appendingPathComponent(fileName)
-        guard let filePaths = try? fileManager.contentsOfDirectory(at: diskCacheStorageBaseUrl, includingPropertiesForKeys: nil, options: []) else { return }
-        for filePath in filePaths {
-            try? fileManager.removeItem(at: filePath)
-        }
+        removeAllFilesInPath(diskCacheStorageBaseUrl: diskCacheStorageBaseUrl)
     }
 }

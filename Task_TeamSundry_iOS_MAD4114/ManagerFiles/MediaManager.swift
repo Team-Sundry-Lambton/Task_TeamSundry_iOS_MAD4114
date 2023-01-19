@@ -21,8 +21,8 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     var fileID : String = ""
     var fileName : String = ""
     
-    var audioRecorder:AVAudioRecorder!
-    var audioPlayer:AVAudioPlayer!
+    var audioRecorder:AVAudioRecorder?
+    var audioPlayer:AVAudioPlayer?
     var playingCallback : ((Bool) -> ())?;
     
     //MARK: Image Selection
@@ -56,7 +56,7 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         pickMediaCallback = callback;
         self.viewController = viewController;
 
-        alert.popoverPresentationController?.sourceView = self.viewController!.view
+        alert.popoverPresentationController?.sourceView = self.viewController?.view
 
         viewController.present(alert, animated: true, completion: nil)
     }
@@ -65,7 +65,7 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         alert.dismiss(animated: true, completion: nil)
         if(UIImagePickerController .isSourceTypeAvailable(.camera)){
             picker.sourceType = .camera
-            self.viewController!.present(picker, animated: true, completion: nil)
+            self.viewController?.present(picker, animated: true, completion: nil)
         } else {
             let alertController: UIAlertController = {
                 let controller = UIAlertController(title: "Warning", message: "You don't have camera", preferredStyle: .alert)
@@ -80,7 +80,7 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     func openGallery(){
         alert.dismiss(animated: true, completion: nil)
         picker.sourceType = .photoLibrary
-        self.viewController!.present(picker, animated: true, completion: nil)
+        self.viewController?.present(picker, animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -170,8 +170,8 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
             
         do {
             audioRecorder = try AVAudioRecorder(url: audioFilename, settings: settings)
-            audioRecorder.delegate = self
-            audioRecorder.record()
+            audioRecorder?.delegate = self
+            audioRecorder?.record()
         } catch {
             finishRecording(success: false)
         }
@@ -205,19 +205,19 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         if let err = error {
             print("AVAudioPlayer error: \(err.localizedDescription)")
         } else {
-            audioPlayer.delegate = self
-            audioPlayer.prepareToPlay()
-            audioPlayer.volume = 10.0
+            audioPlayer?.delegate = self
+            audioPlayer?.prepareToPlay()
+            audioPlayer?.volume = 10.0
         }
     }
     
     func startPlaying(fileName : String) {
         preparePlayer(fileName: fileName)
-        audioPlayer.play()
+        audioPlayer?.play()
     }
     
     func finishPlaying(success: Bool) {
-        audioPlayer.stop()
+        audioPlayer?.stop()
         audioPlayer = nil
         if success {
             playingCallback?(true)
@@ -234,7 +234,7 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     }
     
     func audioRecorderEncodeErrorDidOccur(_ recorder: AVAudioRecorder, error: Error?) {
-        print("Error while recording audio \(error!.localizedDescription)")
+        print("Error while recording audio \(error?.localizedDescription ?? "")")
     }
     
     func audioPlayerDidFinishPlaying(_ player: AVAudioPlayer, successfully flag: Bool) {
@@ -246,7 +246,8 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     }
     
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
-        print("Error while playing audio \(error!.localizedDescription)")
+        print("Error while playing audio \(error?.localizedDescription ?? "")")
+        print("Error while playing audio \(error?.localizedDescription ?? "")")
     }
             
     func generateFileName(audioFile : Bool) -> String{
