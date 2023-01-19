@@ -10,7 +10,7 @@ class TaskAddEditViewController: UIViewController {
 
     @IBOutlet weak var mediaFileCollectionView: UICollectionView!
     
-    var FileId : String = ""
+    var FileId : String = "1"
     var CategoryId : String = ""
     
     var mediaList = [MediaFile]()
@@ -28,7 +28,12 @@ class TaskAddEditViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         registerNib()
-        registerNib()
+        
+        let task = TaskListObject(context: self.context)
+        task.name = "1"
+        selectedFile = task
+        self.saveMediaFile()
+        
         loadMediaList()
         // Do any additional setup after loading the view.
     }
@@ -80,8 +85,8 @@ class TaskAddEditViewController: UIViewController {
     /// load folder from core data
     func loadMediaList() {
         let request: NSFetchRequest<MediaFile> = MediaFile.fetchRequest()
-        let folderPredicate = NSPredicate(format: "parent_Task.name=%@", FileId)
-        request.predicate = folderPredicate
+//        let folderPredicate = NSPredicate(format: "parent_Task.name=%@", FileId)
+//        request.predicate = folderPredicate
         do {
             mediaList = try context.fetch(request)
         } catch {
