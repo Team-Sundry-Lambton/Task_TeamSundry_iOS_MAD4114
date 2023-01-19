@@ -42,6 +42,23 @@ class TaskAddEditViewController: UIViewController {
     }
     
     
+    @IBAction func addMediaFile() {
+        MediaManager.shared.categoryID = CategoryId
+        MediaManager.shared.fileID = FileId
+        MediaManager.shared.pickMediaFile(self){ mediaObject in
+            if let object = mediaObject {
+                
+                let mediaFile = MediaFile(context: self.context)
+                mediaFile.name = object.fileName
+                mediaFile.isImage = object.isImage
+                mediaFile.path = object.filePath
+                self.mediaList.append(mediaFile)
+                self.saveMediaFile()
+                
+            }
+        }
+    }
+    
     //MARK: - core data interaction methods
     
     /// load folder from core data
@@ -57,6 +74,21 @@ class TaskAddEditViewController: UIViewController {
         mediaFileCollectionView.reloadData()
     }
 
+    func saveMediaFile() {
+        do {
+            try context.save()
+            mediaFileCollectionView.reloadData()
+        } catch {
+            print("Error saving the folder \(error.localizedDescription)")
+        }
+    }
+    
+    func deleteMediaFile(mediaFile: MediaFile) {
+        
+        FolderManager.shared.clearSelectedFile(categoryID: CategoryId, fileID: FileId, fileName: mediaFile.name!)
+        context.delete(mediaFile)
+    }
+    
     /*
     // MARK: - Navigation
 
@@ -85,6 +117,16 @@ extension TaskAddEditViewController
             return cell
         }
         return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    {
+        if indexPath.row == 0 {
+            addMediaFile()
+        }else{
+            let file = mediaList[indexPath.row - 1]
+            deleteMediaFile(mediaFile: file)
+        }
     }
 }
 

@@ -10,6 +10,7 @@ import UIKit
 class MediaFileCell: UICollectionViewCell {
 
     @IBOutlet weak var mediaImage: UIImageView!
+    @IBOutlet weak var mediaName: UILabel!
     
     class var reuseIdentifier: String {
         return "MediaFileCell"
@@ -25,14 +26,17 @@ class MediaFileCell: UICollectionViewCell {
     
     func configureCell(fileID : String, categoryID : String,file: MediaFile? , indexPath :IndexPath) {
         if indexPath.row == 0 {
-            self.mediaImage.image = UIImage(named: "Image")
+            self.mediaImage.image = UIImage(named: "AddMedia")
+            self.mediaName.text = ""
 
         }else{
             if let object = file {
                 if (object.isImage){
                     self.mediaImage.image =  FolderManager.shared.getImageFromDocumentDirectory(categoryID: categoryID,fileID: fileID,fileName: object.name ?? "")
+                    self.mediaName.text = ""
                 }else{
-                    self.mediaImage.image = UIImage(named: "Image")
+                    self.mediaImage.image = UIImage(named: "AddVoiceIcon")
+                    self.mediaName.text = "Name : " + (object.name ?? "")
                 }
             }
         }

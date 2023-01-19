@@ -95,8 +95,8 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         }
         
         fileName = generateFileName(audioFile: false)
-        let url = FolderManager.shared.saveImageDocumentDirectory(categoryID: categoryID, fileID: fileID, fileName : fileName, image: image)
-        let object  = MediaReturnObject(fileName: fileName, image: image, filePath: url.absoluteString)
+        let imagePath = FolderManager.shared.saveImageDocumentDirectory(categoryID: categoryID, fileID: fileID, fileName : fileName, image: image)
+        let object  = MediaReturnObject(fileName: fileName, image: image, filePath: imagePath.absoluteString, isImage: true)
         pickMediaCallback?(object)
     
     }
@@ -105,7 +105,7 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         fileName = generateFileName(audioFile: false)
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
         let url = FolderManager.shared.saveImageDocumentDirectory(categoryID: categoryID, fileID: fileID, fileName : fileName, image: image)
-        let object  = MediaReturnObject(fileName: fileName, image: image, filePath: url.absoluteString)
+        let object  = MediaReturnObject(fileName: fileName, image: image, filePath: url.absoluteString, isImage: true)
         pickMediaCallback?(object)
         picker.dismiss(animated: true, completion: nil)
         
@@ -182,7 +182,7 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         audioRecorder = nil
             
         let filePath = FolderManager.shared.getRecordingFileURL(categoryID: categoryID, fileID: fileID, fileName: fileName).absoluteString
-        let mediaObject  = MediaReturnObject(fileName: fileName, image: nil, filePath: filePath)
+        let mediaObject  = MediaReturnObject(fileName: fileName, image: nil, filePath: filePath, isImage: false)
             
         if success {
             pickMediaCallback?(mediaObject)
@@ -263,4 +263,5 @@ struct MediaReturnObject{
     var fileName : String
     var image : UIImage?
     var filePath : String
+    var isImage : Bool
 }
