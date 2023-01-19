@@ -42,7 +42,7 @@ class TaskAddEditViewController: UIViewController {
     }
     
     
-    @IBAction func addMediaFile() {
+    func addMediaFile() {
         MediaManager.shared.categoryID = CategoryId
         MediaManager.shared.fileID = FileId
         MediaManager.shared.pickMediaFile(self){ mediaObject in
@@ -57,6 +57,22 @@ class TaskAddEditViewController: UIViewController {
                 
             }
         }
+    }
+    
+    func deleteMediaFileConfirmation(mediaFile: MediaFile) {
+        let alertController: UIAlertController = {
+            let controller = UIAlertController(title: "Warning", message: "Are you sure you want to delete this file", preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            let deleteAction = UIAlertAction(title: "Delete", style: .default){
+                UIAlertAction in
+                self.deleteMediaFile(mediaFile: mediaFile)
+            }
+            controller.addAction(deleteAction)
+            controller.addAction(cancelAction)
+            return controller
+        }()
+        self.present(alertController, animated: true)
+      
     }
     
     //MARK: - core data interaction methods
@@ -82,11 +98,10 @@ class TaskAddEditViewController: UIViewController {
             print("Error saving the folder \(error.localizedDescription)")
         }
     }
-    
     func deleteMediaFile(mediaFile: MediaFile) {
-        
         FolderManager.shared.clearSelectedFile(categoryID: CategoryId, fileID: FileId, fileName: mediaFile.name!)
-        context.delete(mediaFile)
+       context.delete(mediaFile)
+        saveMediaFile()
     }
     
     /*
@@ -125,7 +140,8 @@ extension TaskAddEditViewController
             addMediaFile()
         }else{
             let file = mediaList[indexPath.row - 1]
-            deleteMediaFile(mediaFile: file)
+            mediaList.remove(at: indexPath.row - 1)
+            deleteMediaFileConfirmation(mediaFile: file)
         }
     }
 }
@@ -144,6 +160,6 @@ extension TaskAddEditViewController: UICollectionViewDelegateFlowLayout {
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
         let size: CGSize = cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-        return CGSize(width: size.width, height: 30)
+        return CGSize(width: 100.0, height: 100.0)
     }
 }
