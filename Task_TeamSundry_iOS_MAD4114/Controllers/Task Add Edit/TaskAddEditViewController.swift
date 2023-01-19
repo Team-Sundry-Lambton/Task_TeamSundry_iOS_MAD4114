@@ -6,59 +6,21 @@
 import UIKit
 
 class TaskAddEditViewController: UIViewController {
-    
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet var recordButton: UIButton!
-    @IBOutlet var playButton: UIButton!
-    @IBOutlet var urlLbl: UILabel!
 
+    @IBOutlet weak var mediaFileCollectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        registerNib()
         // Do any additional setup after loading the view.
     }
     
-    @IBAction func pickImage(_ sender: Any) {
-        MediaManager.shared.categoryID = "Category"
-        MediaManager.shared.fileID = "FIle"
-        MediaManager.shared.pickMediaFile(self){ mediaObject in
-            if let object = mediaObject {
-                self.imageView.image =  FolderManager.shared.getImageFromDocumentDirectory(categoryID: "Category",fileID: "FIle",fileName: object.fileName)  // mediaObject.image
-                self.urlLbl.text = object.filePath
-            }
-            }
-    }
-    
-    @IBAction func recordAudioButtonTapped() {
-        MediaManager.shared.categoryID = "Category"
-        MediaManager.shared.fileID = "FIle"
-            recordButton.setTitle("Tap to Stop", for: .normal)
-            playButton.isEnabled = false
-        MediaManager.shared.audioRecording(self){ mediaObject in
-            if let object = mediaObject{
-                self.recordButton.setTitle("Tap to Record", for: .normal)
-                self.playButton.isEnabled = true
-                self.recordButton.isEnabled = true
-                self.urlLbl.text = object.filePath
-            }else{
-                self.recordButton.setTitle("Rerecord Record", for: .normal)
-                self.playButton.isEnabled = false
-            }
+    func registerNib() {
+        let nib = UINib(nibName: MediaFileCell.nibName, bundle: nil)
+        mediaFileCollectionView?.register(nib, forCellWithReuseIdentifier: MediaFileCell.reuseIdentifier)
+        if let flowLayout = self.mediaFileCollectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.estimatedItemSize = CGSize(width: 1, height: 1)
         }
-    }
-    
-    @IBAction func playAudioButtonTapped(_ sender: UIButton) {
-        sender.setTitle("Stop", for: .normal)
-        recordButton.isEnabled = false
-        MediaManager.shared.audioPlaying(fileName: self.urlLbl.text!,self){ success in
-            if success{
-                sender.setTitle("Play", for: .normal)
-                self.recordButton.isEnabled = true
-            }else{
-               //error
-            }
-        }
-
     }
     
 
@@ -72,4 +34,39 @@ class TaskAddEditViewController: UIViewController {
     }
     */
 
+}
+
+extension TaskAddEditViewController
+: UICollectionViewDataSource,UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaFileCell.reuseIdentifier,
+                                                         for: indexPath) as? MediaFileCell {
+        
+           
+            return cell
+        }
+        return UICollectionViewCell()
+    }
+
+}
+
+extension TaskAddEditViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let cell: MediaFileCell = Bundle.main.loadNibNamed(MediaFileCell.nibName,
+                                                                      owner: self,
+                                                                      options: nil)?.first as? MediaFileCell else {
+            return CGSize.zero
+        }
+    
+        cell.setNeedsLayout()
+        cell.layoutIfNeeded()
+        let size: CGSize = cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        return CGSize(width: size.width, height: 30)
+    }
 }
