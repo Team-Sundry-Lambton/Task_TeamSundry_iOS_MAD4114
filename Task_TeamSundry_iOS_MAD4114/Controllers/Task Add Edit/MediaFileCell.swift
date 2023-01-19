@@ -22,4 +22,19 @@ class MediaFileCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
     }
+    
+    func configureCell(fileID : String, categoryID : String,file: MediaFile? , indexPath :IndexPath) {
+        if indexPath.row == 0 {
+            self.mediaImage.image = UIImage(named: "Image")
+
+        }else{
+            if let object = file {
+                if (object.isImage){
+                    self.mediaImage.image =  FolderManager.shared.getImageFromDocumentDirectory(categoryID: categoryID,fileID: fileID,fileName: object.name ?? "")
+                }else{
+                    self.mediaImage.image = UIImage(named: "Image")
+                }
+            }
+        }
+    }
 }

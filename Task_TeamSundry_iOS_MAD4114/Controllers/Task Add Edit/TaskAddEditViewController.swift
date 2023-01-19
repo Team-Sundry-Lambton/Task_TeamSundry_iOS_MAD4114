@@ -4,14 +4,32 @@
 //
 
 import UIKit
+import CoreData
 
 class TaskAddEditViewController: UIViewController {
 
     @IBOutlet weak var mediaFileCollectionView: UICollectionView!
     
+    var FileId : String = ""
+    var CategoryId : String = ""
+    
+    var mediaList = [MediaFile]()
+    var selectedFile: TaskListObject? {
+        didSet {
+            FileId = selectedFile!.name ?? ""
+            CategoryId = ""
+            loadMediaList()
+        }
+    }
+    
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         registerNib()
+        registerNib()
+        loadMediaList()
         // Do any additional setup after loading the view.
     }
     
@@ -23,6 +41,21 @@ class TaskAddEditViewController: UIViewController {
         }
     }
     
+    
+    //MARK: - core data interaction methods
+    
+    /// load folder from core data
+    func loadMediaList() {
+        let request: NSFetchRequest<MediaFile> = MediaFile.fetchRequest()
+        let folderPredicate = NSPredicate(format: "parent_Task.name=%@", FileId)
+        request.predicate = folderPredicate
+        do {
+            mediaList = try context.fetch(request)
+        } catch {
+            print("Error loading folders \(error.localizedDescription)")
+        }
+        mediaFileCollectionView.reloadData()
+    }
 
     /*
     // MARK: - Navigation
@@ -39,19 +72,20 @@ class TaskAddEditViewController: UIViewController {
 extension TaskAddEditViewController
 : UICollectionViewDataSource,UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+        return mediaList.count + 1
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaFileCell.reuseIdentifier,
                                                          for: indexPath) as? MediaFileCell {
         
-           
+            let file = indexPath.row == 0 ? nil : mediaList[indexPath.row - 1];
+             
+            cell.configureCell(fileID: self.FileId, categoryID: self.CategoryId ,file: file,indexPath:indexPath)
             return cell
         }
         return UICollectionViewCell()
     }
-
 }
 
 extension TaskAddEditViewController: UICollectionViewDelegateFlowLayout {
@@ -63,7 +97,8 @@ extension TaskAddEditViewController: UICollectionViewDelegateFlowLayout {
                                                                       options: nil)?.first as? MediaFileCell else {
             return CGSize.zero
         }
-    
+        let file = indexPath.row == 0 ? nil : mediaList[indexPath.row - 1];
+        cell.configureCell(fileID: self.FileId, categoryID: self.CategoryId ,file: file,indexPath:indexPath)
         cell.setNeedsLayout()
         cell.layoutIfNeeded()
         let size: CGSize = cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
