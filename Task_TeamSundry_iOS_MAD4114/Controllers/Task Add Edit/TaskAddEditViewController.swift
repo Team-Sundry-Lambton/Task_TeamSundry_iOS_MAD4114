@@ -148,24 +148,6 @@ extension TaskAddEditViewController
     }
 }
 
-extension TaskAddEditViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let cell: MediaFileCell = Bundle.main.loadNibNamed(MediaFileCell.nibName,
-                                                                      owner: self,
-                                                                      options: nil)?.first as? MediaFileCell else {
-            return CGSize.zero
-        }
-        let file = indexPath.row == 0 ? nil : mediaList[indexPath.row - 1];
-        cell.configureCell(fileID: self.FileId, categoryID: self.CategoryId ,file: file,indexPath:indexPath)
-        cell.setNeedsLayout()
-        cell.layoutIfNeeded()
-        let size: CGSize = cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-        return CGSize(width: 100.0, height: 100.0)
-    }
-}
-
 extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
