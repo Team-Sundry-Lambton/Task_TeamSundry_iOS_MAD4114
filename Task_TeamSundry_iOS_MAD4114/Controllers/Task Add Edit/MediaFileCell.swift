@@ -24,7 +24,7 @@ class MediaFileCell: UICollectionViewCell {
         // Initialization code
     }
     
-    func configureCell(fileID : String, categoryID : String,file: MediaFile? , indexPath :IndexPath) {
+    func configureCell(file: MediaFile? , indexPath :IndexPath) {
         if indexPath.row == 0 {
             self.mediaImage.image = UIImage(named: "AddMedia")
             self.mediaName.text = ""
@@ -32,7 +32,7 @@ class MediaFileCell: UICollectionViewCell {
         }else{
             if let object = file {
                 if (object.isImage){
-                    self.mediaImage.image =  FolderManager.shared.getImageFromDocumentDirectory(categoryID: categoryID,fileID: fileID,fileName: object.name ?? "")
+                    self.mediaImage.image =  FolderManager.shared.getImageFromDocumentDirectory(fileName: object.name ?? "")
                     self.mediaName.text = ""
                 }else{
                     self.mediaImage.image = UIImage(named: "AddVoiceIcon")

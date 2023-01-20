@@ -36,13 +36,6 @@ class FolderManager{
         removeAllFilesInPath(diskCacheStorageBaseUrl: diskCacheStorageBaseUrl)
     }
     
-    func removeAllFilesInPath(diskCacheStorageBaseUrl : URL){
-        guard let filePaths = try? fileManager.contentsOfDirectory(at: diskCacheStorageBaseUrl, includingPropertiesForKeys: nil, options: []) else { return }
-        for filePath in filePaths {
-            try? fileManager.removeItem(at: filePath)
-        }
-    }
-    
     func createFolderIfNotExist(pathWithFolderName : String){
         print("Document Directory Folder Path :- ",pathWithFolderName)
         
@@ -52,7 +45,7 @@ class FolderManager{
         }
     }
     
-    func createCategoryFolderInProjectDirectory(categoryID : String)
+  /*  func createCategoryFolderInProjectDirectory(categoryID : String)
       {
           createFolderInDocumentDirectory()
           let url = self.getProjectDirectoryPath()
@@ -93,14 +86,13 @@ class FolderManager{
            let diskCacheStorageBaseUrl = getCategoryDirectoryPath(categoryID: categoryID).appendingPathComponent(fileID)
         removeAllFilesInPath(diskCacheStorageBaseUrl: diskCacheStorageBaseUrl)
           
-    }
+    }*/
     
-    func saveImageDocumentDirectory(categoryID : String, fileID : String, fileName : String , image : UIImage) -> URL
+    func saveImageDocumentDirectory(fileName : String , image : UIImage) -> URL
     {
-        createFileFolderInCategoryDirectory(categoryID: categoryID, fileID: fileID)
-        let url = getFileDirectoryPath(categoryID: categoryID, fileID: fileID)
+        createFolderInDocumentDirectory()
           
-        let imagePath = url.appendingPathComponent(fileName)
+        let imagePath = getProjectDirectoryPath().appendingPathComponent(fileName)
         let urlString: String = imagePath.absoluteString
           
         let imageData = UIImage.pngData(image)
@@ -115,9 +107,9 @@ class FolderManager{
         return imagePath
      }
     
-    func getImageFromDocumentDirectory(categoryID : String, fileID : String, fileName : String) -> UIImage?
+    func getImageFromDocumentDirectory(fileName : String) -> UIImage?
     {
-        let imagePath = getFileDirectoryPath(categoryID: categoryID, fileID: fileID).appendingPathComponent(fileName)
+        let imagePath = getProjectDirectoryPath().appendingPathComponent(fileName)
         do {
                 let imageData = try Data(contentsOf: imagePath)
                 return UIImage(data: imageData)
@@ -127,17 +119,23 @@ class FolderManager{
             return nil
     }
     
-    func getRecordingFileURL(categoryID : String, fileID : String, fileName : String) -> URL {
+    func getRecordingFileURL(fileName : String) -> URL {
         
-        createFileFolderInCategoryDirectory(categoryID: categoryID, fileID: fileID)
-        let url = FolderManager.shared.getFileDirectoryPath(categoryID: categoryID, fileID: fileID)
-          
-        let path = url.appendingPathComponent(fileName)
+        createFolderInDocumentDirectory()
+        let path = getProjectDirectoryPath().appendingPathComponent(fileName)
         return path
     }
     
-    func clearSelectedFile(categoryID :String, fileID : String, fileName : String) {
-        let diskCacheStorageBaseUrl = getFileDirectoryPath(categoryID: categoryID, fileID: fileID).appendingPathComponent(fileName)
-        removeAllFilesInPath(diskCacheStorageBaseUrl: diskCacheStorageBaseUrl)
+    func clearSelectedFile(filePath : String) {
+        if let diskCacheStorageBaseUrl = URL(string: filePath) {
+            removeAllFilesInPath(diskCacheStorageBaseUrl: diskCacheStorageBaseUrl)
+        }
+    }
+    
+    func removeAllFilesInPath(diskCacheStorageBaseUrl : URL){
+        guard let filePaths = try? fileManager.contentsOfDirectory(at: diskCacheStorageBaseUrl, includingPropertiesForKeys: nil, options: []) else { return }
+        for filePath in filePaths {
+            try? fileManager.removeItem(at: filePath)
+        }
     }
 }

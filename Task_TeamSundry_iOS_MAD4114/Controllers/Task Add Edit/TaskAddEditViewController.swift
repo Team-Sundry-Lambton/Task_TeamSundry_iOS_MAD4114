@@ -10,14 +10,9 @@ class TaskAddEditViewController: UIViewController {
 
     @IBOutlet weak var mediaFileCollectionView: UICollectionView!
     
-    var FileId : String = "1"
-    var CategoryId : String = ""
-    
     var mediaList = [MediaFile]()
     var selectedFile: TaskListObject? {
         didSet {
-            FileId = selectedFile?.name ?? ""
-            CategoryId = ""
             loadMediaList()
         }
     }
@@ -48,8 +43,6 @@ class TaskAddEditViewController: UIViewController {
     
     
     func addMediaFile() {
-        MediaManager.shared.categoryID = CategoryId
-        MediaManager.shared.fileID = FileId
         MediaManager.shared.pickMediaFile(self){ mediaObject in
             if let object = mediaObject {
                 
@@ -104,7 +97,7 @@ class TaskAddEditViewController: UIViewController {
         }
     }
     func deleteMediaFile(mediaFile: MediaFile) {
-        FolderManager.shared.clearSelectedFile(categoryID: CategoryId, fileID: FileId, fileName: mediaFile.name ?? "")
+        FolderManager.shared.clearSelectedFile(filePath: mediaFile.name ?? "")
        context.delete(mediaFile)
         saveMediaFile()
     }
@@ -133,7 +126,7 @@ extension TaskAddEditViewController
         
             let file = indexPath.row == 0 ? nil : mediaList[indexPath.row - 1];
              
-            cell.configureCell(fileID: self.FileId, categoryID: self.CategoryId ,file: file,indexPath:indexPath)
+            cell.configureCell(file: file,indexPath:indexPath)
             return cell
         }
         return UICollectionViewCell()
@@ -148,23 +141,5 @@ extension TaskAddEditViewController
             mediaList.remove(at: indexPath.row - 1)
             deleteMediaFileConfirmation(mediaFile: file)
         }
-    }
-}
-
-extension TaskAddEditViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        guard let cell: MediaFileCell = Bundle.main.loadNibNamed(MediaFileCell.nibName,
-                                                                      owner: self,
-                                                                      options: nil)?.first as? MediaFileCell else {
-            return CGSize.zero
-        }
-        let file = indexPath.row == 0 ? nil : mediaList[indexPath.row - 1];
-        cell.configureCell(fileID: self.FileId, categoryID: self.CategoryId ,file: file,indexPath:indexPath)
-        cell.setNeedsLayout()
-        cell.layoutIfNeeded()
-        let size: CGSize = cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-        return CGSize(width: 100.0, height: 100.0)
     }
 }
