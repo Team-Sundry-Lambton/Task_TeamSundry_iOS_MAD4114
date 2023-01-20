@@ -8,12 +8,13 @@ import CoreData
 
 class TaskAddEditViewController: UIViewController {
 
+    @IBOutlet weak var subTaskTableHeight: NSLayoutConstraint!
     @IBOutlet weak var buttonTableView: UITableView!
     @IBOutlet weak var subTaskTableView: UITableView!
 
     @IBOutlet weak var mediaFileCollectionView: UICollectionView!
     
-    var subTask:[String] = []
+    var subTask:[String] = ["Sample1"]
     
     var mediaList = [MediaFile]()
     var selectedFile: TaskListObject? {
@@ -157,7 +158,8 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
         if tableView == buttonTableView {
             return 4
         } else {
-            return 2 // count
+            subTaskTableHeight.constant = CGFloat((subTask.count + 1) * 50)
+            return subTask.count + 1// count
         }
     }
     
@@ -179,7 +181,7 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
                 break
             }
         } else {
-            if indexPath.row == subTask.count + 1 {
+            if indexPath.row == (subTask.count + 1) - 1 {
                 id = "addSubTaskCell"
             } else {
                 id = "subTaskCell"
