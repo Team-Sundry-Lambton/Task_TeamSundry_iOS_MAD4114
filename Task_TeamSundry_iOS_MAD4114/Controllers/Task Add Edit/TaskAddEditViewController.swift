@@ -8,6 +8,7 @@ import CoreData
 
 class TaskAddEditViewController: UIViewController {
 
+    @IBOutlet weak var buttonTableView: UITableView!
     @IBOutlet weak var mediaFileCollectionView: UICollectionView!
     
     var mediaList = [MediaFile]()
@@ -145,4 +146,51 @@ extension TaskAddEditViewController
             deleteMediaFileConfirmation(mediaFile: file)
         }
     }
+}
+
+extension TaskAddEditViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        guard let cell: MediaFileCell = Bundle.main.loadNibNamed(MediaFileCell.nibName,
+                                                                      owner: self,
+                                                                      options: nil)?.first as? MediaFileCell else {
+            return CGSize.zero
+        }
+        let file = indexPath.row == 0 ? nil : mediaList[indexPath.row - 1];
+        cell.configureCell(fileID: self.FileId, categoryID: self.CategoryId ,file: file,indexPath:indexPath)
+        cell.setNeedsLayout()
+        cell.layoutIfNeeded()
+        let size: CGSize = cell.contentView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+        return CGSize(width: 100.0, height: 100.0)
+    }
+}
+
+extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        var id = "cell1"
+        switch indexPath.row {
+        case 0:
+            id = "cell1"
+        case 1:
+            id = "cell2"
+        case 2:
+            id = "cell3"
+        case 3:
+            id = "cell4"
+        default:
+            break
+        }
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: id) else { return UITableViewCell() }
+            
+        return cell
+    }
+    
+    
 }
