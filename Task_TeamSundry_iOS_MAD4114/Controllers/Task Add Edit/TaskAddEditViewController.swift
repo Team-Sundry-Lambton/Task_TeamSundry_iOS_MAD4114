@@ -9,7 +9,11 @@ import CoreData
 class TaskAddEditViewController: UIViewController {
 
     @IBOutlet weak var buttonTableView: UITableView!
+    @IBOutlet weak var subTaskTableView: UITableView!
+
     @IBOutlet weak var mediaFileCollectionView: UICollectionView!
+    
+    var subTask:[String] = []
     
     var mediaList = [MediaFile]()
     var selectedFile: TaskListObject? {
@@ -150,23 +154,36 @@ extension TaskAddEditViewController
 
 extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        if tableView == buttonTableView {
+            return 4
+        } else {
+            return 2 // count
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var id = "cell1"
-        switch indexPath.row {
-        case 0:
-            id = "cell1"
-        case 1:
-            id = "cell2"
-        case 2:
-            id = "cell3"
-        case 3:
-            id = "cell4"
-        default:
-            break
+        
+        if tableView == buttonTableView {
+            switch indexPath.row {
+            case 0:
+                id = "cell1"
+            case 1:
+                id = "cell2"
+            case 2:
+                id = "cell3"
+            case 3:
+                id = "cell4"
+            default:
+                break
+            }
+        } else {
+            if indexPath.row == subTask.count + 1 {
+                id = "addSubTaskCell"
+            } else {
+                id = "subTaskCell"
+            }
         }
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: id) else { return UITableViewCell() }
