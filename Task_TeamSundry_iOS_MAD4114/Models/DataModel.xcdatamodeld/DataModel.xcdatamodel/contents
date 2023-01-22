@@ -11,6 +11,8 @@
         <relationship name="parent_Task" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="TaskListObject" inverseName="medias" inverseEntity="TaskListObject"/>
     </entity>
     <entity name="TaskListObject" representedClassName="TaskListObject" syncable="YES" codeGenerationType="class">
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="medias" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="MediaFile" inverseName="parent_Task" inverseEntity="MediaFile"/>
         <relationship name="parent_Category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="tasks" inverseEntity="Category"/>
