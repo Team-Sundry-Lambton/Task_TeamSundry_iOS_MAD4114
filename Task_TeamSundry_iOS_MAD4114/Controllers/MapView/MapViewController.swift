@@ -8,7 +8,12 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController,CLLocationManagerDelegate {
+protocol HandleMapSearch: class {
+    func setSearchLocation(coordinate : CLLocationCoordinate2D,
+                              title: String)
+}
+
+class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSearch {
 
     @IBOutlet weak var mapView: MKMapView!
     var locationMnager = CLLocationManager()
@@ -16,7 +21,8 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
         
     var citySelection = false
     let selectLocation = false
-      
+    var resultSearchController: UISearchController!
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     override func viewDidLoad() {
@@ -25,6 +31,19 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
         if selectLocation{
             mapView.isZoomEnabled = false
             addDoubleTap()
+            
+            let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTableViewController") as! LocationSearchTableViewController
+            resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+            resultSearchController.searchResultsUpdater = locationSearchTable
+            let searchBar = resultSearchController!.searchBar
+            searchBar.sizeToFit()
+            searchBar.placeholder = "Search for places"
+            navigationItem.titleView = resultSearchController?.searchBar
+            resultSearchController.hidesNavigationBarDuringPresentation = false
+            resultSearchController.dimsBackgroundDuringPresentation = true
+            definesPresentationContext = true
+            locationSearchTable.mapView = mapView
+            locationSearchTable.handleLocationSearchDelegate = self
         }
 
         // Do any additional setup after loading the view.
@@ -86,7 +105,12 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
         self.displayLocation(latitude: latitude, longitude: longitude, title: "User Location")
     }
     
-    
+    func setSearchLocation(coordinate : CLLocationCoordinate2D,
+                           title: String){
+        citySelection = true
+        self.displayLocation(latitude: coordinate.latitude, longitude: coordinate.longitude, title: title)
+        destination = coordinate
+    }
 
     /*
     // MARK: - Navigation
