@@ -40,9 +40,9 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
             let locationSearchTable = storyboard?.instantiateViewController(withIdentifier: "LocationSearchTableViewController") as! LocationSearchTableViewController
             resultSearchController = UISearchController(searchResultsController: locationSearchTable)
             resultSearchController?.searchResultsUpdater = locationSearchTable
-            let searchBar = resultSearchController!.searchBar
-            searchBar.sizeToFit()
-            searchBar.placeholder = "Search for places"
+            let searchBar = resultSearchController?.searchBar
+            searchBar?.sizeToFit()
+            searchBar?.placeholder = "Search for places"
             navigationItem.titleView = resultSearchController?.searchBar
             resultSearchController?.hidesNavigationBarDuringPresentation = false
             resultSearchController?.dimsBackgroundDuringPresentation = true
