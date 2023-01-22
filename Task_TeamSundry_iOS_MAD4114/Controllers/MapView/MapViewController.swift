@@ -23,8 +23,12 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
     let selectLocation = false
     var resultSearchController: UISearchController!
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var selectedTask: TaskListObject?
+    var selectedCategory: String?
+    var places : [Place] = []
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,6 +50,13 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
             locationSearchTable.handleLocationSearchDelegate = self
         }
 
+        if let selectedFile = selectedTask {
+            places.append(Place.getLocationForTask(task: selectedFile))
+        }
+        
+        if let selectedCategory = selectedCategory {
+            places = Place.getLocationForAllTask(categoryName: selectedCategory,context: context)
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -97,8 +108,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         removePin()
 
-        let userLocation = locations[0]
-        
+        let userLocation = locations[0]        
         let latitude = userLocation.coordinate.latitude
         let longitude = userLocation.coordinate.longitude
         
