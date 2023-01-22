@@ -21,7 +21,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
         
     var citySelection = false
     let selectLocation = false
-    var resultSearchController: UISearchController!
+    var resultSearchController: UISearchController?
     
     var selectedTask: TaskListObject?
     var selectedCategory: String?
@@ -37,15 +37,15 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
             mapView.isZoomEnabled = false
             addDoubleTap()
             
-            let locationSearchTable = storyboard!.instantiateViewController(withIdentifier: "LocationSearchTableViewController") as! LocationSearchTableViewController
+            let locationSearchTable = storyboard?.instantiateViewController(withIdentifier: "LocationSearchTableViewController") as! LocationSearchTableViewController
             resultSearchController = UISearchController(searchResultsController: locationSearchTable)
-            resultSearchController.searchResultsUpdater = locationSearchTable
+            resultSearchController?.searchResultsUpdater = locationSearchTable
             let searchBar = resultSearchController!.searchBar
             searchBar.sizeToFit()
             searchBar.placeholder = "Search for places"
             navigationItem.titleView = resultSearchController?.searchBar
-            resultSearchController.hidesNavigationBarDuringPresentation = false
-            resultSearchController.dimsBackgroundDuringPresentation = true
+            resultSearchController?.hidesNavigationBarDuringPresentation = false
+            resultSearchController?.dimsBackgroundDuringPresentation = true
             definesPresentationContext = true
             locationSearchTable.mapView = mapView
             locationSearchTable.handleLocationSearchDelegate = self
@@ -126,7 +126,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
     override func viewWillDisappear(_ animated: Bool) {
         if selectLocation {
             if let destination = destination{
-                delegate!.setTaskLocation(latitude: destination.latitude, Logtitude: destination.longitude)
+                delegate?.setTaskLocation(latitude: destination.latitude, Logtitude: destination.longitude)
             }
         }
     }

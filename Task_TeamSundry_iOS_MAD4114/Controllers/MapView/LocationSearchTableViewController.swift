@@ -66,11 +66,15 @@ extension LocationSearchTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
-        let selectedItem = matchingItems[indexPath.row].placemark
-        cell.textLabel?.text = selectedItem.name
-        cell.detailTextLabel?.text = getAddress(selectedItem: selectedItem)
-        return cell
+   
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "cell") {
+            let selectedItem = matchingItems[indexPath.row].placemark
+            cell.textLabel?.text = selectedItem.name
+            cell.detailTextLabel?.text = getAddress(selectedItem: selectedItem)
+            return cell
+        }else {
+            return UITableViewCell()
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
