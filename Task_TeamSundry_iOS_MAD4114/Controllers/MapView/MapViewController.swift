@@ -28,7 +28,8 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
     var places : [Place] = []
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    weak var delegate: TaskAddEditViewController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -108,7 +109,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         removePin()
 
-        let userLocation = locations[0]        
+        let userLocation = locations[0]
         let latitude = userLocation.coordinate.latitude
         let longitude = userLocation.coordinate.longitude
         
@@ -122,6 +123,13 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
         destination = coordinate
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        if selectLocation {
+            if let destination = destination{
+                delegate!.setTaskLocation(latitude: destination.latitude, Logtitude: destination.longitude)
+            }
+        }
+    }
     /*
     // MARK: - Navigation
 

@@ -102,6 +102,9 @@ class TaskAddEditViewController: UIViewController {
         saveMediaFile()
     }
     
+    func setTaskLocation(latitude : Double , Logtitude : Double){
+        
+    }
     /*
     // MARK: - Navigation
 
