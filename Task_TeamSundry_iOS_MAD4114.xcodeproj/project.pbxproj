@@ -11,6 +11,8 @@
 		2C1438F92978CF0000938694 /* MediaFileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C1438F72978CF0000938694 /* MediaFileCell.xib */; };
 		2C25D180297394AD00E38BF6 /* MediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C25D17F297394AD00E38BF6 /* MediaManager.swift */; };
 		2C25D1822973960600E38BF6 /* FolderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C25D1812973960600E38BF6 /* FolderManager.swift */; };
+		2CA5278E297DAADC00000780 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA5278D297DAADC00000780 /* MapViewController.swift */; };
+		2CA52790297DAAF300000780 /* MapView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CA5278F297DAAF300000780 /* MapView.storyboard */; };
 		9945FB6529709BCB005463ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6429709BCB005463ED /* AppDelegate.swift */; };
 		9945FB6729709BCB005463ED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6629709BCB005463ED /* SceneDelegate.swift */; };
 		9945FB6929709BCB005463ED /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6829709BCB005463ED /* TaskListViewController.swift */; };
@@ -31,6 +33,8 @@
 		2C1438F72978CF0000938694 /* MediaFileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaFileCell.xib; sourceTree = "<group>"; };
 		2C25D17F297394AD00E38BF6 /* MediaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaManager.swift; sourceTree = "<group>"; };
 		2C25D1812973960600E38BF6 /* FolderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderManager.swift; sourceTree = "<group>"; };
+		2CA5278D297DAADC00000780 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		2CA5278F297DAAF300000780 /* MapView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapView.storyboard; sourceTree = "<group>"; };
 		9945FB6129709BCB005463ED /* Task_TeamSundry_iOS_MAD4114.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Task_TeamSundry_iOS_MAD4114.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9945FB6429709BCB005463ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9945FB6629709BCB005463ED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +70,22 @@
 				2C25D1812973960600E38BF6 /* FolderManager.swift */,
 			);
 			path = ManagerFiles;
+			sourceTree = "<group>";
+		};
+		2CA5278B297DAA1800000780 /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				2CA5278D297DAADC00000780 /* MapViewController.swift */,
+			);
+			path = MapView;
+			sourceTree = "<group>";
+		};
+		2CA5278C297DAAA300000780 /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				2CA5278F297DAAF300000780 /* MapView.storyboard */,
+			);
+			path = MapView;
 			sourceTree = "<group>";
 		};
 		9945FB5829709BCB005463ED = {
@@ -112,6 +132,7 @@
 		9949B62729713CBB00BA0FFB /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2CA5278C297DAAA300000780 /* MapView */,
 				9993B8A029762D1400C96C61 /* Category List */,
 				9949B62F29713E9500BA0FFB /* Task Add Edit */,
 				9949B62E29713E8E00BA0FFB /* Task Details */,
@@ -123,6 +144,7 @@
 		9949B62829713CCB00BA0FFB /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				2CA5278B297DAA1800000780 /* MapView */,
 				9993B8A929762E2C00C96C61 /* Category List */,
 				9949B62C29713E5D00BA0FFB /* Task Add Edit */,
 				9949B62B29713E2B00BA0FFB /* Task Details */,
@@ -264,6 +286,7 @@
 			files = (
 				9993B8A829762DD200C96C61 /* TaskDetails.storyboard in Resources */,
 				9993B8A229762D9B00C96C61 /* CategoryList.storyboard in Resources */,
+				2CA52790297DAAF300000780 /* MapView.storyboard in Resources */,
 				9945FB7129709BCC005463ED /* LaunchScreen.storyboard in Resources */,
 				9993B8A629762DC900C96C61 /* TaskAddEdit.storyboard in Resources */,
 				9945FB6E29709BCC005463ED /* Assets.xcassets in Resources */,
@@ -286,6 +309,7 @@
 				9945FB6929709BCB005463ED /* TaskListViewController.swift in Sources */,
 				9949B63229713F1600BA0FFB /* DataModel.xcdatamodeld in Sources */,
 				9945FB6529709BCB005463ED /* AppDelegate.swift in Sources */,
+				2CA5278E297DAADC00000780 /* MapViewController.swift in Sources */,
 				2C25D1822973960600E38BF6 /* FolderManager.swift in Sources */,
 				9945FB6729709BCB005463ED /* SceneDelegate.swift in Sources */,
 				9993B8AD29762E5700C96C61 /* TaskAddEditViewController.swift in Sources */,
