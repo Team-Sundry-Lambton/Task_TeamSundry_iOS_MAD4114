@@ -362,7 +362,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="gIU-vJ-VDK">
-                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="save" id="Ibg-dD-Ylt"/>
+                        <barButtonItem key="rightBarButtonItem" style="done" systemItem="save" id="Ibg-dD-Ylt">
+                            <connections>
+                                <action selector="saveAction:" destination="xRO-dv-4F2" id="gfo-8M-TjJ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="buttonTableView" destination="pU8-2P-Lii" id="EtU-5B-79y"/>

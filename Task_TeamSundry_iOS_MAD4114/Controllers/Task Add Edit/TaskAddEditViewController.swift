@@ -88,23 +88,20 @@ class TaskAddEditViewController: UIViewController {
         datePicker.isHidden = true
         
         // add closures to custom picker view
-        datePicker.dismissClosure = { [weak self] in
-            guard let self = self else {
+        datePicker.dismissClosure = { [weak self] pickedDate in
+            guard let strongSelf = self else {
                 return
             }
-            self.datePicker.isHidden = true
-        }
-        
-        datePicker.changeClosure = { [weak self] val in
-            guard let self = self else {
-                return
-            }
-            print(val)
-            // do something with the selected date
+            strongSelf.datePicker.isHidden = true
+            strongSelf.buttonTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = DatePicker.getStringFromDate(date: pickedDate)
         }
     }
     
     //MARK: - IBAction
+    
+    @IBAction func saveAction(_ sender: Any) {
+    }
+    
     @IBAction func mediaSwitchAction(_ sender: UISwitch) {
         mediaStackView.isHidden = !sender.isOn
     }
