@@ -45,6 +45,14 @@ class TaskAddEditViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func mediaSwitchAction(_ sender: UISwitch) {
+        mediaStackView.isHidden = !sender.isOn
+    }
+    
+    @IBAction func subTaskSwitchAction(_ sender: UISwitch) {
+        subTaskStackView.isHidden = !sender.isOn
+    }
+    
     func registerNib() {
         let nib = UINib(nibName: MediaFileCell.nibName, bundle: nil)
         mediaFileCollectionView?.register(nib, forCellWithReuseIdentifier: MediaFileCell.reuseIdentifier)
@@ -199,5 +207,20 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if tableView == buttonTableView {
+            if indexPath.row == 0 { //due date
+                print("due date click")
+            } else if indexPath.row == 1 { //location
+                print("location click")
+            }
+        } else {
+            if indexPath.row == (subTask.count + 1) - 1 { //Add subtask
+                print("Add subtask")
+            }
+        }
+        
+    }
 }
+
+
