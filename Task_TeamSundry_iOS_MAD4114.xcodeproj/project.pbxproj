@@ -15,6 +15,7 @@
 		2CA52790297DAAF300000780 /* MapView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CA5278F297DAAF300000780 /* MapView.storyboard */; };
 		2CA52792297DAD0000000780 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA52791297DAD0000000780 /* LocationSearchTableViewController.swift */; };
 		2CA52794297DB54100000780 /* PlaceObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA52793297DB54100000780 /* PlaceObject.swift */; };
+		992A9448297E5C4C008259B3 /* BorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992A9447297E5C4C008259B3 /* BorderTextField.swift */; };
 		9945FB6529709BCB005463ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6429709BCB005463ED /* AppDelegate.swift */; };
 		9945FB6729709BCB005463ED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6629709BCB005463ED /* SceneDelegate.swift */; };
 		9945FB6C29709BCB005463ED /* TaskList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9945FB6A29709BCB005463ED /* TaskList.storyboard */; };
@@ -41,6 +42,7 @@
 		2CA5278F297DAAF300000780 /* MapView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapView.storyboard; sourceTree = "<group>"; };
 		2CA52791297DAD0000000780 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
 		2CA52793297DB54100000780 /* PlaceObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceObject.swift; sourceTree = "<group>"; };
+		992A9447297E5C4C008259B3 /* BorderTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderTextField.swift; sourceTree = "<group>"; };
 		9945FB6129709BCB005463ED /* Task_TeamSundry_iOS_MAD4114.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Task_TeamSundry_iOS_MAD4114.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9945FB6429709BCB005463ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9945FB6629709BCB005463ED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 			children = (
 				99B8DC58297E1C3200A06BB2 /* DatePicker.swift */,
 				99B8DC5C297E20D200A06BB2 /* UIColorExtension.swift */,
+				992A9447297E5C4C008259B3 /* BorderTextField.swift */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				9949B63229713F1600BA0FFB /* DataModel.xcdatamodeld in Sources */,
 				9945FB6529709BCB005463ED /* AppDelegate.swift in Sources */,
 				99B8DC5D297E20D200A06BB2 /* UIColorExtension.swift in Sources */,
+				992A9448297E5C4C008259B3 /* BorderTextField.swift in Sources */,
 				2CA5278E297DAADC00000780 /* MapViewController.swift in Sources */,
 				2C25D1822973960600E38BF6 /* FolderManager.swift in Sources */,
 				9945FB6729709BCB005463ED /* SceneDelegate.swift in Sources */,
