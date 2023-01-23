@@ -180,20 +180,20 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="353" height="57"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
-                                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ZSO-b6-iWo">
+                                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ZSO-b6-iWo">
                                                                             <rect key="frame" x="276" y="13" width="51" height="31"/>
                                                                             <connections>
                                                                                 <action selector="subTaskSwitchAction:" destination="xRO-dv-4F2" eventType="valueChanged" id="S3s-Xx-qdv"/>
                                                                             </connections>
                                                                         </switch>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sub task" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dro-su-MX2">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Sub task" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dro-su-MX2">
                                                                             <rect key="frame" x="54.999999999999993" y="18.333333333333336" width="66.333333333333314" height="20.333333333333336"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddSubTaskIcon" translatesAutoresizingMaskIntoConstraints="NO" id="7pa-R1-ZKP">
-                                                                            <rect key="frame" x="20" y="19.666666666666668" width="22" height="18.000000000000004"/>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="AddSubTaskIcon" translatesAutoresizingMaskIntoConstraints="NO" id="7pa-R1-ZKP">
+                                                                            <rect key="frame" x="20" y="19.666666666666671" width="22" height="18"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="18" id="5W2-Lt-m6I"/>
                                                                                 <constraint firstAttribute="width" constant="22" id="sr2-nJ-v2D"/>
@@ -300,15 +300,15 @@
                                                                         </tableViewCellContentView>
                                                                         <color key="backgroundColor" red="0.97254908080000002" green="0.97254908080000002" blue="0.97254908080000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                     </tableViewCell>
-                                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="addSubTaskCell" textLabel="e5V-2d-6TA" rowHeight="50" style="IBUITableViewCellStyleDefault" id="g1P-IE-I2a">
+                                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="addSubTaskCell" textLabel="e5V-2d-6TA" rowHeight="50" style="IBUITableViewCellStyleDefault" id="g1P-IE-I2a">
                                                                         <rect key="frame" x="0.0" y="100" width="353" height="50"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="g1P-IE-I2a" id="S5m-2M-PdX">
                                                                             <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <subviews>
-                                                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Add more..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e5V-2d-6TA">
-                                                                                    <rect key="frame" x="8" y="0.0" width="337" height="50"/>
+                                                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Add more..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e5V-2d-6TA">
+                                                                                    <rect key="frame" x="20" y="0.0" width="313" height="50"/>
                                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                     <color key="textColor" systemColor="systemYellowColor"/>
@@ -386,6 +386,9 @@
         </scene>
     </scenes>
     <designables>
+        <designable name="07m-FT-4N8">
+            <size key="intrinsicContentSize" width="104.33333333333333" height="34"/>
+        </designable>
         <designable name="WlS-HQ-WBL">
             <size key="intrinsicContentSize" width="56.333333333333336" height="34"/>
         </designable>

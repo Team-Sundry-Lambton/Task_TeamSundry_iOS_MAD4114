@@ -264,6 +264,11 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
         } else {
             if indexPath.row == (subTask.count + 1) - 1 { //Add subtask
                 print("Add subtask")
+                subTask.append("2")
+                let indexPath:IndexPath = IndexPath(row:(self.subTask.count - 1), section: 0)
+                tableView.beginUpdates()
+                tableView.insertRows(at: [indexPath], with: .automatic)
+                tableView.endUpdates()
             }
         }
     }
