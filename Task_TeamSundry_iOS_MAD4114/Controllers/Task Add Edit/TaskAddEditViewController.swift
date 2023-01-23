@@ -8,6 +8,7 @@ import CoreData
 
 class TaskAddEditViewController: UIViewController {
     
+    //MARK: - IBOutlet
     @IBOutlet weak var subTaskTableHeight: NSLayoutConstraint!
     @IBOutlet weak var buttonTableView: UITableView!
     @IBOutlet weak var subTaskTableView: UITableView!
@@ -21,9 +22,8 @@ class TaskAddEditViewController: UIViewController {
     @IBOutlet weak var subTaskStackView: UIStackView!
     
     @IBOutlet weak var createDateLabel: UILabel!
-    @IBOutlet weak var dueDateLabel: UILabel!
-    @IBOutlet weak var locationLabel: UILabel!
     
+    //MARK: - Variables
     let datePicker: DatePicker = {
         let v = DatePicker()
         v.translatesAutoresizingMaskIntoConstraints = false
@@ -41,6 +41,8 @@ class TaskAddEditViewController: UIViewController {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    
+    //MARK: - View lidfe cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         registerNib()
@@ -54,6 +56,22 @@ class TaskAddEditViewController: UIViewController {
         
         loadMediaList()
         configureDatePicker()
+        configureView()
+    }
+    
+    func registerNib() {
+        let nib = UINib(nibName: MediaFileCell.nibName, bundle: nil)
+        mediaFileCollectionView?.register(nib, forCellWithReuseIdentifier: MediaFileCell.reuseIdentifier)
+        if let flowLayout = self.mediaFileCollectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.estimatedItemSize = CGSize(width: 1, height: 1)
+        }
+    }
+    
+    //MARK: - Configure View
+    private func configureView() {
+        createDateLabel.text = DatePicker.getStringCurrentDate()
+        mediaStackView.isHidden = true
+        subTaskStackView.isHidden = true
     }
     
     private func configureDatePicker() {
@@ -86,6 +104,7 @@ class TaskAddEditViewController: UIViewController {
         }
     }
     
+    //MARK: - IBAction
     @IBAction func mediaSwitchAction(_ sender: UISwitch) {
         mediaStackView.isHidden = !sender.isOn
     }
@@ -94,15 +113,10 @@ class TaskAddEditViewController: UIViewController {
         subTaskStackView.isHidden = !sender.isOn
     }
     
-    func registerNib() {
-        let nib = UINib(nibName: MediaFileCell.nibName, bundle: nil)
-        mediaFileCollectionView?.register(nib, forCellWithReuseIdentifier: MediaFileCell.reuseIdentifier)
-        if let flowLayout = self.mediaFileCollectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.estimatedItemSize = CGSize(width: 1, height: 1)
-        }
-    }
     
+    //MARK: - View Controller Logic
     
+    //MARK: - Media Logic
     func addMediaFile() {
         MediaManager.shared.pickMediaFile(self){ mediaObject in
             if let object = mediaObject {
@@ -134,9 +148,21 @@ class TaskAddEditViewController: UIViewController {
         self.present(alertController, animated: true)
     }
     
-    //MARK: - core data interaction methods
+    func deleteMediaFile(mediaFile: MediaFile) {
+        FolderManager.shared.clearSelectedFile(filePath: mediaFile.path ?? "")
+        context.delete(mediaFile)
+        saveMediaFile()
+    }
     
-    /// load folder from core data
+    //MARK: - Location Logic
+    func setTaskLocation(latitude : Double , Logtitude : Double){
+        
+    }
+    
+    
+    //MARK: - Core data interaction methods
+    
+    // load folder from core data
     func loadMediaList() {
         let request: NSFetchRequest<MediaFile> = MediaFile.fetchRequest()
         //        let folderPredicate = NSPredicate(format: "parent_Task.name=%@", FileId)
@@ -157,28 +183,9 @@ class TaskAddEditViewController: UIViewController {
             print("Error saving the folder \(error.localizedDescription)")
         }
     }
-    
-    func deleteMediaFile(mediaFile: MediaFile) {
-        FolderManager.shared.clearSelectedFile(filePath: mediaFile.path ?? "")
-        context.delete(mediaFile)
-        saveMediaFile()
-    }
-    
-    func setTaskLocation(latitude : Double , Logtitude : Double){
-        
-    }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
 
+//MARK: - UICollectionViewDataSource & UICollectionViewDelegate
 extension TaskAddEditViewController
 : UICollectionViewDataSource,UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -208,6 +215,7 @@ extension TaskAddEditViewController
     }
 }
 
+//MARK: - UITableViewDelegate, UITableViewDataSource
 extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == buttonTableView {
@@ -261,7 +269,6 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
                 print("Add subtask")
             }
         }
-        
     }
 }
 

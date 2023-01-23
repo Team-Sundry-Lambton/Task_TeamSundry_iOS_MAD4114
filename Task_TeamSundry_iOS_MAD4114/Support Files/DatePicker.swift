@@ -14,6 +14,7 @@ class DatePicker: UIView {
     
     let dPicker: UIDatePicker = {
         let v = UIDatePicker()
+        v.locale = Locale(identifier: "en_US_POSIX")
         v.tintColor = .darkPurple
         return v
     }()
@@ -85,4 +86,10 @@ class DatePicker: UIView {
         changeClosure?(sender.date)
     }
     
+    static func getStringCurrentDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E, d MMM yyyy 'at' h:mm a"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        return dateFormatter.string(from: Date())
+    }
 }
