@@ -14,6 +14,12 @@ class TaskAddEditViewController: UIViewController {
 
     @IBOutlet weak var mediaFileCollectionView: UICollectionView!
     
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var descriptionTextField: UITextField!
+    
+    @IBOutlet weak var mediaStackView: UIStackView!
+    @IBOutlet weak var subTaskStackView: UIStackView!
+    
     var subTask:[String] = ["Sample1"]
     
     var mediaList = [MediaFile]()
