@@ -20,12 +20,13 @@ class SubTaskTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        subTaskDescription.delegate = self
     }
 }
 
 extension SubTaskTableViewCell: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if let text = textField.text {
+        if let text = textField.text, let indexPath = indexPath {
             delegate?.subTaskDescriptionShouldBeginEditing(subTaskDescription: text, indexPath: indexPath)
         }
         return true
