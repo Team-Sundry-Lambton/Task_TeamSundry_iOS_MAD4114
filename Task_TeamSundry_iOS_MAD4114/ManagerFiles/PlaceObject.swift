@@ -46,8 +46,7 @@ class PlaceObject: NSObject, MKAnnotation {
     }
     
     static func getLocationForTask(task : Task, context: NSManagedObjectContext) -> PlaceObject {
-        let location = LocationManager.getLocationFromTask(task: task, context: context)
-        let place = PlaceObject(title: location.address, subtitle: "", coordinate: CLLocationCoordinate2DMake(location.latitude, location.longitude))
+        let place = PlaceObject(title: task.location?.address, subtitle: "", coordinate: CLLocationCoordinate2DMake(task.location?.latitude ?? 0, task.location?.longitude ?? 0))
         return place
     }
 }
