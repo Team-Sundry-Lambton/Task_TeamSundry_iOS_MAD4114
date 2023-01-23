@@ -28,6 +28,9 @@
 		9993B8AB29762E4900C96C61 /* CategoryListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9993B8AA29762E4900C96C61 /* CategoryListViewController.swift */; };
 		9993B8AD29762E5700C96C61 /* TaskAddEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9993B8AC29762E5700C96C61 /* TaskAddEditViewController.swift */; };
 		9993B8AF29762E6400C96C61 /* TaskDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9993B8AE29762E6400C96C61 /* TaskDetailsViewController.swift */; };
+		99B8DC59297E1C3200A06BB2 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B8DC58297E1C3200A06BB2 /* DatePicker.swift */; };
+		99B8DC5B297E1EA800A06BB2 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99B8DC5A297E1EA800A06BB2 /* Colors.xcassets */; };
+		99B8DC5D297E20D200A06BB2 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B8DC5C297E20D200A06BB2 /* UIColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +57,9 @@
 		9993B8AA29762E4900C96C61 /* CategoryListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryListViewController.swift; sourceTree = "<group>"; };
 		9993B8AC29762E5700C96C61 /* TaskAddEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskAddEditViewController.swift; sourceTree = "<group>"; };
 		9993B8AE29762E6400C96C61 /* TaskDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailsViewController.swift; sourceTree = "<group>"; };
+		99B8DC58297E1C3200A06BB2 /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
+		99B8DC5A297E1EA800A06BB2 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		99B8DC5C297E20D200A06BB2 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -121,6 +127,7 @@
 				9945FB6429709BCB005463ED /* AppDelegate.swift */,
 				9945FB6629709BCB005463ED /* SceneDelegate.swift */,
 				9945FB6D29709BCC005463ED /* Assets.xcassets */,
+				99B8DC5A297E1EA800A06BB2 /* Colors.xcassets */,
 				9945FB6F29709BCC005463ED /* LaunchScreen.storyboard */,
 				9945FB7229709BCC005463ED /* Info.plist */,
 			);
@@ -162,6 +169,8 @@
 		9949B62929713D2600BA0FFB /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				99B8DC58297E1C3200A06BB2 /* DatePicker.swift */,
+				99B8DC5C297E20D200A06BB2 /* UIColorExtension.swift */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -290,6 +299,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99B8DC5B297E1EA800A06BB2 /* Colors.xcassets in Resources */,
 				9993B8A829762DD200C96C61 /* TaskDetails.storyboard in Resources */,
 				9993B8A229762D9B00C96C61 /* CategoryList.storyboard in Resources */,
 				2CA52790297DAAF300000780 /* MapView.storyboard in Resources */,
@@ -317,11 +327,13 @@
 				9945FB6929709BCB005463ED /* TaskListViewController.swift in Sources */,
 				9949B63229713F1600BA0FFB /* DataModel.xcdatamodeld in Sources */,
 				9945FB6529709BCB005463ED /* AppDelegate.swift in Sources */,
+				99B8DC5D297E20D200A06BB2 /* UIColorExtension.swift in Sources */,
 				2CA5278E297DAADC00000780 /* MapViewController.swift in Sources */,
 				2C25D1822973960600E38BF6 /* FolderManager.swift in Sources */,
 				9945FB6729709BCB005463ED /* SceneDelegate.swift in Sources */,
 				9993B8AD29762E5700C96C61 /* TaskAddEditViewController.swift in Sources */,
 				2C25D180297394AD00E38BF6 /* MediaManager.swift in Sources */,
+				99B8DC59297E1C3200A06BB2 /* DatePicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

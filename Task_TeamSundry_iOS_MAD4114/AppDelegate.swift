@@ -37,10 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         customNavBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor(red: 1, green: 0.812, blue: 0.361, alpha: 1)]
         
         let barButtonItemAppearance = UIBarButtonItemAppearance(style: .plain)
-        barButtonItemAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor(red: 1, green: 0.812, blue: 0.361, alpha: 1)]
-        barButtonItemAppearance.disabled.titleTextAttributes = [.foregroundColor: UIColor(red: 1, green: 0.812, blue: 0.361, alpha: 1)]
-        barButtonItemAppearance.highlighted.titleTextAttributes = [.foregroundColor: UIColor(red: 1, green: 0.812, blue: 0.361, alpha: 1)]
-        barButtonItemAppearance.focused.titleTextAttributes = [.foregroundColor: UIColor(red: 1, green: 0.812, blue: 0.361, alpha: 1)]
+        barButtonItemAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.darkYellow ?? UIColor.yellow]
+        barButtonItemAppearance.disabled.titleTextAttributes = [.foregroundColor: UIColor.darkYellow ?? UIColor.yellow]
+        barButtonItemAppearance.highlighted.titleTextAttributes = [.foregroundColor: UIColor.darkYellow ?? UIColor.yellow]
+        barButtonItemAppearance.focused.titleTextAttributes = [.foregroundColor: UIColor.darkYellow ?? UIColor.yellow]
         
         customNavBarAppearance.buttonAppearance = barButtonItemAppearance
         customNavBarAppearance.backButtonAppearance = barButtonItemAppearance
