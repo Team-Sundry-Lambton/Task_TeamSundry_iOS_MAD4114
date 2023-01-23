@@ -29,7 +29,7 @@ class TaskAddEditViewController: UIViewController {
     var subTask:[String] = ["Sample1"]
     
     var mediaList = [MediaFile]()
-    var selectedFile: TaskListObject? {
+    var selectedFile: MediaFile? {
         didSet {
             loadMediaList()
         }
@@ -37,20 +37,22 @@ class TaskAddEditViewController: UIViewController {
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         registerNib()
         
         view.addSubview(datePicker)
         
-        let task = TaskListObject(context: self.context)
-        task.name = "1"
-        selectedFile = task
+        let medies = MediaFile(context: self.context)
+        medies.name = "1"
+        selectedFile = medies
         self.saveMediaFile()
         
         loadMediaList()
-        
+        configureDatePicker()
+    }
+    
+    private func configureDatePicker() {
         let g = view.safeAreaLayoutGuide
         NSLayoutConstraint.activate([
             // custom picker view should cover the whole view
@@ -125,7 +127,6 @@ class TaskAddEditViewController: UIViewController {
             return controller
         }()
         self.present(alertController, animated: true)
-        
     }
     
     //MARK: - core data interaction methods
@@ -152,7 +153,7 @@ class TaskAddEditViewController: UIViewController {
         }
     }
     func deleteMediaFile(mediaFile: MediaFile) {
-        FolderManager.shared.clearSelectedFile(filePath: mediaFile.name ?? "")
+        FolderManager.shared.clearSelectedFile(filePath: mediaFile.path ?? "")
         context.delete(mediaFile)
         saveMediaFile()
     }

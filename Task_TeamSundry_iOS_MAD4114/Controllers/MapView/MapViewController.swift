@@ -23,9 +23,9 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
     let selectLocation = false
     var resultSearchController: UISearchController?
     
-    var selectedTask: TaskListObject?
+    var selectedTask: Task?
     var selectedCategory: String?
-    var places : [Place] = []
+    var places : [PlaceObject] = []
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     weak var delegate: TaskAddEditViewController?
@@ -51,12 +51,12 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
             locationSearchTable.handleLocationSearchDelegate = self
         }
 
-        if let selectedFile = selectedTask {
-            places.append(Place.getLocationForTask(task: selectedFile))
+        if let selectedTask = selectedTask {
+            places.append(PlaceObject.getLocationForTask(task: selectedTask, context: context))
         }
         
         if let selectedCategory = selectedCategory {
-            places = Place.getLocationForAllTask(categoryName: selectedCategory,context: context)
+            places = PlaceObject.getLocationForAllTask(categoryName: selectedCategory,context: context)
         }
         // Do any additional setup after loading the view.
     }

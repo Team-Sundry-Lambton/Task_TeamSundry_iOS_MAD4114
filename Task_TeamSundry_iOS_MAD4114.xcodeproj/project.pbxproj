@@ -14,7 +14,8 @@
 		2CA5278E297DAADC00000780 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA5278D297DAADC00000780 /* MapViewController.swift */; };
 		2CA52790297DAAF300000780 /* MapView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CA5278F297DAAF300000780 /* MapView.storyboard */; };
 		2CA52792297DAD0000000780 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA52791297DAD0000000780 /* LocationSearchTableViewController.swift */; };
-		2CA52794297DB54100000780 /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA52793297DB54100000780 /* Place.swift */; };
+		2CA52794297DB54100000780 /* PlaceObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA52793297DB54100000780 /* PlaceObject.swift */; };
+		9918E509297E346200B18E7A /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9918E508297E346200B18E7A /* LocationManager.swift */; };
 		9945FB6529709BCB005463ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6429709BCB005463ED /* AppDelegate.swift */; };
 		9945FB6729709BCB005463ED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6629709BCB005463ED /* SceneDelegate.swift */; };
 		9945FB6929709BCB005463ED /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6829709BCB005463ED /* TaskListViewController.swift */; };
@@ -41,7 +42,8 @@
 		2CA5278D297DAADC00000780 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		2CA5278F297DAAF300000780 /* MapView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapView.storyboard; sourceTree = "<group>"; };
 		2CA52791297DAD0000000780 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
-		2CA52793297DB54100000780 /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		2CA52793297DB54100000780 /* PlaceObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceObject.swift; sourceTree = "<group>"; };
+		9918E508297E346200B18E7A /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		9945FB6129709BCB005463ED /* Task_TeamSundry_iOS_MAD4114.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Task_TeamSundry_iOS_MAD4114.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9945FB6429709BCB005463ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9945FB6629709BCB005463ED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,7 +80,8 @@
 			children = (
 				2C25D17F297394AD00E38BF6 /* MediaManager.swift */,
 				2C25D1812973960600E38BF6 /* FolderManager.swift */,
-				2CA52793297DB54100000780 /* Place.swift */,
+				2CA52793297DB54100000780 /* PlaceObject.swift */,
+				9918E508297E346200B18E7A /* LocationManager.swift */,
 			);
 			path = ManagerFiles;
 			sourceTree = "<group>";
@@ -319,11 +322,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CA52792297DAD0000000780 /* LocationSearchTableViewController.swift in Sources */,
+				9918E509297E346200B18E7A /* LocationManager.swift in Sources */,
 				9993B8AF29762E6400C96C61 /* TaskDetailsViewController.swift in Sources */,
 				9993B8AB29762E4900C96C61 /* CategoryListViewController.swift in Sources */,
 				2C1438F82978CF0000938694 /* MediaFileCell.swift in Sources */,
 				9945FB6929709BCB005463ED /* TaskListViewController.swift in Sources */,
-				2CA52794297DB54100000780 /* Place.swift in Sources */,
+				2CA52794297DB54100000780 /* PlaceObject.swift in Sources */,
 				9945FB6929709BCB005463ED /* TaskListViewController.swift in Sources */,
 				9949B63229713F1600BA0FFB /* DataModel.xcdatamodeld in Sources */,
 				9945FB6529709BCB005463ED /* AppDelegate.swift in Sources */,
