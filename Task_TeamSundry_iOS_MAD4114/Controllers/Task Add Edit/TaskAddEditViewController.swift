@@ -30,8 +30,6 @@ class TaskAddEditViewController: UIViewController {
         return v
     }()
     
-    var subTask:[String] = ["Sample1"]
-    
     var mediaList = [MediaFile]()
     var selectedFile: MediaFile? {
         didSet {
@@ -39,8 +37,10 @@ class TaskAddEditViewController: UIViewController {
         }
     }
     
-    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    var subTask:[String] = ["Sample1"]
+    var task: Task?
     
+    let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     //MARK: - View lidfe cycle
     override func viewDidLoad() {
