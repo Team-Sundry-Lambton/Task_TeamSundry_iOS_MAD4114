@@ -274,7 +274,7 @@
                                                                     <constraint firstAttribute="height" constant="100" id="QUO-U5-m1D"/>
                                                                 </constraints>
                                                                 <prototypes>
-                                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="subTaskCell" rowHeight="50" id="E76-K7-cVt">
+                                                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="subTaskCell" rowHeight="50" id="E76-K7-cVt" customClass="SubTaskTableViewCell" customModule="Task_TeamSundry_iOS_MAD4114" customModuleProvider="target">
                                                                         <rect key="frame" x="0.0" y="50" width="353" height="50"/>
                                                                         <autoresizingMask key="autoresizingMask"/>
                                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="E76-K7-cVt" id="1Cl-mi-F14">
@@ -299,6 +299,9 @@
                                                                             </constraints>
                                                                         </tableViewCellContentView>
                                                                         <color key="backgroundColor" red="0.97254908080000002" green="0.97254908080000002" blue="0.97254908080000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                        <connections>
+                                                                            <outlet property="subTaskDescription" destination="9RR-L7-2cC" id="mn5-Tw-wti"/>
+                                                                        </connections>
                                                                     </tableViewCell>
                                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="addSubTaskCell" textLabel="e5V-2d-6TA" rowHeight="50" style="IBUITableViewCellStyleDefault" id="g1P-IE-I2a">
                                                                         <rect key="frame" x="0.0" y="100" width="353" height="50"/>

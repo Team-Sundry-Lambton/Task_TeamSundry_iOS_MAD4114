@@ -32,7 +32,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
     var places : [PlaceObject] = []
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    weak var delegate: TaskAddEditViewController?
+    var delegate: MapViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()

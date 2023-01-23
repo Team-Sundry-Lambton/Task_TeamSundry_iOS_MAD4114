@@ -42,6 +42,7 @@ class TaskAddEditViewController: UIViewController {
     var task: Task?
     var selectedDueDate: Date?
     var category: Category?
+    var addSubTaskCell = 1
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -257,8 +258,8 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
         if tableView == buttonTableView {
             return 4
         } else {
-            subTaskTableHeight.constant = CGFloat(((subTasks?.count ?? 0) + 1) * 50)
-            return (subTasks?.count ?? 0) + 1// count
+            subTaskTableHeight.constant = CGFloat(((subTasks?.count ?? 0) + addSubTaskCell) * 50)
+            return (subTasks?.count ?? 0) + addSubTaskCell// count
         }
     }
     
@@ -280,10 +281,14 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
                 break
             }
         } else {
-            if indexPath.row == ((subTasks?.count ?? 0) + 1) - 1 {
+            if indexPath.row == (subTasks?.count ?? 0) {
                 id = "addSubTaskCell"
             } else {
                 id = "subTaskCell"
+                let cell = tableView.dequeueReusableCell(withIdentifier: id) as? SubTaskTableViewCell
+                cell?.delegate = self
+                cell?.indexPath = indexPath
+                return cell ?? UITableViewCell()
             }
         }
         
@@ -302,10 +307,10 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
                 openMapView()
             }
         } else {
-            if indexPath.row == ((subTasks?.count ?? 0) + 1) - 1 { //Add subtask
+            if indexPath.row == (subTasks?.count ?? 0) { //Add subtask
                 print("Add subtask")
                 subTasks?.append(SubTask())
-                let indexPath:IndexPath = IndexPath(row:((self.subTasks?.count ?? 0) - 1), section: 0)
+                let indexPath:IndexPath = IndexPath(row:((self.subTasks?.count ?? 0) - addSubTaskCell), section: 0)
                 tableView.beginUpdates()
                 tableView.insertRows(at: [indexPath], with: .automatic)
                 tableView.endUpdates()
@@ -322,3 +327,8 @@ extension TaskAddEditViewController: MapViewDelegate {
     }
 }
 
+extension TaskAddEditViewController: SubTaskTableViewCellDelegate {
+    func subTaskDescriptionShouldBeginEditing(subTaskDescription: String, indexPath: IndexPath) {
+        subTasks?[indexPath.row - addSubTaskCell].descriptionSubTask = subTaskDescription
+    }
+}
