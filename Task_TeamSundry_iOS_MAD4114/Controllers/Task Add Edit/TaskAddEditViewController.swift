@@ -37,29 +37,27 @@ class TaskAddEditViewController: UIViewController {
         }
     }
     
-    var subTask:[String] = ["Sample1"]
+    var selectedLocation: Location?
+    var subTasks: [SubTask]?
     var task: Task?
+    var selectedDueDate: Date?
+    var category: Category?
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    //MARK: - View lidfe cycle
+    //MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         registerNib()
         
         view.addSubview(datePicker)
         
-        let medies = MediaFile(context: self.context)
-        medies.name = "1"
-        selectedFile = medies
-        self.saveMediaFile()
-        
         loadMediaList()
         configureDatePicker()
         configureView()
     }
     
-    func registerNib() {
+    private func registerNib() {
         let nib = UINib(nibName: MediaFileCell.nibName, bundle: nil)
         mediaFileCollectionView?.register(nib, forCellWithReuseIdentifier: MediaFileCell.reuseIdentifier)
         if let flowLayout = self.mediaFileCollectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -94,12 +92,14 @@ class TaskAddEditViewController: UIViewController {
             }
             strongSelf.datePicker.isHidden = true
             strongSelf.buttonTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = DatePicker.getStringFromDate(date: pickedDate)
+            strongSelf.selectedDueDate = pickedDate
         }
     }
     
     //MARK: - IBAction
     
     @IBAction func saveAction(_ sender: Any) {
+        saveTask()
     }
     
     @IBAction func mediaSwitchAction(_ sender: UISwitch) {
@@ -112,24 +112,69 @@ class TaskAddEditViewController: UIViewController {
     
     
     //MARK: - View Controller Logic
+    private func popupAlert(message: String) {
+        let alertController: UIAlertController = {
+            let controller = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            controller.addAction(okAction)
+            return controller
+        }()
+        present(alertController, animated: true)
+    }
+    
+    private func checkInput() -> Bool {
+        if titleTextField.text == "" {
+            popupAlert(message: "Please fill title of task")
+            return false
+        } else if descriptionTextField.text == "" {
+            popupAlert(message: "Please fill description of task")
+            return false
+        } else {
+            return true
+        }
+    }
+    
+    private func saveTask() {
+        if checkInput() {
+            task?.createDate = Date()
+            task?.parent_Category = category
+            task?.title = titleTextField.text
+            task?.descriptionTask = descriptionTextField.text ?? ""
+            task?.dueDate = selectedDueDate
+            task?.location = selectedLocation
+            task?.status = false
+            task?.medias = NSSet(array: mediaList)
+            task?.subtasks = NSSet(array: subTasks ?? [SubTask]())
+            saveAllContextCoreData()
+        }
+    }
+    
+    private func openMapView() {
+        let mapViewController:MapViewController = UIStoryboard(name: "MapView", bundle: nil).instantiateViewController(withIdentifier: "MapViewController") as? MapViewController ?? MapViewController()
+        mapViewController.delegate = self
+        present(mapViewController, animated: true)
+    }
     
     //MARK: - Media Logic
-    func addMediaFile() {
-        MediaManager.shared.pickMediaFile(self){ mediaObject in
+    private func addMediaFile() {
+        MediaManager.shared.pickMediaFile(self) { [weak self] mediaObject in
+            guard let strongSelf = self else {
+                return
+            }
+            
             if let object = mediaObject {
-                
-                let mediaFile = MediaFile(context: self.context)
+                let mediaFile = MediaFile(context: strongSelf.context)
                 mediaFile.name = object.fileName
                 mediaFile.isImage = object.isImage
                 mediaFile.path = object.filePath
-                self.mediaList.append(mediaFile)
-                self.saveMediaFile()
-                
+                strongSelf.mediaList.append(mediaFile)
+                strongSelf.saveAllContextCoreData()
+                strongSelf.mediaFileCollectionView.reloadData()
             }
         }
     }
     
-    func deleteMediaFileConfirmation(mediaFile: MediaFile, indexPath: IndexPath) {
+    private func deleteMediaFileConfirmation(mediaFile: MediaFile, indexPath: IndexPath) {
         let alertController: UIAlertController = {
             let controller = UIAlertController(title: "Warning", message: "Are you sure you want to delete this file", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
@@ -145,22 +190,17 @@ class TaskAddEditViewController: UIViewController {
         self.present(alertController, animated: true)
     }
     
-    func deleteMediaFile(mediaFile: MediaFile) {
+    private func deleteMediaFile(mediaFile: MediaFile) {
         FolderManager.shared.clearSelectedFile(filePath: mediaFile.path ?? "")
         context.delete(mediaFile)
-        saveMediaFile()
+        saveAllContextCoreData()
+        mediaFileCollectionView.reloadData()
     }
-    
-    //MARK: - Location Logic
-    func setTaskLocation(latitude : Double , Logtitude : Double){
-        
-    }
-    
     
     //MARK: - Core data interaction methods
     
     // load folder from core data
-    func loadMediaList() {
+    private func loadMediaList() {
         let request: NSFetchRequest<MediaFile> = MediaFile.fetchRequest()
         //        let folderPredicate = NSPredicate(format: "parent_Task.name=%@", FileId)
         //        request.predicate = folderPredicate
@@ -172,10 +212,9 @@ class TaskAddEditViewController: UIViewController {
         mediaFileCollectionView.reloadData()
     }
     
-    func saveMediaFile() {
+    private func saveAllContextCoreData() {
         do {
             try context.save()
-            mediaFileCollectionView.reloadData()
         } catch {
             print("Error saving the folder \(error.localizedDescription)")
         }
@@ -218,8 +257,8 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
         if tableView == buttonTableView {
             return 4
         } else {
-            subTaskTableHeight.constant = CGFloat((subTask.count + 1) * 50)
-            return subTask.count + 1// count
+            subTaskTableHeight.constant = CGFloat(((subTasks?.count ?? 0) + 1) * 50)
+            return (subTasks?.count ?? 0) + 1// count
         }
     }
     
@@ -241,7 +280,7 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
                 break
             }
         } else {
-            if indexPath.row == (subTask.count + 1) - 1 {
+            if indexPath.row == ((subTasks?.count ?? 0) + 1) - 1 {
                 id = "addSubTaskCell"
             } else {
                 id = "subTaskCell"
@@ -260,12 +299,13 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
                 datePicker.isHidden = false
             } else if indexPath.row == 1 { //location
                 print("location click")
+                openMapView()
             }
         } else {
-            if indexPath.row == (subTask.count + 1) - 1 { //Add subtask
+            if indexPath.row == ((subTasks?.count ?? 0) + 1) - 1 { //Add subtask
                 print("Add subtask")
-                subTask.append("2")
-                let indexPath:IndexPath = IndexPath(row:(self.subTask.count - 1), section: 0)
+                subTasks?.append(SubTask())
+                let indexPath:IndexPath = IndexPath(row:((self.subTasks?.count ?? 0) - 1), section: 0)
                 tableView.beginUpdates()
                 tableView.insertRows(at: [indexPath], with: .automatic)
                 tableView.endUpdates()
@@ -274,4 +314,11 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
     }
 }
 
+//MARK: - MapViewDelegate
+extension TaskAddEditViewController: MapViewDelegate {
+    func setTaskLocation(latitude : Double , logtitude : Double){
+        selectedLocation?.latitude = latitude
+        selectedLocation?.longitude = logtitude
+    }
+}
 

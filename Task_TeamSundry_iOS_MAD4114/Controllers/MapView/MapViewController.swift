@@ -8,6 +8,10 @@
 import UIKit
 import MapKit
 
+protocol MapViewDelegate {
+    func setTaskLocation(latitude : Double , logtitude : Double)
+}
+
 protocol HandleMapSearch: AnyObject {
     func setSearchLocation(coordinate : CLLocationCoordinate2D,
                               title: String)
@@ -126,7 +130,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
     override func viewWillDisappear(_ animated: Bool) {
         if selectLocation {
             if let destination = destination{
-                delegate?.setTaskLocation(latitude: destination.latitude, Logtitude: destination.longitude)
+                delegate?.setTaskLocation(latitude: destination.latitude, logtitude: destination.longitude)
             }
         }
     }
