@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 
-protocol HandleMapSearch: class {
+protocol HandleMapSearch: AnyObject {
     func setSearchLocation(coordinate : CLLocationCoordinate2D,
                               title: String)
 }
@@ -45,7 +45,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
             searchBar?.placeholder = "Search for places"
             navigationItem.titleView = resultSearchController?.searchBar
             resultSearchController?.hidesNavigationBarDuringPresentation = false
-            resultSearchController?.dimsBackgroundDuringPresentation = true
+            resultSearchController?.obscuresBackgroundDuringPresentation = true
             definesPresentationContext = true
             locationSearchTable.mapView = mapView
             locationSearchTable.handleLocationSearchDelegate = self
@@ -150,9 +150,9 @@ extension MapViewController: MKMapViewDelegate {
             return nil
         }
         if citySelection {
-            let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "droppablePin")
-            annotationView.animatesDrop = true
-            annotationView.pinTintColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+            let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "droppablePin")
+            annotationView.animatesWhenAdded = true
+            annotationView.markerTintColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
             annotationView.image = UIImage(named: "ic_place_2x")
             annotationView.canShowCallout = true
             annotationView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)

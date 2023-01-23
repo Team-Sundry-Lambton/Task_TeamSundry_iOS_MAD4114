@@ -114,12 +114,13 @@ class TaskAddEditViewController: UIViewController {
         }
     }
     
-    func deleteMediaFileConfirmation(mediaFile: MediaFile) {
+    func deleteMediaFileConfirmation(mediaFile: MediaFile, indexPath: IndexPath) {
         let alertController: UIAlertController = {
             let controller = UIAlertController(title: "Warning", message: "Are you sure you want to delete this file", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
             let deleteAction = UIAlertAction(title: "Delete", style: .default){
                 UIAlertAction in
+                self.mediaList.remove(at: indexPath.row - 1)
                 self.deleteMediaFile(mediaFile: mediaFile)
             }
             controller.addAction(deleteAction)
@@ -152,6 +153,7 @@ class TaskAddEditViewController: UIViewController {
             print("Error saving the folder \(error.localizedDescription)")
         }
     }
+    
     func deleteMediaFile(mediaFile: MediaFile) {
         FolderManager.shared.clearSelectedFile(filePath: mediaFile.path ?? "")
         context.delete(mediaFile)
@@ -197,8 +199,7 @@ extension TaskAddEditViewController
             addMediaFile()
         }else{
             let file = mediaList[indexPath.row - 1]
-            mediaList.remove(at: indexPath.row - 1)
-            deleteMediaFileConfirmation(mediaFile: file)
+            deleteMediaFileConfirmation(mediaFile: file, indexPath: indexPath)
         }
     }
 }
