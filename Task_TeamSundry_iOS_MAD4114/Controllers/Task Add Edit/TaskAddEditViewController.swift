@@ -7,11 +7,11 @@ import UIKit
 import CoreData
 
 class TaskAddEditViewController: UIViewController {
-
+    
     @IBOutlet weak var subTaskTableHeight: NSLayoutConstraint!
     @IBOutlet weak var buttonTableView: UITableView!
     @IBOutlet weak var subTaskTableView: UITableView!
-
+    
     @IBOutlet weak var mediaFileCollectionView: UICollectionView!
     
     @IBOutlet weak var titleTextField: UITextField!
@@ -19,6 +19,12 @@ class TaskAddEditViewController: UIViewController {
     
     @IBOutlet weak var mediaStackView: UIStackView!
     @IBOutlet weak var subTaskStackView: UIStackView!
+    
+    let datePicker: DatePicker = {
+        let v = DatePicker()
+        v.translatesAutoresizingMaskIntoConstraints = false
+        return v
+    }()
     
     var subTask:[String] = ["Sample1"]
     
@@ -30,11 +36,13 @@ class TaskAddEditViewController: UIViewController {
     }
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         registerNib()
+        
+        view.addSubview(datePicker)
         
         let task = TaskListObject(context: self.context)
         task.name = "1"
@@ -42,7 +50,34 @@ class TaskAddEditViewController: UIViewController {
         self.saveMediaFile()
         
         loadMediaList()
-        // Do any additional setup after loading the view.
+        
+        let g = view.safeAreaLayoutGuide
+        NSLayoutConstraint.activate([
+            // custom picker view should cover the whole view
+            datePicker.topAnchor.constraint(equalTo: g.topAnchor),
+            datePicker.leadingAnchor.constraint(equalTo: g.leadingAnchor),
+            datePicker.trailingAnchor.constraint(equalTo: g.trailingAnchor),
+            datePicker.bottomAnchor.constraint(equalTo: g.bottomAnchor),
+        ])
+        
+        // hide custom picker view
+        datePicker.isHidden = true
+        
+        // add closures to custom picker view
+        datePicker.dismissClosure = { [weak self] in
+            guard let self = self else {
+                return
+            }
+            self.datePicker.isHidden = true
+        }
+        
+        datePicker.changeClosure = { [weak self] val in
+            guard let self = self else {
+                return
+            }
+            print(val)
+            // do something with the selected date
+        }
     }
     
     @IBAction func mediaSwitchAction(_ sender: UISwitch) {
@@ -90,7 +125,7 @@ class TaskAddEditViewController: UIViewController {
             return controller
         }()
         self.present(alertController, animated: true)
-      
+        
     }
     
     //MARK: - core data interaction methods
@@ -98,8 +133,8 @@ class TaskAddEditViewController: UIViewController {
     /// load folder from core data
     func loadMediaList() {
         let request: NSFetchRequest<MediaFile> = MediaFile.fetchRequest()
-//        let folderPredicate = NSPredicate(format: "parent_Task.name=%@", FileId)
-//        request.predicate = folderPredicate
+        //        let folderPredicate = NSPredicate(format: "parent_Task.name=%@", FileId)
+        //        request.predicate = folderPredicate
         do {
             mediaList = try context.fetch(request)
         } catch {
@@ -107,7 +142,7 @@ class TaskAddEditViewController: UIViewController {
         }
         mediaFileCollectionView.reloadData()
     }
-
+    
     func saveMediaFile() {
         do {
             try context.save()
@@ -118,7 +153,7 @@ class TaskAddEditViewController: UIViewController {
     }
     func deleteMediaFile(mediaFile: MediaFile) {
         FolderManager.shared.clearSelectedFile(filePath: mediaFile.name ?? "")
-       context.delete(mediaFile)
+        context.delete(mediaFile)
         saveMediaFile()
     }
     
@@ -126,15 +161,15 @@ class TaskAddEditViewController: UIViewController {
         
     }
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 
 extension TaskAddEditViewController
@@ -142,13 +177,13 @@ extension TaskAddEditViewController
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return mediaList.count + 1
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MediaFileCell.reuseIdentifier,
                                                          for: indexPath) as? MediaFileCell {
-        
+            
             let file = indexPath.row == 0 ? nil : mediaList[indexPath.row - 1];
-             
+            
             cell.configureCell(file: file,indexPath:indexPath)
             return cell
         }
@@ -203,7 +238,7 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
         }
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: id) else { return UITableViewCell() }
-            
+        
         return cell
     }
     
@@ -211,6 +246,7 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
         if tableView == buttonTableView {
             if indexPath.row == 0 { //due date
                 print("due date click")
+                datePicker.isHidden = false
             } else if indexPath.row == 1 { //location
                 print("location click")
             }
