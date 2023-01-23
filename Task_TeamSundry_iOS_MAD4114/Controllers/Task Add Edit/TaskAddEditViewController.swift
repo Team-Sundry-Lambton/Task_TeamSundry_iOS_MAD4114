@@ -8,7 +8,19 @@ import CoreData
 
 class TaskAddEditViewController: UIViewController {
 
+    @IBOutlet weak var subTaskTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var buttonTableView: UITableView!
+    @IBOutlet weak var subTaskTableView: UITableView!
+
     @IBOutlet weak var mediaFileCollectionView: UICollectionView!
+    
+    @IBOutlet weak var titleTextField: UITextField!
+    @IBOutlet weak var descriptionTextField: UITextField!
+    
+    @IBOutlet weak var mediaStackView: UIStackView!
+    @IBOutlet weak var subTaskStackView: UIStackView!
+    
+    var subTask:[String] = ["Sample1"]
     
     var mediaList = [MediaFile]()
     var selectedFile: TaskListObject? {
@@ -145,4 +157,47 @@ extension TaskAddEditViewController
             deleteMediaFileConfirmation(mediaFile: file)
         }
     }
+}
+
+extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if tableView == buttonTableView {
+            return 4
+        } else {
+            subTaskTableHeight.constant = CGFloat((subTask.count + 1) * 50)
+            return subTask.count + 1// count
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        var id = "cell1"
+        
+        if tableView == buttonTableView {
+            switch indexPath.row {
+            case 0:
+                id = "cell1"
+            case 1:
+                id = "cell2"
+            case 2:
+                id = "cell3"
+            case 3:
+                id = "cell4"
+            default:
+                break
+            }
+        } else {
+            if indexPath.row == (subTask.count + 1) - 1 {
+                id = "addSubTaskCell"
+            } else {
+                id = "subTaskCell"
+            }
+        }
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: id) else { return UITableViewCell() }
+            
+        return cell
+    }
+    
+    
 }
