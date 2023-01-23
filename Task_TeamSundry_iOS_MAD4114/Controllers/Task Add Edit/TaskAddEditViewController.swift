@@ -137,21 +137,21 @@ class TaskAddEditViewController: UIViewController {
     
     private func saveTask() {
         if checkInput() {
-            task?.createDate = Date()
-            task?.parent_Category = category
-            task?.title = titleTextField.text
-            task?.descriptionTask = descriptionTextField.text ?? ""
-            task?.dueDate = selectedDueDate
-            task?.location = selectedLocation
-            task?.status = false
-            if !mediaStackView.isHidden {
-                task?.medias = NSSet(array: mediaList)
-            }
-            
-            if !subTaskStackView.isHidden {
-                task?.subtasks = NSSet(array: subTasks)
-            }
-            
+            let taskObj = Task(context: context)
+            taskObj.createDate = Date()
+            taskObj.parent_Category = category
+            taskObj.title = titleTextField.text
+            taskObj.descriptionTask = descriptionTextField.text ?? ""
+            taskObj.dueDate = selectedDueDate
+            taskObj.location = selectedLocation
+            taskObj.status = false
+//            if !mediaStackView.isHidden {
+//                task?.medias = NSSet(array: mediaList)
+//            }
+//
+//            if !subTaskStackView.isHidden {
+//                task?.subtasks = NSSet(array: subTasks)
+//            }
             saveAllContextCoreData()
         }
     }
@@ -315,7 +315,8 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
         } else {
             if indexPath.row == (subTasks.count) { //Add subtask
                 print("Add subtask")
-                subTasks.append(SubTask())
+                let subtask = SubTask(context: self.context)
+                subTasks.append(subtask)
                 let indexPath:IndexPath = IndexPath(row:((self.subTasks.count) - addSubTaskCell), section: 0)
                 tableView.beginUpdates()
                 tableView.insertRows(at: [indexPath], with: .automatic)
@@ -334,7 +335,7 @@ extension TaskAddEditViewController: MapViewDelegate {
 }
 
 extension TaskAddEditViewController: SubTaskTableViewCellDelegate {
-    func subTaskDescriptionShouldBeginEditing(subTaskDescription: String, indexPath: IndexPath) {
+    func subTaskDescriptionShouldChangeCharactersIn(subTaskDescription: String, indexPath: IndexPath) {
         subTasks[indexPath.row].descriptionSubTask = subTaskDescription
     }
 }

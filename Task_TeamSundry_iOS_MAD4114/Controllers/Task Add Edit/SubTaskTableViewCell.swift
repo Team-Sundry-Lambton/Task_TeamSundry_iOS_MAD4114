@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SubTaskTableViewCellDelegate {
-    func subTaskDescriptionShouldBeginEditing(subTaskDescription: String, indexPath: IndexPath)
+    func subTaskDescriptionShouldChangeCharactersIn(subTaskDescription: String, indexPath: IndexPath)
 }
 
 class SubTaskTableViewCell: UITableViewCell {
@@ -25,9 +25,9 @@ class SubTaskTableViewCell: UITableViewCell {
 }
 
 extension SubTaskTableViewCell: UITextFieldDelegate {
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if let text = textField.text, let indexPath = indexPath {
-            delegate?.subTaskDescriptionShouldBeginEditing(subTaskDescription: text, indexPath: indexPath)
+            delegate?.subTaskDescriptionShouldChangeCharactersIn(subTaskDescription: text, indexPath: indexPath)
         }
         return true
     }
