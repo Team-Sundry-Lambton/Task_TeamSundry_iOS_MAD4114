@@ -20,6 +20,10 @@ class TaskAddEditViewController: UIViewController {
     @IBOutlet weak var mediaStackView: UIStackView!
     @IBOutlet weak var subTaskStackView: UIStackView!
     
+    @IBOutlet weak var createDateLabel: UILabel!
+    @IBOutlet weak var dueDateLabel: UILabel!
+    @IBOutlet weak var locationLabel: UILabel!
+    
     let datePicker: DatePicker = {
         let v = DatePicker()
         v.translatesAutoresizingMaskIntoConstraints = false
