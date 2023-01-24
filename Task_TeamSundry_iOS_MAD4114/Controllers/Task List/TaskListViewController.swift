@@ -28,6 +28,8 @@ class TaskListViewController: UIViewController {
     
     // define a search controller
     let searchController = UISearchController(searchResultsController: nil)
+    
+    var deletingMovingOption: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +40,7 @@ class TaskListViewController: UIViewController {
         
         loadTasks()
         showSearchBar()
+        showMoreSettings()
     }
     
     //MARK: - Core data interaction functions
@@ -83,6 +86,45 @@ class TaskListViewController: UIViewController {
         }
     }
     
+    //MARK: - show empty table view
+    func showMoreSettings() {
+        var menuItems: [UIAction] {
+            return [
+                UIAction(title: "Select Tasks",
+                         image: UIImage(systemName: "checkmark.circle.fill")?.withTintColor(#colorLiteral(red: 0.4109354019, green: 0.4765244722, blue: 0.9726889729, alpha: 1) , renderingMode: .alwaysOriginal),
+                         handler: { (_) in
+                             self.deletingMovingOption = !self.deletingMovingOption
+                             self.tableView.setEditing(self.deletingMovingOption, animated: true)
+                             if self.deletingMovingOption {
+                                 self.moveBtn.isHidden = false
+                                 self.deleteBtn.isHidden = false
+                                 self.addTaskBtn.isHidden = true
+                             }else{
+                                 self.moveBtn.isHidden = true
+                                 self.deleteBtn.isHidden = true
+                                 self.addTaskBtn.isHidden = false
+                             }
+                            
+                }),
+                UIAction(title: "Sort By",
+                         image: UIImage(systemName: "arrow.up.arrow.down.circle.fill")?.withTintColor(#colorLiteral(red: 0.4109354019, green: 0.4765244722, blue: 0.9726889729, alpha: 1) , renderingMode: .alwaysOriginal),
+                         handler: { (_) in
+                }),
+                UIAction(title: "View on map ",
+                         image: UIImage(systemName: "map.circle.fill")?.withTintColor(#colorLiteral(red: 0.4109354019, green: 0.4765244722, blue: 0.9726889729, alpha: 1) , renderingMode: .alwaysOriginal),
+                         handler: { (_) in
+                })
+            ]
+        }
+
+        var demoMenu: UIMenu {
+            return UIMenu(title: "", image: nil, identifier: nil, options: [], children: menuItems)
+        }
+        
+        showMoreBtn.menu = demoMenu
+        
+    }
+    
 }
 
 extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -121,7 +163,7 @@ extension TaskListViewController: UISearchBarDelegate {
     /// - Parameter searchBar: search bar is passed to this function
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // add predicate
-        let predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchBar.text!)
+        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
         loadTasks(predicate: predicate)
     }
     
