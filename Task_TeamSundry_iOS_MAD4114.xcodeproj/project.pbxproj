@@ -16,6 +16,8 @@
 		2CA52792297DAD0000000780 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA52791297DAD0000000780 /* LocationSearchTableViewController.swift */; };
 		2CA52794297DB54100000780 /* PlaceObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA52793297DB54100000780 /* PlaceObject.swift */; };
 		992A9448297E5C4C008259B3 /* BorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992A9447297E5C4C008259B3 /* BorderTextField.swift */; };
+		41995164297F4E4D008EF6B4 /* TaskDetailImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41995163297F4E4D008EF6B4 /* TaskDetailImageViewCell.swift */; };
+		41995168297F4EE9008EF6B4 /* TaskDetailImageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41995167297F4EE9008EF6B4 /* TaskDetailImageViewCell.xib */; };
 		9945FB6529709BCB005463ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6429709BCB005463ED /* AppDelegate.swift */; };
 		9945FB6729709BCB005463ED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6629709BCB005463ED /* SceneDelegate.swift */; };
 		9945FB6C29709BCB005463ED /* TaskList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9945FB6A29709BCB005463ED /* TaskList.storyboard */; };
@@ -46,6 +48,8 @@
 		2CA52791297DAD0000000780 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
 		2CA52793297DB54100000780 /* PlaceObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceObject.swift; sourceTree = "<group>"; };
 		992A9447297E5C4C008259B3 /* BorderTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderTextField.swift; sourceTree = "<group>"; };
+		41995163297F4E4D008EF6B4 /* TaskDetailImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailImageViewCell.swift; sourceTree = "<group>"; };
+		41995167297F4EE9008EF6B4 /* TaskDetailImageViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskDetailImageViewCell.xib; sourceTree = "<group>"; };
 		9945FB6129709BCB005463ED /* Task_TeamSundry_iOS_MAD4114.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Task_TeamSundry_iOS_MAD4114.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9945FB6429709BCB005463ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9945FB6629709BCB005463ED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -222,6 +226,8 @@
 			isa = PBXGroup;
 			children = (
 				9993B8A729762DD200C96C61 /* TaskDetails.storyboard */,
+				41995163297F4E4D008EF6B4 /* TaskDetailImageViewCell.swift */,
+				41995167297F4EE9008EF6B4 /* TaskDetailImageViewCell.xib */,
 			);
 			path = "Task Details";
 			sourceTree = "<group>";
@@ -314,6 +320,7 @@
 				2CA52790297DAAF300000780 /* MapView.storyboard in Resources */,
 				9945FB7129709BCC005463ED /* LaunchScreen.storyboard in Resources */,
 				9993B8A629762DC900C96C61 /* TaskAddEdit.storyboard in Resources */,
+				41995168297F4EE9008EF6B4 /* TaskDetailImageViewCell.xib in Resources */,
 				9945FB6E29709BCC005463ED /* Assets.xcassets in Resources */,
 				9945FB6C29709BCB005463ED /* TaskList.storyboard in Resources */,
 				2C1438F92978CF0000938694 /* MediaFileCell.xib in Resources */,
@@ -345,6 +352,7 @@
 				2C25D180297394AD00E38BF6 /* MediaManager.swift in Sources */,
 				B4BFE9A629805E6C0028A55B /* TaskListViewController.swift in Sources */,
 				99B8DC59297E1C3200A06BB2 /* DatePicker.swift in Sources */,
+				41995164297F4E4D008EF6B4 /* TaskDetailImageViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
