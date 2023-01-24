@@ -18,6 +18,8 @@
 		992A9448297E5C4C008259B3 /* BorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 992A9447297E5C4C008259B3 /* BorderTextField.swift */; };
 		41995164297F4E4D008EF6B4 /* TaskDetailImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41995163297F4E4D008EF6B4 /* TaskDetailImageViewCell.swift */; };
 		41995168297F4EE9008EF6B4 /* TaskDetailImageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41995167297F4EE9008EF6B4 /* TaskDetailImageViewCell.xib */; };
+		4199516A297F6049008EF6B4 /* TaskDetailAudioViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41995169297F6049008EF6B4 /* TaskDetailAudioViewCell.xib */; };
+		4199516C297F606C008EF6B4 /* TaskDetailAudioViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4199516B297F606C008EF6B4 /* TaskDetailAudioViewCell.swift */; };
 		9945FB6529709BCB005463ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6429709BCB005463ED /* AppDelegate.swift */; };
 		9945FB6729709BCB005463ED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6629709BCB005463ED /* SceneDelegate.swift */; };
 		9945FB6C29709BCB005463ED /* TaskList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9945FB6A29709BCB005463ED /* TaskList.storyboard */; };
@@ -50,6 +52,8 @@
 		992A9447297E5C4C008259B3 /* BorderTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderTextField.swift; sourceTree = "<group>"; };
 		41995163297F4E4D008EF6B4 /* TaskDetailImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailImageViewCell.swift; sourceTree = "<group>"; };
 		41995167297F4EE9008EF6B4 /* TaskDetailImageViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskDetailImageViewCell.xib; sourceTree = "<group>"; };
+		41995169297F6049008EF6B4 /* TaskDetailAudioViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskDetailAudioViewCell.xib; sourceTree = "<group>"; };
+		4199516B297F606C008EF6B4 /* TaskDetailAudioViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailAudioViewCell.swift; sourceTree = "<group>"; };
 		9945FB6129709BCB005463ED /* Task_TeamSundry_iOS_MAD4114.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Task_TeamSundry_iOS_MAD4114.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9945FB6429709BCB005463ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9945FB6629709BCB005463ED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -228,6 +232,8 @@
 				9993B8A729762DD200C96C61 /* TaskDetails.storyboard */,
 				41995163297F4E4D008EF6B4 /* TaskDetailImageViewCell.swift */,
 				41995167297F4EE9008EF6B4 /* TaskDetailImageViewCell.xib */,
+				41995169297F6049008EF6B4 /* TaskDetailAudioViewCell.xib */,
+				4199516B297F606C008EF6B4 /* TaskDetailAudioViewCell.swift */,
 			);
 			path = "Task Details";
 			sourceTree = "<group>";
@@ -317,6 +323,7 @@
 				99B8DC5B297E1EA800A06BB2 /* Colors.xcassets in Resources */,
 				9993B8A829762DD200C96C61 /* TaskDetails.storyboard in Resources */,
 				9993B8A229762D9B00C96C61 /* CategoryList.storyboard in Resources */,
+				4199516A297F6049008EF6B4 /* TaskDetailAudioViewCell.xib in Resources */,
 				2CA52790297DAAF300000780 /* MapView.storyboard in Resources */,
 				9945FB7129709BCC005463ED /* LaunchScreen.storyboard in Resources */,
 				9993B8A629762DC900C96C61 /* TaskAddEdit.storyboard in Resources */,
@@ -335,6 +342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CA52792297DAD0000000780 /* LocationSearchTableViewController.swift in Sources */,
+				4199516C297F606C008EF6B4 /* TaskDetailAudioViewCell.swift in Sources */,
 				9993B8AF29762E6400C96C61 /* TaskDetailsViewController.swift in Sources */,
 				9993B8AB29762E4900C96C61 /* CategoryListViewController.swift in Sources */,
 				2C1438F82978CF0000938694 /* MediaFileCell.swift in Sources */,
