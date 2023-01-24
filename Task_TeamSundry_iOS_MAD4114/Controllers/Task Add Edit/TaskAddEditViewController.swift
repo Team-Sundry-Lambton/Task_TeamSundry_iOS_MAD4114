@@ -173,7 +173,7 @@ class TaskAddEditViewController: UIViewController {
                 mediaFile.name = object.fileName
                 mediaFile.isImage = object.isImage
                 mediaFile.path = object.filePath
-                strongSelf.mediaList.append(mediaFile)
+                strongSelf.mediaList.append(mediaFile)                
 //                strongSelf.saveAllContextCoreData()
                 strongSelf.mediaFileCollectionView.reloadData()
             }
@@ -199,7 +199,7 @@ class TaskAddEditViewController: UIViewController {
     private func deleteMediaFile(mediaFile: MediaFile) {
         FolderManager.shared.clearSelectedFile(filePath: mediaFile.path ?? "")
         context.delete(mediaFile)
-        saveAllContextCoreData()
+//        saveAllContextCoreData()
         mediaFileCollectionView.reloadData()
     }
     

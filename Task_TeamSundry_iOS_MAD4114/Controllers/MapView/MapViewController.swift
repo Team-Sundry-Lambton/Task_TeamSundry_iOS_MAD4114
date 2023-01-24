@@ -125,6 +125,9 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
         removePin()
 
         let userLocation = locations[0]
+        if selectLocation{
+            destination = userLocation.coordinate
+        }
         let latitude = userLocation.coordinate.latitude
         let longitude = userLocation.coordinate.longitude
         getLocationAddressAndAddPin(latitude: latitude, longitude: longitude)
@@ -138,11 +141,18 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
 //        self.displayLocation(latitude: coordinate.latitude, longitude: coordinate.longitude, title: title)
         destination = coordinate
     }
-
+    
+    
+    @IBAction func useCurrentLocation() {
+        if let navController = self.navigationController {
+            navController.popViewController(animated: true)
+        }
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         if selectLocation {
             if let destination = destination{
-                var place = PlaceObject(title: address , subtitle: "", coordinate: destination)
+                let place = PlaceObject(title: address , subtitle: "", coordinate: destination)
                 delegate?.setTaskLocation(place: place)
             }
         }
@@ -168,6 +178,8 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
 
                     if pm.count > 0 {
                         if let placemark = placemarks?[0] {
+                            
+                            self.address = ""
                             
                             if placemark.name != nil {
                                 self.address += placemark.name! + " "

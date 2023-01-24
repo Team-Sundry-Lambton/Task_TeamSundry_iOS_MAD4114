@@ -38,6 +38,13 @@
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="RemoveIcon" translatesAutoresizingMaskIntoConstraints="NO" id="Hef-Mw-AAx">
+                        <rect key="frame" x="118" y="2" width="30" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="3it-s7-uL9"/>
+                            <constraint firstAttribute="height" constant="30" id="6jC-oN-1YS"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
@@ -46,19 +53,23 @@
                 <constraint firstItem="DV6-Fp-l6o" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="9oG-Zn-TTP"/>
                 <constraint firstAttribute="bottom" secondItem="ggw-8f-64y" secondAttribute="bottom" constant="2" id="CCP-Fx-oBp"/>
                 <constraint firstItem="ggw-8f-64y" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="2" id="GFc-SP-cva"/>
+                <constraint firstItem="Hef-Mw-AAx" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="2" id="VRq-JB-6Rq"/>
                 <constraint firstAttribute="trailing" secondItem="ggw-8f-64y" secondAttribute="trailing" constant="2" id="bfc-S9-h7F"/>
                 <constraint firstAttribute="bottom" secondItem="DV6-Fp-l6o" secondAttribute="bottom" id="kIR-G9-47J"/>
                 <constraint firstItem="DV6-Fp-l6o" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="nJ4-sr-Aq1"/>
+                <constraint firstAttribute="trailing" secondItem="Hef-Mw-AAx" secondAttribute="trailing" constant="2" id="sI3-5b-acF"/>
             </constraints>
             <size key="customSize" width="102" height="95"/>
             <connections>
                 <outlet property="mediaImage" destination="DV6-Fp-l6o" id="mEL-gS-Fs4"/>
                 <outlet property="mediaName" destination="ggw-8f-64y" id="PfJ-BS-Th8"/>
+                <outlet property="removeIcon" destination="Hef-Mw-AAx" id="I6p-H1-a6L"/>
             </connections>
             <point key="canvasLocation" x="59.541984732824424" y="35.211267605633807"/>
         </collectionViewCell>
     </objects>
     <resources>
         <image name="AddMedia" width="151" height="181"/>
+        <image name="RemoveIcon" width="85.333335876464844" height="85.333335876464844"/>
     </resources>
 </document>
