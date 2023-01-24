@@ -57,6 +57,7 @@ class TaskListViewController: UIViewController {
         }
         
         tableView.reloadData()
+        showNoTaskView()
         
     }
     
@@ -68,6 +69,18 @@ class TaskListViewController: UIViewController {
         navigationItem.searchController = searchController
         definesPresentationContext = true
         searchController.searchBar.searchTextField.textColor = .lightGray
+    }
+    
+    //MARK: - show empty table view
+    func showNoTaskView(){
+        if tasks.count == 0 {
+            tableView.backgroundView = noTaskView
+            taskToolbar.isHidden = true
+        }else{
+            tableView.backgroundView = nil
+            taskToolbar.isHidden = false
+            taskTotalCount.title = "\(tasks.count) Tasks"
+        }
     }
     
 }
