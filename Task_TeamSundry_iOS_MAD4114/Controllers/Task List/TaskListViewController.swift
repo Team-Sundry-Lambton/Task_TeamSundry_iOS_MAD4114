@@ -25,11 +25,19 @@ class TaskListViewController: UIViewController {
     var tasks = [Task]()
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    // define a search controller
+    let searchController = UISearchController(searchResultsController: nil)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        getStartedBtn.layer.cornerRadius = 10
+        moveBtn.isHidden = true
+        deleteBtn.isHidden = true
+        
         loadTasks()
+        showSearchBar()
     }
     
     //MARK: - Core data interaction functions
@@ -50,6 +58,16 @@ class TaskListViewController: UIViewController {
         
         tableView.reloadData()
         
+    }
+    
+    //MARK: - show search bar func
+    func showSearchBar() {
+        searchController.searchBar.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Task"
+        navigationItem.searchController = searchController
+        definesPresentationContext = true
+        searchController.searchBar.searchTextField.textColor = .lightGray
     }
     
 }
@@ -80,6 +98,33 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         return true
     }
     
+}
+
+
+//MARK: - search bar delegate methods
+extension TaskListViewController: UISearchBarDelegate {
     
+    /// search button on keypad functionality
+    /// - Parameter searchBar: search bar is passed to this function
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        // add predicate
+        let predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchBar.text!)
+        loadTasks(predicate: predicate)
+    }
+    
+    
+    /// when the text in text bar is changed
+    /// - Parameters:
+    ///   - searchBar: search bar is passed to this function
+    ///   - searchText: the text that is written in the search bar
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadTasks()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
+    }
 }
 
