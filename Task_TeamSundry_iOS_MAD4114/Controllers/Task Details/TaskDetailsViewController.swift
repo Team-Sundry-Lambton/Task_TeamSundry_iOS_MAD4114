@@ -14,6 +14,7 @@ class TaskDetailsViewController: UIViewController {
     @IBOutlet weak var taskDueDate: UILabel!
     @IBOutlet weak var taskDescription: UILabel!
     
+    @IBOutlet weak var audioFileCollectionView: UICollectionView!
     @IBOutlet weak var mediaFileCollectionView: UICollectionView!
     @IBOutlet weak var mediaStackView: UIStackView!
    
@@ -29,8 +30,6 @@ class TaskDetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
-        
     }
 
 }

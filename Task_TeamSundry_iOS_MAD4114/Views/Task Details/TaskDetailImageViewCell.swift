@@ -12,13 +12,18 @@ class TaskDetailImageViewCell : UICollectionViewCell{
     
     
     @IBOutlet weak var image: UIImageView!
+
+//    var model : MediaFile? {
+//        didSet{
+//
+//            self.image.image =  FolderManager.shared.getImageFromDocumentDirectory(fileName: model?.name ?? "")
+//
+//        }
+//    }
     
-    
-    var model : MediaFile? {
-        didSet{
-    
-            self.image.image =  FolderManager.shared.getImageFromDocumentDirectory(fileName: model?.name ?? "")
-            
+    func configureCell(model:MediaFile?){
+        if model != nil {
+            self.image.image = FolderManager.shared.getImageFromDocumentDirectory(fileName: model?.name ?? "")
         }
     }
     
