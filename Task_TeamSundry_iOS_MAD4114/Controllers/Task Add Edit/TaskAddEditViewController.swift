@@ -40,7 +40,7 @@ class TaskAddEditViewController: UIViewController {
         }
     }
     var selectedDueDate: Date?
-    var category: Category?
+    var selectedCategory: Category?
     var addSubTaskCell = 1
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -137,19 +137,19 @@ class TaskAddEditViewController: UIViewController {
         if checkInput() {
             let taskObj = Task(context: context)
             taskObj.createDate = Date()
-            taskObj.parent_Category = category
+            taskObj.parent_Category = selectedCategory
             taskObj.title = titleTextField.text
             taskObj.descriptionTask = descriptionTextField.text ?? ""
             taskObj.dueDate = selectedDueDate
-//            taskObj.location = selectedLocation
+            selectedLocation?.task = taskObj
             taskObj.status = false
-//            if !mediaStackView.isHidden {
-//                task?.medias = NSSet(array: mediaList)
-//            }
-//
-//            if !subTaskStackView.isHidden {
-//                task?.subtasks = NSSet(array: subTasks)
-//            }
+            for  media in self.mediaList {
+                media.parent_Task = taskObj
+            }
+            
+            for  subTask in self.subTasks {
+                subTask.task = taskObj
+            }
             saveAllContextCoreData()
         }
     }
