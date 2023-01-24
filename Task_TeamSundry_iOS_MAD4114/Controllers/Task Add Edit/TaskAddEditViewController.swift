@@ -31,15 +31,14 @@ class TaskAddEditViewController: UIViewController {
     }()
     
     var mediaList = [MediaFile]()
-    var selectedFile: MediaFile? {
+
+    var selectedLocation: Location?
+    var subTasks = [SubTask]()
+    var task: Task? {
         didSet {
             loadMediaList()
         }
     }
-    
-    var selectedLocation: Location?
-    var subTasks = [SubTask]()
-    var task: Task?
     var selectedDueDate: Date?
     var category: Category?
     var addSubTaskCell = 1
@@ -53,7 +52,6 @@ class TaskAddEditViewController: UIViewController {
         
         view.addSubview(datePicker)
         
-        loadMediaList()
         configureDatePicker()
         configureView()
     }
@@ -113,9 +111,9 @@ class TaskAddEditViewController: UIViewController {
     
     
     //MARK: - View Controller Logic
-    private func popupAlert(message: String) {
+    private func popupAlert(title: String, message: String) {
         let alertController: UIAlertController = {
-            let controller = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+            let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .default)
             controller.addAction(okAction)
             return controller
@@ -125,10 +123,10 @@ class TaskAddEditViewController: UIViewController {
     
     private func checkInput() -> Bool {
         if titleTextField.text == "" {
-            popupAlert(message: "Please fill title of task")
+            popupAlert(title : "Error",message: "Please fill title of task")
             return false
         } else if descriptionTextField.text == "" {
-            popupAlert(message: "Please fill description of task")
+            popupAlert(title : "Error",message: "Please fill description of task")
             return false
         } else {
             return true
@@ -143,7 +141,7 @@ class TaskAddEditViewController: UIViewController {
             taskObj.title = titleTextField.text
             taskObj.descriptionTask = descriptionTextField.text ?? ""
             taskObj.dueDate = selectedDueDate
-            taskObj.location = selectedLocation
+//            taskObj.location = selectedLocation
             taskObj.status = false
 //            if !mediaStackView.isHidden {
 //                task?.medias = NSSet(array: mediaList)
@@ -159,7 +157,8 @@ class TaskAddEditViewController: UIViewController {
     private func openMapView() {
         let mapViewController:MapViewController = UIStoryboard(name: "MapView", bundle: nil).instantiateViewController(withIdentifier: "MapViewController") as? MapViewController ?? MapViewController()
         mapViewController.delegate = self
-        present(mapViewController, animated: true)
+        mapViewController.selectLocation = true
+        navigationController?.pushViewController(mapViewController, animated: true)
     }
     
     //MARK: - Media Logic
@@ -175,7 +174,7 @@ class TaskAddEditViewController: UIViewController {
                 mediaFile.isImage = object.isImage
                 mediaFile.path = object.filePath
                 strongSelf.mediaList.append(mediaFile)
-                strongSelf.saveAllContextCoreData()
+//                strongSelf.saveAllContextCoreData()
                 strongSelf.mediaFileCollectionView.reloadData()
             }
         }
@@ -209,8 +208,10 @@ class TaskAddEditViewController: UIViewController {
     // load folder from core data
     private func loadMediaList() {
         let request: NSFetchRequest<MediaFile> = MediaFile.fetchRequest()
-        //        let folderPredicate = NSPredicate(format: "parent_Task.name=%@", FileId)
-        //        request.predicate = folderPredicate
+        if let title = task?.title {
+            let folderPredicate = NSPredicate(format: "parent_Task.name=%@", title)
+            request.predicate = folderPredicate
+        }
         do {
             mediaList = try context.fetch(request)
         } catch {
@@ -222,6 +223,7 @@ class TaskAddEditViewController: UIViewController {
     private func saveAllContextCoreData() {
         do {
             try context.save()
+            popupAlert(title : "Success",message: "Successfully Saved..")
         } catch {
             print("Error saving the folder \(error.localizedDescription)")
         }
@@ -328,9 +330,13 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
 
 //MARK: - MapViewDelegate
 extension TaskAddEditViewController: MapViewDelegate {
-    func setTaskLocation(latitude : Double , logtitude : Double){
-        selectedLocation?.latitude = latitude
-        selectedLocation?.longitude = logtitude
+    func setTaskLocation(place : PlaceObject){
+        selectedLocation = Location(context: context)
+        selectedLocation?.latitude = place.coordinate.latitude
+        selectedLocation?.longitude = place.coordinate.longitude
+        selectedLocation?.address = place.title
+        buttonTableView.cellForRow(at: IndexPath(row: 1, section: 0))?.detailTextLabel?.text = place.title
+        
     }
 }
 

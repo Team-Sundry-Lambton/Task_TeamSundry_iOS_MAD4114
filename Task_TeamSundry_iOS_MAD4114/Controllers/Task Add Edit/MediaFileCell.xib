@@ -18,6 +18,16 @@
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddMedia" translatesAutoresizingMaskIntoConstraints="NO" id="DV6-Fp-l6o">
                         <rect key="frame" x="0.0" y="0.0" width="150" height="180"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="150" id="FP3-HD-fMI"/>
+                            <constraint firstAttribute="height" constant="180" id="uO2-Kf-tg2"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.bound" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="10"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ggw-8f-64y">
                         <rect key="frame" x="2" y="138" width="146" height="40"/>
