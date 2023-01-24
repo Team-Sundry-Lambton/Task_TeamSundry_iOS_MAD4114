@@ -141,6 +141,20 @@ class TaskListViewController: UIViewController {
         openTaskAddEditView()
     }
     
+    //MARK: - delete task
+    func deleteTask(task: Task) {
+        context.delete(task)
+    }
+    
+    //MARK: - save task
+    func saveTasks() {
+        do {
+            try context.save()
+        } catch {
+            print("Error saving the tasks \(error.localizedDescription)")
+        }
+    }
+    
 }
 
 extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -168,6 +182,37 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         // Return false if you do not want the specified item to be editable.
         return true
     }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+       let DeleteItem = UIContextualAction(style: .destructive, title: "Delete") {  (contextualAction, view, boolValue) in
+           
+           let alert = UIAlertController(title: "Delete this task ", message: "Are you sure?", preferredStyle: .alert)
+           let yesAction = UIAlertAction(title: "Yes", style: .default) { (action) in
+               self.deleteTask(task: self.tasks[indexPath.row])
+               self.saveTasks()
+               self.tasks.remove(at: indexPath.row)
+               tableView.deleteRows(at: [indexPath], with: .fade)
+               self.loadTasks()
+           }
+           
+           let noAction = UIAlertAction(title: "No", style: .cancel, handler: nil)
+           alert.addAction(yesAction)
+           alert.addAction(noAction)
+           self.present(alert, animated: true, completion: nil)
+           
+           
+       }
+        
+        let EditItem = UIContextualAction(style: .normal , title: "Edit") {  (contextualAction, view, boolValue) in
+            //Code I want to do here
+        }
+       EditItem.backgroundColor = UIColor.systemBlue
+        
+       let swipeActions = UISwipeActionsConfiguration(actions: [DeleteItem,EditItem])
+
+       return swipeActions
+   }
+    
     
 }
 
