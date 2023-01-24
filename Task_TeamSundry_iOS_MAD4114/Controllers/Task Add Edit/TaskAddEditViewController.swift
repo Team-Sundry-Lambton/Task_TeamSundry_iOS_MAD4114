@@ -8,6 +8,7 @@ import CoreData
 
 class TaskAddEditViewController: UIViewController {
     
+    //MARK: - IBOutlet
     @IBOutlet weak var subTaskTableHeight: NSLayoutConstraint!
     @IBOutlet weak var buttonTableView: UITableView!
     @IBOutlet weak var subTaskTableView: UITableView!
@@ -20,13 +21,14 @@ class TaskAddEditViewController: UIViewController {
     @IBOutlet weak var mediaStackView: UIStackView!
     @IBOutlet weak var subTaskStackView: UIStackView!
     
+    @IBOutlet weak var createDateLabel: UILabel!
+    
+    //MARK: - Variables
     let datePicker: DatePicker = {
         let v = DatePicker()
         v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
-    
-    var subTask:[String] = ["Sample1"]
     
     var mediaList = [MediaFile]()
     var selectedFile: MediaFile? {
@@ -35,21 +37,40 @@ class TaskAddEditViewController: UIViewController {
         }
     }
     
+    var selectedLocation: Location?
+    var subTasks = [SubTask]()
+    var task: Task?
+    var selectedDueDate: Date?
+    var category: Category?
+    var addSubTaskCell = 1
+    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
+    //MARK: - View life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         registerNib()
         
         view.addSubview(datePicker)
         
-        let medies = MediaFile(context: self.context)
-        medies.name = "1"
-        selectedFile = medies
-        self.saveMediaFile()
-        
         loadMediaList()
         configureDatePicker()
+        configureView()
+    }
+    
+    private func registerNib() {
+        let nib = UINib(nibName: MediaFileCell.nibName, bundle: nil)
+        mediaFileCollectionView?.register(nib, forCellWithReuseIdentifier: MediaFileCell.reuseIdentifier)
+        if let flowLayout = self.mediaFileCollectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.estimatedItemSize = CGSize(width: 1, height: 1)
+        }
+    }
+    
+    //MARK: - Configure View
+    private func configureView() {
+        createDateLabel.text = DatePicker.getStringCurrentDate()
+        mediaStackView.isHidden = true
+        subTaskStackView.isHidden = true
     }
     
     private func configureDatePicker() {
@@ -66,20 +87,20 @@ class TaskAddEditViewController: UIViewController {
         datePicker.isHidden = true
         
         // add closures to custom picker view
-        datePicker.dismissClosure = { [weak self] in
-            guard let self = self else {
+        datePicker.dismissClosure = { [weak self] pickedDate in
+            guard let strongSelf = self else {
                 return
             }
-            self.datePicker.isHidden = true
+            strongSelf.datePicker.isHidden = true
+            strongSelf.buttonTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = DatePicker.getStringFromDate(date: pickedDate)
+            strongSelf.selectedDueDate = pickedDate
         }
-        
-        datePicker.changeClosure = { [weak self] val in
-            guard let self = self else {
-                return
-            }
-            print(val)
-            // do something with the selected date
-        }
+    }
+    
+    //MARK: - IBAction
+    
+    @IBAction func saveAction(_ sender: Any) {
+        saveTask()
     }
     
     @IBAction func mediaSwitchAction(_ sender: UISwitch) {
@@ -90,36 +111,83 @@ class TaskAddEditViewController: UIViewController {
         subTaskStackView.isHidden = !sender.isOn
     }
     
-    func registerNib() {
-        let nib = UINib(nibName: MediaFileCell.nibName, bundle: nil)
-        mediaFileCollectionView?.register(nib, forCellWithReuseIdentifier: MediaFileCell.reuseIdentifier)
-        if let flowLayout = self.mediaFileCollectionView?.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.estimatedItemSize = CGSize(width: 1, height: 1)
+    
+    //MARK: - View Controller Logic
+    private func popupAlert(message: String) {
+        let alertController: UIAlertController = {
+            let controller = UIAlertController(title: "Error", message: message, preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .default)
+            controller.addAction(okAction)
+            return controller
+        }()
+        present(alertController, animated: true)
+    }
+    
+    private func checkInput() -> Bool {
+        if titleTextField.text == "" {
+            popupAlert(message: "Please fill title of task")
+            return false
+        } else if descriptionTextField.text == "" {
+            popupAlert(message: "Please fill description of task")
+            return false
+        } else {
+            return true
         }
     }
     
+    private func saveTask() {
+        if checkInput() {
+            let taskObj = Task(context: context)
+            taskObj.createDate = Date()
+            taskObj.parent_Category = category
+            taskObj.title = titleTextField.text
+            taskObj.descriptionTask = descriptionTextField.text ?? ""
+            taskObj.dueDate = selectedDueDate
+            taskObj.location = selectedLocation
+            taskObj.status = false
+//            if !mediaStackView.isHidden {
+//                task?.medias = NSSet(array: mediaList)
+//            }
+//
+//            if !subTaskStackView.isHidden {
+//                task?.subtasks = NSSet(array: subTasks)
+//            }
+            saveAllContextCoreData()
+        }
+    }
     
-    func addMediaFile() {
-        MediaManager.shared.pickMediaFile(self){ mediaObject in
+    private func openMapView() {
+        let mapViewController:MapViewController = UIStoryboard(name: "MapView", bundle: nil).instantiateViewController(withIdentifier: "MapViewController") as? MapViewController ?? MapViewController()
+        mapViewController.delegate = self
+        present(mapViewController, animated: true)
+    }
+    
+    //MARK: - Media Logic
+    private func addMediaFile() {
+        MediaManager.shared.pickMediaFile(self) { [weak self] mediaObject in
+            guard let strongSelf = self else {
+                return
+            }
+            
             if let object = mediaObject {
-                
-                let mediaFile = MediaFile(context: self.context)
+                let mediaFile = MediaFile(context: strongSelf.context)
                 mediaFile.name = object.fileName
                 mediaFile.isImage = object.isImage
                 mediaFile.path = object.filePath
-                self.mediaList.append(mediaFile)
-                self.saveMediaFile()
-                
+                strongSelf.mediaList.append(mediaFile)
+                strongSelf.saveAllContextCoreData()
+                strongSelf.mediaFileCollectionView.reloadData()
             }
         }
     }
     
-    func deleteMediaFileConfirmation(mediaFile: MediaFile) {
+    private func deleteMediaFileConfirmation(mediaFile: MediaFile, indexPath: IndexPath) {
         let alertController: UIAlertController = {
             let controller = UIAlertController(title: "Warning", message: "Are you sure you want to delete this file", preferredStyle: .alert)
             let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
             let deleteAction = UIAlertAction(title: "Delete", style: .default){
                 UIAlertAction in
+                self.mediaList.remove(at: indexPath.row - 1)
                 self.deleteMediaFile(mediaFile: mediaFile)
             }
             controller.addAction(deleteAction)
@@ -129,10 +197,17 @@ class TaskAddEditViewController: UIViewController {
         self.present(alertController, animated: true)
     }
     
-    //MARK: - core data interaction methods
+    private func deleteMediaFile(mediaFile: MediaFile) {
+        FolderManager.shared.clearSelectedFile(filePath: mediaFile.path ?? "")
+        context.delete(mediaFile)
+        saveAllContextCoreData()
+        mediaFileCollectionView.reloadData()
+    }
     
-    /// load folder from core data
-    func loadMediaList() {
+    //MARK: - Core data interaction methods
+    
+    // load folder from core data
+    private func loadMediaList() {
         let request: NSFetchRequest<MediaFile> = MediaFile.fetchRequest()
         //        let folderPredicate = NSPredicate(format: "parent_Task.name=%@", FileId)
         //        request.predicate = folderPredicate
@@ -144,35 +219,16 @@ class TaskAddEditViewController: UIViewController {
         mediaFileCollectionView.reloadData()
     }
     
-    func saveMediaFile() {
+    private func saveAllContextCoreData() {
         do {
             try context.save()
-            mediaFileCollectionView.reloadData()
         } catch {
             print("Error saving the folder \(error.localizedDescription)")
         }
     }
-    func deleteMediaFile(mediaFile: MediaFile) {
-        FolderManager.shared.clearSelectedFile(filePath: mediaFile.path ?? "")
-        context.delete(mediaFile)
-        saveMediaFile()
-    }
-    
-    func setTaskLocation(latitude : Double , Logtitude : Double){
-        
-    }
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }
 
+//MARK: - UICollectionViewDataSource & UICollectionViewDelegate
 extension TaskAddEditViewController
 : UICollectionViewDataSource,UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -197,19 +253,19 @@ extension TaskAddEditViewController
             addMediaFile()
         }else{
             let file = mediaList[indexPath.row - 1]
-            mediaList.remove(at: indexPath.row - 1)
-            deleteMediaFileConfirmation(mediaFile: file)
+            deleteMediaFileConfirmation(mediaFile: file, indexPath: indexPath)
         }
     }
 }
 
+//MARK: - UITableViewDelegate, UITableViewDataSource
 extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == buttonTableView {
             return 4
         } else {
-            subTaskTableHeight.constant = CGFloat((subTask.count + 1) * 50)
-            return subTask.count + 1// count
+            subTaskTableHeight.constant = CGFloat(((subTasks.count) + addSubTaskCell) * 50)
+            return (subTasks.count) + addSubTaskCell// count
         }
     }
     
@@ -231,10 +287,14 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
                 break
             }
         } else {
-            if indexPath.row == (subTask.count + 1) - 1 {
+            if indexPath.row == (subTasks.count) {
                 id = "addSubTaskCell"
             } else {
                 id = "subTaskCell"
+                let cell = tableView.dequeueReusableCell(withIdentifier: id) as? SubTaskTableViewCell
+                cell?.delegate = self
+                cell?.indexPath = indexPath
+                return cell ?? UITableViewCell()
             }
         }
         
@@ -250,14 +310,32 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
                 datePicker.isHidden = false
             } else if indexPath.row == 1 { //location
                 print("location click")
+                openMapView()
             }
         } else {
-            if indexPath.row == (subTask.count + 1) - 1 { //Add subtask
+            if indexPath.row == (subTasks.count) { //Add subtask
                 print("Add subtask")
+                let subtask = SubTask(context: self.context)
+                subTasks.append(subtask)
+                let indexPath:IndexPath = IndexPath(row:((self.subTasks.count) - addSubTaskCell), section: 0)
+                tableView.beginUpdates()
+                tableView.insertRows(at: [indexPath], with: .automatic)
+                tableView.endUpdates()
             }
         }
-        
     }
 }
 
+//MARK: - MapViewDelegate
+extension TaskAddEditViewController: MapViewDelegate {
+    func setTaskLocation(latitude : Double , logtitude : Double){
+        selectedLocation?.latitude = latitude
+        selectedLocation?.longitude = logtitude
+    }
+}
 
+extension TaskAddEditViewController: SubTaskTableViewCellDelegate {
+    func subTaskDescriptionShouldChangeCharactersIn(subTaskDescription: String, indexPath: IndexPath) {
+        subTasks[indexPath.row].descriptionSubTask = subTaskDescription
+    }
+}

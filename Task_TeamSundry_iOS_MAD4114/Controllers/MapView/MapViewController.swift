@@ -8,7 +8,11 @@
 import UIKit
 import MapKit
 
-protocol HandleMapSearch: class {
+protocol MapViewDelegate {
+    func setTaskLocation(latitude : Double , logtitude : Double)
+}
+
+protocol HandleMapSearch: AnyObject {
     func setSearchLocation(coordinate : CLLocationCoordinate2D,
                               title: String)
 }
@@ -28,7 +32,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
     var places : [PlaceObject] = []
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    weak var delegate: TaskAddEditViewController?
+    var delegate: MapViewDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +49,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
             searchBar?.placeholder = "Search for places"
             navigationItem.titleView = resultSearchController?.searchBar
             resultSearchController?.hidesNavigationBarDuringPresentation = false
-            resultSearchController?.dimsBackgroundDuringPresentation = true
+            resultSearchController?.obscuresBackgroundDuringPresentation = true
             definesPresentationContext = true
             locationSearchTable.mapView = mapView
             locationSearchTable.handleLocationSearchDelegate = self
@@ -126,7 +130,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
     override func viewWillDisappear(_ animated: Bool) {
         if selectLocation {
             if let destination = destination{
-                delegate?.setTaskLocation(latitude: destination.latitude, Logtitude: destination.longitude)
+                delegate?.setTaskLocation(latitude: destination.latitude, logtitude: destination.longitude)
             }
         }
     }
@@ -150,9 +154,9 @@ extension MapViewController: MKMapViewDelegate {
             return nil
         }
         if citySelection {
-            let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "droppablePin")
-            annotationView.animatesDrop = true
-            annotationView.pinTintColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
+            let annotationView = MKMarkerAnnotationView(annotation: annotation, reuseIdentifier: "droppablePin")
+            annotationView.animatesWhenAdded = true
+            annotationView.markerTintColor = #colorLiteral(red: 0.3647058904, green: 0.06666667014, blue: 0.9686274529, alpha: 1)
             annotationView.image = UIImage(named: "ic_place_2x")
             annotationView.canShowCallout = true
             annotationView.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)

@@ -10,10 +10,11 @@ import UIKit
 class DatePicker: UIView {
     
     var changeClosure: ((Date)->())?
-    var dismissClosure: (()->())?
+    var dismissClosure: ((Date)->())?
     
     let dPicker: UIDatePicker = {
         let v = UIDatePicker()
+        v.locale = Locale(identifier: "en_US_POSIX")
         v.tintColor = .darkPurple
         return v
     }()
@@ -78,11 +79,28 @@ class DatePicker: UIView {
     }
     
     @objc func tapHandler(_ g: UITapGestureRecognizer) -> Void {
-        dismissClosure?()
+        dismissClosure?(dPicker.date)
     }
     
     @objc func didChangeDate(_ sender: UIDatePicker) -> Void {
         changeClosure?(sender.date)
     }
     
+    static func getStringCurrentDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "E, d MMM yyyy 'at' h:mm a"
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        return dateFormatter.string(from: Date())
+    }
+    
+    static func getStringFromDate(date: Date) -> String {
+        if Calendar.current.isDate(date, equalTo: Date(), toGranularity: .day) {
+            return "Today"
+        } else {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "E, d MMM yyyy 'at' h:mm a"
+            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+            return dateFormatter.string(from: date)
+        }
+    }
 }
