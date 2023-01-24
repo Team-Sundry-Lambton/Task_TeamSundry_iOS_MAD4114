@@ -125,6 +125,22 @@ class TaskListViewController: UIViewController {
         
     }
     
+    private func openTaskAddEditView() {
+        let taskAddEditViewController:TaskAddEditViewController = UIStoryboard(name: "TaskAddEdit", bundle: nil).instantiateViewController(withIdentifier: "TaskAddEditView") as? TaskAddEditViewController ?? TaskAddEditViewController()
+        taskAddEditViewController.delegate = self
+        navigationController?.pushViewController(taskAddEditViewController, animated: true)
+    }
+    
+    
+    @IBAction func addTaskBtnAction(_ sender: UIBarButtonItem) {
+        openTaskAddEditView()
+    }
+    
+    
+    @IBAction func getStartedBtnAction() {
+        openTaskAddEditView()
+    }
+    
 }
 
 extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
