@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImageTableViewCell" id="Pbm-ao-BJF" customClass="ImageTableViewCell" customModule="Task_TeamSundry_iOS_MAD4114" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="390" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Pbm-ao-BJF" id="RhM-Dc-U3I">
+                <rect key="frame" x="0.0" y="0.0" width="390" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="aRQ-dt-KtT">
+                        <rect key="frame" x="0.0" y="0.0" width="390" height="100"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="xjv-Ad-5GI">
+                            <size key="itemSize" width="128" height="128"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="aRQ-dt-KtT" firstAttribute="leading" secondItem="RhM-Dc-U3I" secondAttribute="leading" id="GBE-Pv-8pQ"/>
+                    <constraint firstAttribute="trailing" secondItem="aRQ-dt-KtT" secondAttribute="trailing" id="NeL-Yq-J03"/>
+                    <constraint firstAttribute="bottom" secondItem="aRQ-dt-KtT" secondAttribute="bottom" id="Q9S-G9-k1U"/>
+                    <constraint firstItem="aRQ-dt-KtT" firstAttribute="top" secondItem="RhM-Dc-U3I" secondAttribute="top" id="Vqc-cu-qwY"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="collectionView" destination="aRQ-dt-KtT" id="OBf-RQ-3et"/>
+            </connections>
+            <point key="canvasLocation" x="116.92307692307692" y="20.616113744075829"/>
+        </tableViewCell>
+    </objects>
+</document>
