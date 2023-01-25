@@ -16,19 +16,14 @@ class SubTaskCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var label: UILabel!
     
     func configure(subTask:SubTask){
-        if(subTask.status){
-            self.checkBtn.imageView?.image = UIImage(systemName: "checkmark.circle.fill")
-        }
-        else{
-            self.checkBtn.imageView?.image = UIImage(systemName: "checkmark.circle")
-        }
+        conf(status: subTask.status)
     }
     func conf(status:Bool){
         if(status){
-            self.checkBtn.imageView?.image = UIImage(systemName: "checkmark.circle.fill")
+            self.checkBtn.imageView?.image = UIImage(named: "check")
         }
         else{
-            self.checkBtn.imageView?.image = UIImage(systemName: "checkmark.circle")
+            self.checkBtn.imageView?.image = UIImage(named: "uncheck")
         }
     }
     
