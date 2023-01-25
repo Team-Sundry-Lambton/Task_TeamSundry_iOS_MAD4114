@@ -18,10 +18,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xY1-Ta-jSy">
-                        <rect key="frame" x="0.0" y="7" width="50" height="35"/>
+                        <rect key="frame" x="4" y="9" width="42" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <state key="normal" title="Button"/>
-                        <buttonConfiguration key="configuration" style="plain" image="checkmark.circle" catalog="system"/>
+                        <buttonConfiguration key="configuration" style="plain" image="check"/>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dr7-xn-FyL">
                         <rect key="frame" x="43" y="14" width="147" height="22"/>
@@ -46,7 +46,7 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="checkmark.circle" catalog="system" width="128" height="123"/>
+        <image name="check" width="18" height="18"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
