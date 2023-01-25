@@ -60,13 +60,15 @@ extension MoveTaskViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let alert = UIAlertController(title: "Move to \(categories[indexPath.row].name!)", message: "Are you sure?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Move to \(categories[indexPath.row].name ?? "")", message: "Are you sure?", preferredStyle: .alert)
         let yesAction = UIAlertAction(title: "Move", style: .default) { (action) in
-            for task in self.selectedTasks! {
-                task.parent_Category = self.categories[indexPath.row]
+            if let selectedTasks = self.selectedTasks {
+                for task in selectedTasks {
+                    task.parent_Category = self.categories[indexPath.row]
+                }
+                // dismiss the vc
+                self.dismiss(animated: true, completion: nil)
             }
-            // dismiss the vc
-            self.performSegue(withIdentifier: "dismissMoveTaskViewController", sender: self)
         }
         
         let noAction = UIAlertAction(title: "No", style: .cancel, handler: nil)

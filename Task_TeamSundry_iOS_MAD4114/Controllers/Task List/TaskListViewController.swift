@@ -263,7 +263,7 @@ extension TaskListViewController: UISearchBarDelegate {
     /// - Parameter searchBar: search bar is passed to this function
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // add predicate
-        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text!)
+        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text ?? "")
         loadTasks(predicate: predicate)
     }
     
