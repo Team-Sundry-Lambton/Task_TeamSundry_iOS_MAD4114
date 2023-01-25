@@ -15,10 +15,20 @@
 		2CA52790297DAAF300000780 /* MapView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CA5278F297DAAF300000780 /* MapView.storyboard */; };
 		2CA52792297DAD0000000780 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA52791297DAD0000000780 /* LocationSearchTableViewController.swift */; };
 		2CA52794297DB54100000780 /* PlaceObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA52793297DB54100000780 /* PlaceObject.swift */; };
+		418A94312981D848006B2BC3 /* SubTaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 418A94302981D848006B2BC3 /* SubTaskTableViewCell.xib */; };
+		418A94332981D856006B2BC3 /* SubTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A94322981D856006B2BC3 /* SubTaskTableViewCell.swift */; };
 		41995164297F4E4D008EF6B4 /* TaskDetailImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41995163297F4E4D008EF6B4 /* TaskDetailImageViewCell.swift */; };
 		41995168297F4EE9008EF6B4 /* TaskDetailImageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41995167297F4EE9008EF6B4 /* TaskDetailImageViewCell.xib */; };
 		4199516A297F6049008EF6B4 /* TaskDetailAudioViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41995169297F6049008EF6B4 /* TaskDetailAudioViewCell.xib */; };
 		4199516C297F606C008EF6B4 /* TaskDetailAudioViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4199516B297F606C008EF6B4 /* TaskDetailAudioViewCell.swift */; };
+		41A3BAAD2981CA31001941EA /* AudioTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41A3BAAC2981CA31001941EA /* AudioTableViewCell.xib */; };
+		41A3BAAF2981CA50001941EA /* AudioTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3BAAE2981CA50001941EA /* AudioTableViewCell.swift */; };
+		41A3BAB12981D478001941EA /* SubTaskCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41A3BAB02981D478001941EA /* SubTaskCollectionViewCell.xib */; };
+		41A3BAB32981D54E001941EA /* SubTaskCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41A3BAB22981D54E001941EA /* SubTaskCollectionViewCell.swift */; };
+		41C12C15297F6F7B0007FF2B /* ImageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41C12C14297F6F7B0007FF2B /* ImageTableViewCell.xib */; };
+		41C12C17297F6F880007FF2B /* ImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C12C16297F6F880007FF2B /* ImageTableViewCell.swift */; };
+		41C12C19297F766E0007FF2B /* DetailsViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 41C12C18297F766E0007FF2B /* DetailsViewCell.xib */; };
+		41C12C1B297F767A0007FF2B /* DetailsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41C12C1A297F767A0007FF2B /* DetailsViewCell.swift */; };
 		9945FB6529709BCB005463ED /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6429709BCB005463ED /* AppDelegate.swift */; };
 		9945FB6729709BCB005463ED /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6629709BCB005463ED /* SceneDelegate.swift */; };
 		9945FB6929709BCB005463ED /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9945FB6829709BCB005463ED /* TaskListViewController.swift */; };
@@ -46,10 +56,20 @@
 		2CA5278F297DAAF300000780 /* MapView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapView.storyboard; sourceTree = "<group>"; };
 		2CA52791297DAD0000000780 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
 		2CA52793297DB54100000780 /* PlaceObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceObject.swift; sourceTree = "<group>"; };
+		418A94302981D848006B2BC3 /* SubTaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubTaskTableViewCell.xib; sourceTree = "<group>"; };
+		418A94322981D856006B2BC3 /* SubTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTaskTableViewCell.swift; sourceTree = "<group>"; };
 		41995163297F4E4D008EF6B4 /* TaskDetailImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailImageViewCell.swift; sourceTree = "<group>"; };
 		41995167297F4EE9008EF6B4 /* TaskDetailImageViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskDetailImageViewCell.xib; sourceTree = "<group>"; };
 		41995169297F6049008EF6B4 /* TaskDetailAudioViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TaskDetailAudioViewCell.xib; sourceTree = "<group>"; };
 		4199516B297F606C008EF6B4 /* TaskDetailAudioViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailAudioViewCell.swift; sourceTree = "<group>"; };
+		41A3BAAC2981CA31001941EA /* AudioTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AudioTableViewCell.xib; sourceTree = "<group>"; };
+		41A3BAAE2981CA50001941EA /* AudioTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioTableViewCell.swift; sourceTree = "<group>"; };
+		41A3BAB02981D478001941EA /* SubTaskCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubTaskCollectionViewCell.xib; sourceTree = "<group>"; };
+		41A3BAB22981D54E001941EA /* SubTaskCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTaskCollectionViewCell.swift; sourceTree = "<group>"; };
+		41C12C14297F6F7B0007FF2B /* ImageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageTableViewCell.xib; sourceTree = "<group>"; };
+		41C12C16297F6F880007FF2B /* ImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageTableViewCell.swift; sourceTree = "<group>"; };
+		41C12C18297F766E0007FF2B /* DetailsViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailsViewCell.xib; sourceTree = "<group>"; };
+		41C12C1A297F767A0007FF2B /* DetailsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewCell.swift; sourceTree = "<group>"; };
 		9945FB6129709BCB005463ED /* Task_TeamSundry_iOS_MAD4114.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Task_TeamSundry_iOS_MAD4114.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9945FB6429709BCB005463ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9945FB6629709BCB005463ED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -225,6 +245,16 @@
 				41995167297F4EE9008EF6B4 /* TaskDetailImageViewCell.xib */,
 				41995169297F6049008EF6B4 /* TaskDetailAudioViewCell.xib */,
 				4199516B297F606C008EF6B4 /* TaskDetailAudioViewCell.swift */,
+				41C12C14297F6F7B0007FF2B /* ImageTableViewCell.xib */,
+				41C12C16297F6F880007FF2B /* ImageTableViewCell.swift */,
+				41C12C18297F766E0007FF2B /* DetailsViewCell.xib */,
+				41C12C1A297F767A0007FF2B /* DetailsViewCell.swift */,
+				41A3BAAC2981CA31001941EA /* AudioTableViewCell.xib */,
+				41A3BAAE2981CA50001941EA /* AudioTableViewCell.swift */,
+				41A3BAB02981D478001941EA /* SubTaskCollectionViewCell.xib */,
+				41A3BAB22981D54E001941EA /* SubTaskCollectionViewCell.swift */,
+				418A94302981D848006B2BC3 /* SubTaskTableViewCell.xib */,
+				418A94322981D856006B2BC3 /* SubTaskTableViewCell.swift */,
 			);
 			path = "Task Details";
 			sourceTree = "<group>";
@@ -316,12 +346,17 @@
 				9993B8A229762D9B00C96C61 /* CategoryList.storyboard in Resources */,
 				4199516A297F6049008EF6B4 /* TaskDetailAudioViewCell.xib in Resources */,
 				2CA52790297DAAF300000780 /* MapView.storyboard in Resources */,
+				41C12C19297F766E0007FF2B /* DetailsViewCell.xib in Resources */,
+				41C12C15297F6F7B0007FF2B /* ImageTableViewCell.xib in Resources */,
 				9945FB7129709BCC005463ED /* LaunchScreen.storyboard in Resources */,
 				9993B8A629762DC900C96C61 /* TaskAddEdit.storyboard in Resources */,
+				418A94312981D848006B2BC3 /* SubTaskTableViewCell.xib in Resources */,
 				41995168297F4EE9008EF6B4 /* TaskDetailImageViewCell.xib in Resources */,
 				9945FB6E29709BCC005463ED /* Assets.xcassets in Resources */,
 				9945FB6C29709BCB005463ED /* TaskList.storyboard in Resources */,
+				41A3BAAD2981CA31001941EA /* AudioTableViewCell.xib in Resources */,
 				2C1438F92978CF0000938694 /* MediaFileCell.xib in Resources */,
+				41A3BAB12981D478001941EA /* SubTaskCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,6 +368,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2CA52792297DAD0000000780 /* LocationSearchTableViewController.swift in Sources */,
+				41C12C1B297F767A0007FF2B /* DetailsViewCell.swift in Sources */,
 				4199516C297F606C008EF6B4 /* TaskDetailAudioViewCell.swift in Sources */,
 				9993B8AF29762E6400C96C61 /* TaskDetailsViewController.swift in Sources */,
 				9993B8AB29762E4900C96C61 /* CategoryListViewController.swift in Sources */,
@@ -342,13 +378,17 @@
 				9945FB6929709BCB005463ED /* TaskListViewController.swift in Sources */,
 				9949B63229713F1600BA0FFB /* DataModel.xcdatamodeld in Sources */,
 				9945FB6529709BCB005463ED /* AppDelegate.swift in Sources */,
+				41A3BAB32981D54E001941EA /* SubTaskCollectionViewCell.swift in Sources */,
 				99B8DC5D297E20D200A06BB2 /* UIColorExtension.swift in Sources */,
 				2CA5278E297DAADC00000780 /* MapViewController.swift in Sources */,
 				2C25D1822973960600E38BF6 /* FolderManager.swift in Sources */,
 				9945FB6729709BCB005463ED /* SceneDelegate.swift in Sources */,
+				41C12C17297F6F880007FF2B /* ImageTableViewCell.swift in Sources */,
 				9993B8AD29762E5700C96C61 /* TaskAddEditViewController.swift in Sources */,
 				2C25D180297394AD00E38BF6 /* MediaManager.swift in Sources */,
+				41A3BAAF2981CA50001941EA /* AudioTableViewCell.swift in Sources */,
 				99B8DC59297E1C3200A06BB2 /* DatePicker.swift in Sources */,
+				418A94332981D856006B2BC3 /* SubTaskTableViewCell.swift in Sources */,
 				41995164297F4E4D008EF6B4 /* TaskDetailImageViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
