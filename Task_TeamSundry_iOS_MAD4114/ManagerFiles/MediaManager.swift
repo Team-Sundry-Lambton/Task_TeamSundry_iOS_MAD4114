@@ -17,8 +17,6 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     var viewController: UIViewController?
     
     var pickMediaCallback : ((MediaReturnObject?) -> ())?;
-    var categoryID : String = ""
-    var fileID : String = ""
     var fileName : String = ""
     
     var audioRecorder:AVAudioRecorder?
@@ -95,7 +93,7 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         }
         
         fileName = generateFileName(audioFile: false)
-        let imagePath = FolderManager.shared.saveImageDocumentDirectory(categoryID: categoryID, fileID: fileID, fileName : fileName, image: image)
+        let imagePath = FolderManager.shared.saveImageDocumentDirectory(fileName : fileName, image: image)
         let object  = MediaReturnObject(fileName: fileName, image: image, filePath: imagePath.absoluteString, isImage: true)
         pickMediaCallback?(object)
     
@@ -104,7 +102,7 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         fileName = generateFileName(audioFile: false)
         let image = info[UIImagePickerController.InfoKey.originalImage] as! UIImage
-        let url = FolderManager.shared.saveImageDocumentDirectory(categoryID: categoryID, fileID: fileID, fileName : fileName, image: image)
+        let url = FolderManager.shared.saveImageDocumentDirectory(fileName : fileName, image: image)
         let object  = MediaReturnObject(fileName: fileName, image: image, filePath: url.absoluteString, isImage: true)
         pickMediaCallback?(object)
         picker.dismiss(animated: true, completion: nil)
@@ -121,7 +119,7 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
             startRecording()
         }
         let alertController: UIAlertController = {
-            let controller = UIAlertController(title: "Recorder", message: "Please record your voice and once you finish Please press the 'Done' button ", preferredStyle: .alert)
+            let controller = UIAlertController(title: "Recording...", message: "Please record your voice and once you finish Please press the 'Done' button ", preferredStyle: .alert)
            
             let voiceAction = UIAlertAction(title: "Done", style: .default){
                 UIAlertAction in
@@ -159,7 +157,7 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     
     func startRecording() {
         fileName = generateFileName(audioFile: true)
-        let audioFilename = FolderManager.shared.getRecordingFileURL(categoryID: categoryID, fileID: fileID, fileName: fileName)
+        let audioFilename = FolderManager.shared.getRecordingFileURL(fileName: fileName)
         
         let settings = [
             AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
@@ -181,7 +179,7 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
         audioRecorder?.stop()
         audioRecorder = nil
             
-        let filePath = FolderManager.shared.getRecordingFileURL(categoryID: categoryID, fileID: fileID, fileName: fileName).absoluteString
+        let filePath = FolderManager.shared.getRecordingFileURL(fileName: fileName).absoluteString
         let mediaObject  = MediaReturnObject(fileName: fileName, image: nil, filePath: filePath, isImage: false)
             
         if success {
@@ -246,7 +244,6 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     }
     
     func audioPlayerDecodeErrorDidOccur(_ player: AVAudioPlayer, error: Error?) {
-        print("Error while playing audio \(error?.localizedDescription ?? "")")
         print("Error while playing audio \(error?.localizedDescription ?? "")")
     }
             
