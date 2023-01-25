@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_0" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DetailsViewCell" id="rWC-FY-hYt" customClass="DetailsViewCell" customModule="Task_TeamSundry_iOS_MAD4114" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="390" height="250"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rWC-FY-hYt" id="hKC-aj-DID">
+                <rect key="frame" x="0.0" y="0.0" width="390" height="250"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hc-H2-SQ3">
+                        <rect key="frame" x="12" y="16" width="199" height="35"/>
+                        <color key="tintColor" name="DarkPurple"/>
+                        <state key="normal" title="Button"/>
+                        <buttonConfiguration key="configuration" style="tinted" image="AddLocationIcon" title="North York, Toronto" imagePadding="8"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJl-iU-pYN">
+                        <rect key="frame" x="12" y="63" width="74" height="21"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="task created date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tFr-N4-ICd">
+                        <rect key="frame" x="12" y="88" width="133" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xA0-tt-6RI">
+                        <rect key="frame" x="303" y="55" width="75" height="21"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="task due date" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ohA-Zu-Pjq">
+                        <rect key="frame" x="274" y="80" width="104" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" systemColor="secondaryLabelColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n12-aM-aFk">
+                        <rect key="frame" x="12" y="124.99999999999999" width="366" height="20.333333333333329"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="1hc-H2-SQ3" firstAttribute="top" secondItem="hKC-aj-DID" secondAttribute="top" constant="16" id="9o3-jD-TI0"/>
+                    <constraint firstItem="1hc-H2-SQ3" firstAttribute="leading" secondItem="hKC-aj-DID" secondAttribute="leading" constant="12" id="AXv-0T-cm2"/>
+                    <constraint firstItem="tFr-N4-ICd" firstAttribute="leading" secondItem="hKC-aj-DID" secondAttribute="leading" constant="12" id="Fs3-5V-bxy"/>
+                    <constraint firstAttribute="trailing" secondItem="ohA-Zu-Pjq" secondAttribute="trailing" constant="12" id="IvA-QX-DA5"/>
+                    <constraint firstItem="xA0-tt-6RI" firstAttribute="top" secondItem="hKC-aj-DID" secondAttribute="top" constant="55" id="Pdw-ut-v7n"/>
+                    <constraint firstItem="n12-aM-aFk" firstAttribute="top" secondItem="tFr-N4-ICd" secondAttribute="bottom" constant="16" id="XZA-Fc-kY1"/>
+                    <constraint firstItem="tFr-N4-ICd" firstAttribute="top" secondItem="XJl-iU-pYN" secondAttribute="bottom" constant="4" id="Yst-M8-ybB"/>
+                    <constraint firstAttribute="trailing" secondItem="xA0-tt-6RI" secondAttribute="trailing" constant="12" id="aoj-W6-ulo"/>
+                    <constraint firstItem="n12-aM-aFk" firstAttribute="leading" secondItem="hKC-aj-DID" secondAttribute="leading" constant="12" id="ctr-a4-5hz"/>
+                    <constraint firstItem="ohA-Zu-Pjq" firstAttribute="top" secondItem="xA0-tt-6RI" secondAttribute="bottom" constant="4" id="dTi-t7-AV2"/>
+                    <constraint firstItem="XJl-iU-pYN" firstAttribute="leading" secondItem="hKC-aj-DID" secondAttribute="leading" constant="12" id="eis-bU-csY"/>
+                    <constraint firstItem="XJl-iU-pYN" firstAttribute="top" secondItem="1hc-H2-SQ3" secondAttribute="bottom" constant="12" id="tE9-X4-fh4"/>
+                    <constraint firstAttribute="trailing" secondItem="n12-aM-aFk" secondAttribute="trailing" constant="12" id="xBf-W0-ikI"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="locationBtn" destination="1hc-H2-SQ3" id="jfK-mU-96b"/>
+                <outlet property="taskDescription" destination="n12-aM-aFk" id="MTe-rV-ILP"/>
+                <outlet property="taskDueDate" destination="ohA-Zu-Pjq" id="sYU-o0-YK2"/>
+                <outlet property="taskTitle" destination="XJl-iU-pYN" id="xYu-el-rxa"/>
+            </connections>
+            <point key="canvasLocation" x="101.53846153846153" y="20.616113744075829"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="AddLocationIcon" width="18" height="19"/>
+        <namedColor name="DarkPurple">
+            <color red="0.42399999499320984" green="0.47499999403953552" blue="0.94099998474121094" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
