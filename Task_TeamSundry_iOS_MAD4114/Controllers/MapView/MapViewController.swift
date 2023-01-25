@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 
 protocol MapViewDelegate {
-    func setTaskLocation(latitude : Double , logtitude : Double)
+    func setTaskLocation(place:PlaceObject)
 }
 
 protocol HandleMapSearch: AnyObject {
@@ -22,9 +22,10 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
     @IBOutlet weak var mapView: MKMapView!
     var locationMnager = CLLocationManager()
     var destination : CLLocationCoordinate2D?
+    var address : String = ""
         
     var citySelection = false
-    let selectLocation = false
+    var selectLocation = false
     var resultSearchController: UISearchController?
     
     var selectedTask: Task?
@@ -36,6 +37,14 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        mapView.showsUserLocation = true
+        locationMnager.delegate = self
+        locationMnager.desiredAccuracy = kCLLocationAccuracyBest
+        locationMnager.requestWhenInUseAuthorization()
+        locationMnager.startUpdatingLocation()
+
+        mapView.delegate = self
         
         if selectLocation{
             mapView.isZoomEnabled = false
@@ -56,7 +65,9 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
         }
 
         if let selectedTask = selectedTask {
-            places.append(PlaceObject.getLocationForTask(task: selectedTask, context: context))
+            if let place = PlaceObject.getLocationForTask(task: selectedTask, context: context) {
+                places.append(place )
+            }
         }
         
         if let selectedCategory = selectedCategory {
@@ -79,7 +90,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
         let touchPoint = sender.location(in: mapView)
         let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         
-        self.displayLocation(latitude: coordinate.latitude, longitude: coordinate.longitude, title: "Task Location")
+        getLocationAddressAndAddPin(latitude: coordinate.latitude, longitude: coordinate.longitude)
         destination = coordinate
     }
     
@@ -114,26 +125,97 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
         removePin()
 
         let userLocation = locations[0]
+        if selectLocation{
+            destination = userLocation.coordinate
+        }
         let latitude = userLocation.coordinate.latitude
         let longitude = userLocation.coordinate.longitude
-        
-        self.displayLocation(latitude: latitude, longitude: longitude, title: "User Location")
+        getLocationAddressAndAddPin(latitude: latitude, longitude: longitude)
+//        self.displayLocation(latitude: latitude, longitude: longitude, title: "User Location")
     }
     
     func setSearchLocation(coordinate : CLLocationCoordinate2D,
                            title: String){
         citySelection = true
-        self.displayLocation(latitude: coordinate.latitude, longitude: coordinate.longitude, title: title)
+        getLocationAddressAndAddPin(latitude: coordinate.latitude, longitude: coordinate.longitude)
+//        self.displayLocation(latitude: coordinate.latitude, longitude: coordinate.longitude, title: title)
         destination = coordinate
     }
-
+    
+    
+    @IBAction func useCurrentLocation() {
+        if let navController = self.navigationController {
+            navController.popViewController(animated: true)
+        }
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         if selectLocation {
             if let destination = destination{
-                delegate?.setTaskLocation(latitude: destination.latitude, logtitude: destination.longitude)
+                let place = PlaceObject(title: address , subtitle: "", coordinate: destination)
+                delegate?.setTaskLocation(place: place)
             }
         }
     }
+    
+    
+    func getLocationAddressAndAddPin(latitude: CLLocationDegrees, longitude : CLLocationDegrees) {
+
+            var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
+            let ceo: CLGeocoder = CLGeocoder()
+            center.latitude = latitude
+            center.longitude = longitude
+
+            let loc: CLLocation = CLLocation(latitude:center.latitude, longitude: center.longitude)
+
+            ceo.reverseGeocodeLocation(loc, completionHandler:
+                {(placemarks, error) in
+                    if (error != nil)
+                    {
+                        print("reverse geodcode fail: \(error!.localizedDescription)")
+                    }
+                    let pm = placemarks! as [CLPlacemark]
+
+                    if pm.count > 0 {
+                        if let placemark = placemarks?[0] {
+                            
+                            self.address = ""
+                            
+                            if placemark.name != nil {
+                                self.address += placemark.name! + " "
+                            }
+                            
+                            if placemark.subThoroughfare != nil {
+                                self.address += placemark.subThoroughfare! + " "
+                            }
+                            
+                            if placemark.thoroughfare != nil {
+                                self.address += placemark.thoroughfare! + "\n"
+                            }
+                            
+                            if placemark.subLocality != nil {
+                                self.address += placemark.subLocality! + "\n"
+                            }
+                            
+                            if placemark.subAdministrativeArea != nil {
+                                self.address += placemark.subAdministrativeArea! + "\n"
+//                                location = placemark.subAdministrativeArea!
+                            }
+                            
+                            if placemark.postalCode != nil {
+                                self.address += placemark.postalCode! + "\n"
+                            }
+                            
+                            if placemark.country != nil {
+                                self.address += placemark.country! + "\n"
+                            }
+                            
+                            self.displayLocation(latitude: latitude, longitude:longitude, title: self.address)
+                        }
+                  }
+            })
+        }
+    
     /*
     // MARK: - Navigation
 

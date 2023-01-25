@@ -11,6 +11,7 @@ class MediaFileCell: UICollectionViewCell {
 
     @IBOutlet weak var mediaImage: UIImageView!
     @IBOutlet weak var mediaName: UILabel!
+    @IBOutlet weak var removeIcon: UIImageView!
     
     class var reuseIdentifier: String {
         return "MediaFileCell"
@@ -28,9 +29,11 @@ class MediaFileCell: UICollectionViewCell {
         if indexPath.row == 0 {
             self.mediaImage.image = UIImage(named: "AddMedia")
             self.mediaName.text = ""
+            removeIcon.isHidden = true
 
         }else{
             if let object = file {
+                removeIcon.isHidden = false
                 if (object.isImage){
                     self.mediaImage.image =  FolderManager.shared.getImageFromDocumentDirectory(fileName: object.name ?? "")
                     self.mediaName.text = ""

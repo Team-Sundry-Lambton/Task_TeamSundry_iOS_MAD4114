@@ -21,34 +21,62 @@ class PlaceObject: NSObject, MKAnnotation {
     }
     
     static func getLocationForAllTask(categoryName : String, context : NSManagedObjectContext) -> [PlaceObject] {
-        var locationList = [Location]()
-        let request: NSFetchRequest<Location> = Location.fetchRequest()
-        let folderPredicate = NSPredicate(format: "parent_Category.name=%@", categoryName)
-        request.predicate = folderPredicate
-        do {
-            locationList = try context.fetch(request)
-        } catch {
-            print("Error loading folders \(error.localizedDescription)")
-        }
-        
         var places = [PlaceObject]()
-        
-        for item in locationList {
-            let title = item.address
-            let subtitle = ""
-            let latitude = item.latitude, longitude = item.longitude
-            
-            let place = PlaceObject(title: title, subtitle: subtitle, coordinate: CLLocationCoordinate2DMake(latitude, longitude))
-            places.append(place)
+        let taskList = getTaskList(categoryName: categoryName,context: context)
+        for task in taskList {
+            let request: NSFetchRequest<Location> = Location.fetchRequest()
+            if let title = task.title {
+                let folderPredicate = NSPredicate(format: "task.name=%@", title)
+                request.predicate = folderPredicate
+            }
+            do {
+               let location = try context.fetch(request)
+                if let item = location.first {
+                    let title = item.address
+                    let subtitle = ""
+                    let latitude = item.latitude, longitude = item.longitude
+                    
+                    let place = PlaceObject(title: title, subtitle: subtitle, coordinate: CLLocationCoordinate2DMake(latitude, longitude))
+                    places.append(place)
+                }
+            } catch {
+                print("Error loading folders \(error.localizedDescription)")
+            }
         }
         
         return places as [PlaceObject]
     }
     
-    static func getLocationForTask(task : Task, context: NSManagedObjectContext) -> PlaceObject {
-//        let place = PlaceObject(title: task.location?.address, subtitle: "", coordinate: CLLocationCoordinate2DMake(task.location?.latitude ?? 0, task.location?.longitude ?? 0))
-//        return place
-        return PlaceObject(title: "", subtitle: "", coordinate: CLLocationCoordinate2D())
+    static func getTaskList (categoryName : String, context : NSManagedObjectContext) -> [Task]{
+        var taskList = [Task]()
+        let request: NSFetchRequest<Task> = Task.fetchRequest()
+        let folderPredicate = NSPredicate(format: "parent_Category.name=%@", categoryName)
+        request.predicate = folderPredicate
+        do {
+            taskList = try context.fetch(request)
+        } catch {
+            print("Error loading folders \(error.localizedDescription)")
+        }
+        return taskList
+    }
+    
+    static func getLocationForTask(task : Task, context: NSManagedObjectContext) -> PlaceObject? {
+        let request: NSFetchRequest<Location> = Location.fetchRequest()
+        if let title = task.title {
+            let folderPredicate = NSPredicate(format: "task.name=%@", title)
+            request.predicate = folderPredicate
+        }
+        
+        do {
+           var location = try context.fetch(request)
+            return PlaceObject(title:location.first?.address, subtitle: "", coordinate: CLLocationCoordinate2DMake(location.first?.latitude ?? 0, location.first?.longitude ?? 0))
+            
+        } catch {
+            print("Error loading folders \(error.localizedDescription)")
+        }
+        
+        return nil
+
     }
 }
 
