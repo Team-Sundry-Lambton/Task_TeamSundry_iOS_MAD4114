@@ -20,7 +20,7 @@ class TaskListViewController: UIViewController {
     @IBOutlet weak var getStartedBtn: UIButton!
     @IBOutlet weak var moveBtn: UIBarButtonItem!
     @IBOutlet weak var deleteBtn: UIBarButtonItem!
-    
+    @IBOutlet weak var doneBtn: UIBarButtonItem!
     
     var tasks = [Task]()
     
@@ -37,6 +37,7 @@ class TaskListViewController: UIViewController {
         getStartedBtn.layer.cornerRadius = 10
         moveBtn.isHidden = true
         deleteBtn.isHidden = true
+        doneBtn.isHidden = true
         
         loadTasks()
         showSearchBar()
@@ -93,17 +94,8 @@ class TaskListViewController: UIViewController {
                 UIAction(title: "Select Tasks",
                          image: UIImage(systemName: "checkmark.circle.fill")?.withTintColor(#colorLiteral(red: 0.4109354019, green: 0.4765244722, blue: 0.9726889729, alpha: 1) , renderingMode: .alwaysOriginal),
                          handler: { (_) in
-                             self.deletingMovingOption = !self.deletingMovingOption
-                             self.tableView.setEditing(self.deletingMovingOption, animated: true)
-                             if self.deletingMovingOption {
-                                 self.moveBtn.isHidden = false
-                                 self.deleteBtn.isHidden = false
-                                 self.addTaskBtn.isHidden = true
-                             }else{
-                                 self.moveBtn.isHidden = true
-                                 self.deleteBtn.isHidden = true
-                                 self.addTaskBtn.isHidden = false
-                             }
+                         
+                             self.showHideToolbarOptions()
                             
                 }),
                 UIAction(title: "Sort By",
@@ -153,6 +145,53 @@ class TaskListViewController: UIViewController {
         } catch {
             print("Error saving the tasks \(error.localizedDescription)")
         }
+    }
+    
+    func showHideToolbarOptions(){
+        self.deletingMovingOption = !self.deletingMovingOption
+        self.tableView.setEditing(self.deletingMovingOption, animated: true)
+        if self.deletingMovingOption {
+            self.moveBtn.isHidden = false
+            self.deleteBtn.isHidden = false
+            self.addTaskBtn.isHidden = true
+            self.doneBtn.isHidden = false
+            self.showMoreBtn.isHidden = true
+        }else{
+            self.moveBtn.isHidden = true
+            self.deleteBtn.isHidden = true
+            self.addTaskBtn.isHidden = false
+            self.doneBtn.isHidden = true
+            self.showMoreBtn.isHidden = false
+        }
+    }
+    
+    @IBAction func deleteBtnPressed(_ sender: UIBarButtonItem) {
+        if let indexPaths = tableView.indexPathsForSelectedRows {
+            
+            if indexPaths.count > 0 {
+                let alert = UIAlertController(title: "Delete Task(s) ", message: "The task(s) will be removed and can not restore. Do you want to delete?", preferredStyle: .alert)
+                let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (action) in
+                    
+                    let rows = (indexPaths.map {$0.row}).sorted(by: >)
+                    
+                    let _ = rows.map {self.deleteTask(task: self.tasks[$0])}
+                    let _ = rows.map {self.tasks.remove(at: $0)}
+                    self.saveTasks()
+                    self.loadTasks()
+                }
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                alert.addAction(deleteAction)
+                alert.addAction(cancelAction)
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    
+    @IBAction func doneBtnPressed(_ sender: UIBarButtonItem) {
+        
+        showHideToolbarOptions()
     }
     
 }
