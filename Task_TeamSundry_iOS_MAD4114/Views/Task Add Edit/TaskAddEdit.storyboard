@@ -310,8 +310,8 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <subviews>
-                                                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Add more..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e5V-2d-6TA">
-                                                                                    <rect key="frame" x="20" y="0.0" width="313" height="50"/>
+                                                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Add more..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e5V-2d-6TA">
+                                                                                    <rect key="frame" x="8" y="0.0" width="337" height="50"/>
                                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                     <color key="textColor" systemColor="systemYellowColor"/>
@@ -372,6 +372,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="buttonTableHeight" destination="b0Q-D6-ypM" id="m9X-R0-EEd"/>
                         <outlet property="buttonTableView" destination="pU8-2P-Lii" id="EtU-5B-79y"/>
                         <outlet property="createDateLabel" destination="0f2-Cf-6Tx" id="B8y-JH-pv8"/>
                         <outlet property="descriptionTextField" destination="07m-FT-4N8" id="Q7o-J5-BSh"/>
