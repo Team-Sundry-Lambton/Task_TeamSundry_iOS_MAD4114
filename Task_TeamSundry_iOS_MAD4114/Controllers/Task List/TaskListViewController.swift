@@ -142,11 +142,11 @@ class TaskListViewController: UIViewController {
     private func addNoteOrTask(){
         
         let alert = UIAlertController(title: "Select Option ", message: "Please select the option to continue", preferredStyle: .actionSheet)
-        let taskAction = UIAlertAction(title: "Add Task", style: .destructive) { (action) in
+        let taskAction = UIAlertAction(title: "Add Task", style: .default) { (action) in
             self.openTaskAddEditView(addNote: false, task: nil)
         }
         
-        let noteAction = UIAlertAction(title: "Add Note", style: .destructive) { (action) in
+        let noteAction = UIAlertAction(title: "Add Note", style: .default) { (action) in
             self.openTaskAddEditView(addNote: true, task: nil)
         }
         
