@@ -11,7 +11,7 @@ class CategoryListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var noTaskView: UIView!
-    
+    @IBOutlet weak var searchBar: UISearchBar!
     // create a Category array to populate the table
     var categories = [Category]()
     
@@ -65,13 +65,10 @@ class CategoryListViewController: UIViewController {
         var textField = UITextField()
         let alert = UIAlertController(title: "Edit Category Name", message: "Please name it 🖌️", preferredStyle: .alert)
         let addAction = UIAlertAction(title: "Done", style: .default) { (action) in
-            //Code I want to do here
-//            self.deleteCategory(category: self.categories[indexPath.row])
-//            self.saveCategories()
-//            self.categories.remove(at: indexPath.row)
-//            // Delete the row from the data source
-//            self.tableView.deleteRows(at: [indexPath], with: .fade)
-//            self.saveNewCategory(name: textField.text ?? "New Category")
+            if let newName = textField.text {
+                self.updateCategory(newName: newName.isEmpty ? oldName : newName, indexPath: indexPath)
+            }
+            
         }
         
         // change the color of the cancel button action
@@ -103,12 +100,7 @@ class CategoryListViewController: UIViewController {
         saveCategories()
     }
     
-    private func updateCategory(newName _newName: String, indexPath: IndexPath) {
-        var newName = _newName
-        if newName.isEmpty {
-            newName = "New Category"
-        }
-        
+    private func updateCategory(newName : String, indexPath: IndexPath) {
         let categoryNames = self.categories.map {$0.name?.lowercased()}
         guard !categoryNames.contains(newName.lowercased()) else {self.showAlert(); return}
         categories[indexPath.row].name = newName
@@ -135,6 +127,20 @@ class CategoryListViewController: UIViewController {
     }
     
     //MARK: - core data interaction methods
+    
+    func loadCategoriesFromSearch(predicate: NSPredicate? = nil) {
+        let request: NSFetchRequest<Category> = Category.fetchRequest()
+     
+        request.sortDescriptors = [NSSortDescriptor(key: "name", ascending: true)]
+        request.predicate = predicate
+        
+        do {
+            categories = try context.fetch(request)
+        } catch {
+            print("Error loading notes \(error.localizedDescription)")
+        }
+        tableView.reloadData()
+    }
     
     /// load Category from core data
     func loadCategories() {
@@ -188,7 +194,7 @@ extension CategoryListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (contextualAction, view, boolValue)  in
+        let deleteAction = UIContextualAction(style: .destructive, title: "🗑️\nDelete") { [weak self] (contextualAction, view, boolValue)  in
             guard let strongSelf = self else {
                 return
             }
@@ -201,17 +207,43 @@ extension CategoryListViewController: UITableViewDelegate, UITableViewDataSource
             strongSelf.showNoTaskView()
         }
         
-        let editAction = UIContextualAction(style: .normal, title: "Edit") {
+        let editAction = UIContextualAction(style: .normal, title: "✏️\nEdit") {
             [weak self] (contextualAction, view, boolValue) in
             guard let strongSelf = self else {
                 return
             }
-            
+            strongSelf.editCategory(oldName: strongSelf.categories[indexPath.row].name ?? "", indexPath: indexPath)
         }
         editAction.backgroundColor = .blue
         
         let swipeActions = UISwipeActionsConfiguration(actions: [deleteAction, editAction])
 
         return swipeActions
+    }
+}
+
+extension CategoryListViewController: UISearchBarDelegate {
+    /// search button on keypad functionality
+    /// - Parameter searchBar: search bar is passed to this function
+    /// 
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        // add predicate
+        let predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchBar.text ?? "")
+        loadCategoriesFromSearch(predicate: predicate)
+    }
+    
+    
+    /// when the text in text bar is changed
+    /// - Parameters:
+    ///   - searchBar: search bar is passed to this function
+    ///   - searchText: the text that is written in the search bar
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text?.count == 0 {
+            loadCategories()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }
     }
 }
