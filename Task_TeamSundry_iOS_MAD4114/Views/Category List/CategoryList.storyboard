@@ -3,40 +3,90 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Category List View Controller-->
+        <!--Category-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="CategoryListViewController" customModule="Task_TeamSundry_iOS_MAD4114" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Category" id="Y6W-OH-hqX" customClass="CategoryListViewController" customModule="Task_TeamSundry_iOS_MAD4114" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s0v-RB-FUb">
-                                <rect key="frame" x="155" y="254" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QEB-Yv-V15">
-                                <rect key="frame" x="228" y="628" width="75" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="75" estimatedRowHeight="75" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ohc-V5-0Al">
+                                <rect key="frame" x="0.0" y="159" width="393" height="693"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <button key="tableFooterView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="Nnk-vl-30T">
+                                    <rect key="frame" x="0.0" y="130.33333396911621" width="393" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" title="Button"/>
+                                    <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                    <connections>
+                                        <action selector="action:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="d4h-1O-x0r"/>
+                                    </connections>
+                                </button>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="category_cell" textLabel="ujh-Ey-AwM" imageView="XmP-nk-W4N" rowHeight="75" style="IBUITableViewCellStyleDefault" id="EAr-N3-1lB">
+                                        <rect key="frame" x="20" y="38" width="353" height="75"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="EAr-N3-1lB" id="XYr-Ss-R2O">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="75"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ujh-Ey-AwM">
+                                                    <rect key="frame" x="75" y="0.0" width="258" height="75"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" image="PurpleCategoryIcon" id="XmP-nk-W4N">
+                                                    <rect key="frame" x="20" y="17.333333333333329" width="40" height="40"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </tableViewCell>
+                                </prototypes>
                                 <connections>
-                                    <action selector="action:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="kt2-bT-CsI"/>
+                                    <outlet property="dataSource" destination="Y6W-OH-hqX" id="1Ag-xg-s53"/>
+                                    <outlet property="delegate" destination="Y6W-OH-hqX" id="lZO-zk-TbP"/>
                                 </connections>
-                            </button>
+                            </tableView>
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="E9a-0z-hut">
+                                <rect key="frame" x="16" y="103" width="361" height="56"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Y6W-OH-hqX" id="KGG-xG-kUR"/>
+                                </connections>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ohc-V5-0Al" firstAttribute="top" secondItem="E9a-0z-hut" secondAttribute="bottom" id="BxG-Vr-dyt"/>
+                            <constraint firstItem="E9a-0z-hut" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="SdF-rV-pr3"/>
+                            <constraint firstAttribute="trailing" secondItem="ohc-V5-0Al" secondAttribute="trailing" id="UbA-k2-qSJ"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="E9a-0z-hut" secondAttribute="trailing" constant="16" id="adW-w0-EAo"/>
+                            <constraint firstAttribute="bottom" secondItem="ohc-V5-0Al" secondAttribute="bottom" id="hZy-hF-Ah4"/>
+                            <constraint firstItem="ohc-V5-0Al" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="pvN-rP-bgF"/>
+                            <constraint firstItem="E9a-0z-hut" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" constant="16" id="v7H-s4-NQQ"/>
+                        </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="FvK-Ot-I0j"/>
+                    <navigationItem key="navigationItem" title="Category" largeTitleDisplayMode="always" id="FvK-Ot-I0j"/>
+                    <connections>
+                        <outlet property="tableView" destination="ohc-V5-0Al" id="rlj-93-6Ff"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -47,12 +97,17 @@
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="uXL-UB-uR6" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="OrY-yZ-ZwI">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" largeTitles="YES" id="OrY-yZ-ZwI">
+                        <rect key="frame" x="0.0" y="59" width="393" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" systemColor="systemYellowColor"/>
+                        <color key="tintColor" name="DarkYellow"/>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" name="DarkPurple"/>
+                        </textAttributes>
                         <navigationBarAppearance key="standardAppearance"/>
+                        <navigationBarAppearance key="compactAppearance"/>
                         <navigationBarAppearance key="scrollEdgeAppearance"/>
+                        <navigationBarAppearance key="compactScrollEdgeAppearance"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -65,11 +120,18 @@
         </scene>
     </scenes>
     <resources>
+        <image name="PurpleCategoryIcon" width="40" height="40"/>
+        <namedColor name="DarkPurple">
+            <color red="0.42399999499320984" green="0.47499999403953552" blue="0.94099998474121094" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
+        <namedColor name="DarkYellow">
+            <color red="0.96899998188018799" green="0.81999999284744263" blue="0.43500000238418579" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemYellowColor">
-            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

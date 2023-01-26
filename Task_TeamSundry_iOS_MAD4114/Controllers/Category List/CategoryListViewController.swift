@@ -142,26 +142,21 @@ class CategoryListViewController: UIViewController {
 
 extension CategoryListViewController: UITableViewDelegate, UITableViewDataSource {
     // MARK: - Table view data source
-
-    func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 1
-    }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return categories.count
+        return categories.count + 1
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "folder_cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "category_cell", for: indexPath)
         
-        cell.textLabel?.text = categories[indexPath.row].name
-        cell.textLabel?.textColor = .lightGray
-        cell.detailTextLabel?.textColor = .lightGray
-        cell.detailTextLabel?.text = "\(categories[indexPath.row].tasks?.count ?? 0)"
-        cell.imageView?.image = UIImage(systemName: "folder")
-        cell.selectionStyle = .none
+//        cell.textLabel?.text = categories[indexPath.row].name
+//        cell.textLabel?.textColor = .lightGray
+//        cell.detailTextLabel?.textColor = .lightGray
+//        cell.detailTextLabel?.text = "\(categories[indexPath.row].tasks?.count ?? 0)"
+//        cell.imageView?.image = UIImage(systemName: "folder")
+//        cell.selectionStyle = .none
         
         return cell
     }

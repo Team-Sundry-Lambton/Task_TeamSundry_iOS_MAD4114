@@ -33,8 +33,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         customNavBarAppearance.configureWithTransparentBackground()
         customNavBarAppearance.backgroundColor = .white
         
-        customNavBarAppearance.titleTextAttributes = [.foregroundColor: UIColor(red: 1, green: 0.812, blue: 0.361, alpha: 1)]
-        customNavBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor(red: 1, green: 0.812, blue: 0.361, alpha: 1)]
+        customNavBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.darkYellow ?? UIColor.yellow]
+        customNavBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.darkPurple ?? UIColor.purple]
         
         let barButtonItemAppearance = UIBarButtonItemAppearance(style: .plain)
         barButtonItemAppearance.normal.titleTextAttributes = [.foregroundColor: UIColor.darkYellow ?? UIColor.yellow]
