@@ -14,9 +14,24 @@ class TaskDetailsViewController: UIViewController {
     var mediaList = [MediaFile]()
     var audioList = [MediaFile]()
         
-    @IBOutlet weak var tableView: UITableView!
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    
+    
+    @IBOutlet weak var imageCollectionView: UICollectionView!
+    @IBOutlet weak var audioCollectionView: UICollectionView!
+
+    
+    @IBOutlet weak var subTaskStack: UIStackView!
+    @IBOutlet weak var subTaskTableView: UITableView!
+    @IBOutlet weak var imageView: UIView!
+    @IBOutlet weak var noteImgIV: UIImageView!
+    @IBOutlet weak var descLbl: UILabel!
+    @IBOutlet weak var taskTitleLbl: UILabel!
+    @IBOutlet weak var locationLbl: UILabel!
+    @IBOutlet weak var createdDateLbl: UILabel!
+    @IBOutlet weak var dueDateLbl: UILabel!
+    
     
     func getTask() -> Task {
         let task = Task(context: context)
@@ -31,67 +46,138 @@ class TaskDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
-        tableView.delegate = self
-        tableView.dataSource = self
+        initUI()
+        initData(task: getTask())
         
-        tableView.register(UINib.init(nibName: "ImageTableViewCell", bundle: nil), forCellReuseIdentifier: "ImageTableViewCell")
-        tableView.register(UINib.init(nibName: "DetailsViewCell", bundle: nil), forCellReuseIdentifier: "DetailsViewCell")
-        tableView.register(UINib.init(nibName: "AudioTableViewCell", bundle: nil), forCellReuseIdentifier: "AudioTableViewCell")
-        tableView.register(UINib.init(nibName: "SubTaskTableViewCell", bundle: nil), forCellReuseIdentifier: "SubTaskTableViewCell")
+    }
+    
+    func initUI(){
         
+        imageCollectionView.register(UINib.init(nibName: "TaskDetailImageViewCell", bundle: nil), forCellWithReuseIdentifier: "TaskDetailImageViewCell")
+        imageCollectionView.dataSource = self
+        imageCollectionView.delegate = self
+        imageCollectionView.reloadData()
+        
+        
+        audioCollectionView.register(UINib.init(nibName: "TaskDetailAudioViewCell", bundle: nil), forCellWithReuseIdentifier: "TaskDetailAudioViewCell")
+        audioCollectionView.dataSource = self
+        audioCollectionView.delegate = self
+        audioCollectionView.reloadData()
+        
+        
+        subTaskTableView.delegate = self
+        subTaskTableView.dataSource = self
+        
+        
+    }
+    
+    func initData(task:Task){
+        locationLbl.text = task.location?.address
+        taskTitleLbl.text = task.title
+        descLbl.text = task.descriptionTask
+        
+        if(mediaList.isEmpty){
+            imageView.isHidden = true
+            imageCollectionView.isHidden = true
+            noteImgIV.isHidden = true
+        }
+        else if(mediaList.count == 1){
+            imageView.isHidden = false
+            imageCollectionView.isHidden = true
+            noteImgIV.isHidden = false
+            noteImgIV.downloaded(from: mediaList[0].path ?? "")
+            
+        }
+        else{
+            imageView.isHidden = false
+            imageCollectionView.isHidden = false
+            noteImgIV.isHidden = true
+        }
+        
+        if(audioList.isEmpty){
+            audioCollectionView.isHidden = true
+        }
+        else{
+            audioCollectionView.isHidden = false
+        }
+        
+        if(subTaskList.isEmpty){
+            subTaskStack.isHidden = true
+        }
+        else{
+            subTaskStack.isHidden = false
+        }
     }
 
 }
 
 
-extension TaskDetailsViewController : UITableViewDelegate,UITableViewDataSource{
+extension TaskDetailsViewController :UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 4
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if (collectionView == self.imageCollectionView){
+            return mediaList.count
+        }
+        else{
+            return audioList.count
+        }
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        if(collectionView == self.imageCollectionView){
+            
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TaskDetailImageViewCell", for: indexPath) as! TaskDetailImageViewCell
+            cell.configureCell(model: nil)
+            return cell
+            
+        }
+        
+        else{
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TaskDetailAudioViewCell", for: indexPath) as! TaskDetailAudioViewCell
+            return cell
+        }
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        if(collectionView == imageCollectionView){
+            return CGSize.init(width: 150, height: 180)
+        }
+        else{
+            return CGSize.init(width: 75, height: 75)
+        }
+    }
+}
+
+
+extension TaskDetailsViewController : UITableViewDelegate, UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 0:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ImageTableViewCell") as! ImageTableViewCell
-            cell.setUp()
-            return cell
-        case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "DetailsViewCell") as! DetailsViewCell
-            cell.configure(task: self.getTask())
-            return cell
-        case 2:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "AudioTableViewCell") as! AudioTableViewCell
-            cell.setUp()
-            return cell
-        case 3:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "SubTaskTableViewCell") as! SubTaskTableViewCell
-            return cell
-        default:
-            return UITableViewCell()
-        }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return subTaskList.count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.section {
-        case 0:
-            return 180
-        case 1:
-            return 250
-        case 2:
-            return 70
-        case 3:
-            return (50 + 50*4)
-        default:
-            return 0
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "subTaskCell", for: indexPath)
+        let model = subTaskList[indexPath.row]
+        cell.textLabel?.text = model.descriptionSubTask
+        if(model.status){
+            cell.imageView?.image = UIImage(named: "check")
         }
+        else{
+            cell.imageView?.image = UIImage(named: "uncheck")
+        }
+        
+        return cell
     }
+    
     
 }
 

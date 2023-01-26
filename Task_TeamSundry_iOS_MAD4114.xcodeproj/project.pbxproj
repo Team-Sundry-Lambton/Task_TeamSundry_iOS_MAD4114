@@ -15,6 +15,8 @@
 		2CA52790297DAAF300000780 /* MapView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CA5278F297DAAF300000780 /* MapView.storyboard */; };
 		2CA52792297DAD0000000780 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA52791297DAD0000000780 /* LocationSearchTableViewController.swift */; };
 		2CA52794297DB54100000780 /* PlaceObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA52793297DB54100000780 /* PlaceObject.swift */; };
+		417EF2992981EDEB00E9A91C /* FullPictureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417EF2982981EDEB00E9A91C /* FullPictureViewController.swift */; };
+		417EF29D2981EE1D00E9A91C /* FullPictureViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 417EF29C2981EE1D00E9A91C /* FullPictureViewController.storyboard */; };
 		418A94312981D848006B2BC3 /* SubTaskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 418A94302981D848006B2BC3 /* SubTaskTableViewCell.xib */; };
 		418A94332981D856006B2BC3 /* SubTaskTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418A94322981D856006B2BC3 /* SubTaskTableViewCell.swift */; };
 		41995164297F4E4D008EF6B4 /* TaskDetailImageViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41995163297F4E4D008EF6B4 /* TaskDetailImageViewCell.swift */; };
@@ -56,6 +58,8 @@
 		2CA5278F297DAAF300000780 /* MapView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapView.storyboard; sourceTree = "<group>"; };
 		2CA52791297DAD0000000780 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
 		2CA52793297DB54100000780 /* PlaceObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceObject.swift; sourceTree = "<group>"; };
+		417EF2982981EDEB00E9A91C /* FullPictureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullPictureViewController.swift; sourceTree = "<group>"; };
+		417EF29C2981EE1D00E9A91C /* FullPictureViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FullPictureViewController.storyboard; sourceTree = "<group>"; };
 		418A94302981D848006B2BC3 /* SubTaskTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SubTaskTableViewCell.xib; sourceTree = "<group>"; };
 		418A94322981D856006B2BC3 /* SubTaskTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubTaskTableViewCell.swift; sourceTree = "<group>"; };
 		41995163297F4E4D008EF6B4 /* TaskDetailImageViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailImageViewCell.swift; sourceTree = "<group>"; };
@@ -255,6 +259,8 @@
 				41A3BAB22981D54E001941EA /* SubTaskCollectionViewCell.swift */,
 				418A94302981D848006B2BC3 /* SubTaskTableViewCell.xib */,
 				418A94322981D856006B2BC3 /* SubTaskTableViewCell.swift */,
+				417EF2982981EDEB00E9A91C /* FullPictureViewController.swift */,
+				417EF29C2981EE1D00E9A91C /* FullPictureViewController.storyboard */,
 			);
 			path = "Task Details";
 			sourceTree = "<group>";
@@ -357,6 +363,7 @@
 				41A3BAAD2981CA31001941EA /* AudioTableViewCell.xib in Resources */,
 				2C1438F92978CF0000938694 /* MediaFileCell.xib in Resources */,
 				41A3BAB12981D478001941EA /* SubTaskCollectionViewCell.xib in Resources */,
+				417EF29D2981EE1D00E9A91C /* FullPictureViewController.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +382,7 @@
 				2C1438F82978CF0000938694 /* MediaFileCell.swift in Sources */,
 				9945FB6929709BCB005463ED /* TaskListViewController.swift in Sources */,
 				2CA52794297DB54100000780 /* PlaceObject.swift in Sources */,
+				417EF2992981EDEB00E9A91C /* FullPictureViewController.swift in Sources */,
 				9945FB6929709BCB005463ED /* TaskListViewController.swift in Sources */,
 				9949B63229713F1600BA0FFB /* DataModel.xcdatamodeld in Sources */,
 				9945FB6529709BCB005463ED /* AppDelegate.swift in Sources */,

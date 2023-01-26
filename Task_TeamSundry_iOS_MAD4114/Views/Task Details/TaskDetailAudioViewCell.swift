@@ -16,10 +16,10 @@ class TaskDetailAudioViewCell:UICollectionViewCell{
     func configureCell(file: MediaFile?,isPlaying:Bool) {
         if let object = file {
             if(isPlaying){
-                self.playPause.image = UIImage(systemName: "pause.circle.fill")
+                self.playPause.image = UIImage(named: "pause.circle.fill")
             }
             else{
-                self.playPause.image = UIImage(systemName: "play.circle.fill")
+                self.playPause.image = UIImage(named: "play")
             }
             
             self.audioTitle.text = "Name : " + (object.name ?? "")
