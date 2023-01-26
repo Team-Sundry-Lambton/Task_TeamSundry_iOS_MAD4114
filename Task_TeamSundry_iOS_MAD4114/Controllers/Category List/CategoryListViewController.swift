@@ -47,9 +47,6 @@ class CategoryListViewController: UIViewController {
             self.saveNewCategory(name: textField.text ?? "New Category")
         }
         
-        // change the color of the cancel button action
-        addAction.setValue(UIColor.green, forKey: "titleTextColor")
-        
         alert.addAction(addAction)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
@@ -70,9 +67,6 @@ class CategoryListViewController: UIViewController {
             }
             
         }
-        
-        // change the color of the cancel button action
-        addAction.setValue(UIColor.green, forKey: "titleTextColor")
         
         alert.addAction(addAction)
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
@@ -158,6 +152,7 @@ class CategoryListViewController: UIViewController {
     func saveCategories() {
         do {
             try context.save()
+            showNoTaskView()
             tableView.reloadData()
         } catch {
             print("Error saving the Category \(error.localizedDescription)")
