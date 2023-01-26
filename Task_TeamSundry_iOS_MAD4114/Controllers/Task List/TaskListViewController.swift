@@ -31,6 +31,7 @@ class TaskListViewController: UIViewController {
     let searchController = UISearchController(searchResultsController: nil)
     
     var deletingMovingOption: Bool = false
+    var sortBy: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,7 +53,7 @@ class TaskListViewController: UIViewController {
     func loadTasks(predicate: NSPredicate? = nil) {
         let request: NSFetchRequest<Task> = Task.fetchRequest()
         
-        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: sortBy)]
         
         if let additionalPredicate = predicate {
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [additionalPredicate])
@@ -107,6 +108,8 @@ class TaskListViewController: UIViewController {
                 UIAction(title: "Sort By",
                          image: UIImage(systemName: "arrow.up.arrow.down.circle.fill")?.withTintColor(#colorLiteral(red: 0.4109354019, green: 0.4765244722, blue: 0.9726889729, alpha: 1) , renderingMode: .alwaysOriginal),
                          handler: { (_) in
+                             self.sortBy = !self.sortBy
+                             self.loadTasks()
                 }),
                 UIAction(title: "View on map ",
                          image: UIImage(systemName: "map.circle.fill")?.withTintColor(#colorLiteral(red: 0.4109354019, green: 0.4765244722, blue: 0.9726889729, alpha: 1) , renderingMode: .alwaysOriginal),
@@ -249,6 +252,7 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         return true
     }
     
+    //MARK: swipe left action
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
        let DeleteItem = UIContextualAction(style: .destructive, title: "Delete") {  (contextualAction, view, boolValue) in
            
@@ -279,6 +283,17 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
        return swipeActions
    }
     
+    //MARK: swipe right action
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let markDone = UIContextualAction(style: .normal, title: "Done") {  (contextualAction, view, boolValue) in
+        }
+        let markDoneImg = UIImage(named: <#T##String#>)
+    
+        
+        let swipeActions = UISwipeActionsConfiguration(actions: [markDone])
+        return swipeActions
+    }
+
     
 }
 
