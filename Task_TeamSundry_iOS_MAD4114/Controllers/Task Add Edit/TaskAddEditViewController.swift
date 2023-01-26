@@ -156,7 +156,9 @@ class TaskAddEditViewController: UIViewController {
     private func saveTask() {
         if checkInput() {
             if editMode {
-                context.delete(task!)
+                if let selectedTask = task {
+                    context.delete(selectedTask)
+                }
                 for  media in self.mediaList {
                     context.delete(media)
                 }
