@@ -113,13 +113,13 @@
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="lZO-zk-TbP"/>
                                 </connections>
                             </tableView>
-                            <searchBar contentMode="redraw" searchBarStyle="minimal" translatesAutoresizingMaskIntoConstraints="NO" id="E9a-0z-hut">
+                            <searchBar contentMode="redraw" searchBarStyle="minimal" placeholder="Search Category" translatesAutoresizingMaskIntoConstraints="NO" id="E9a-0z-hut">
                                 <rect key="frame" x="16" y="155" width="361" height="56"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
-                                    <outlet property="delegate" destination="Y6W-OH-hqX" id="KGG-xG-kUR"/>
+                                    <outlet property="delegate" destination="Y6W-OH-hqX" id="Pj5-Qi-ge7"/>
                                 </connections>
                             </searchBar>
                         </subviews>
@@ -148,6 +148,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="noTaskView" destination="ijI-oJ-PZ4" id="3Xh-Xi-fsK"/>
+                        <outlet property="searchBar" destination="E9a-0z-hut" id="1ir-4y-fNg"/>
                         <outlet property="tableView" destination="ohc-V5-0Al" id="rlj-93-6Ff"/>
                     </connections>
                 </viewController>
