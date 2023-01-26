@@ -32,6 +32,8 @@
 		99B8DC59297E1C3200A06BB2 /* DatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B8DC58297E1C3200A06BB2 /* DatePicker.swift */; };
 		99B8DC5B297E1EA800A06BB2 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99B8DC5A297E1EA800A06BB2 /* Colors.xcassets */; };
 		99B8DC5D297E20D200A06BB2 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99B8DC5C297E20D200A06BB2 /* UIColorExtension.swift */; };
+		B4BFE9A629805E6C0028A55B /* TaskListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4BFE9A529805E6C0028A55B /* TaskListViewController.swift */; };
+		B4CACA2A2981A0E200A1C9A4 /* MoveTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4CACA292981A0E200A1C9A4 /* MoveTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,7 +49,6 @@
 		9945FB6129709BCB005463ED /* Task_TeamSundry_iOS_MAD4114.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Task_TeamSundry_iOS_MAD4114.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9945FB6429709BCB005463ED /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9945FB6629709BCB005463ED /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		9945FB6829709BCB005463ED /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
 		9945FB6B29709BCB005463ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/TaskList.storyboard; sourceTree = "<group>"; };
 		9945FB6D29709BCC005463ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9945FB7029709BCC005463ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -63,6 +64,8 @@
 		99B8DC58297E1C3200A06BB2 /* DatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePicker.swift; sourceTree = "<group>"; };
 		99B8DC5A297E1EA800A06BB2 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		99B8DC5C297E20D200A06BB2 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		B4BFE9A529805E6C0028A55B /* TaskListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskListViewController.swift; sourceTree = "<group>"; };
+		B4CACA292981A0E200A1C9A4 /* MoveTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,7 +185,8 @@
 		9949B62A29713E2000BA0FFB /* Task List */ = {
 			isa = PBXGroup;
 			children = (
-				9945FB6829709BCB005463ED /* TaskListViewController.swift */,
+				B4BFE9A529805E6C0028A55B /* TaskListViewController.swift */,
+				B4CACA292981A0E200A1C9A4 /* MoveTableViewController.swift */,
 			);
 			path = "Task List";
 			sourceTree = "<group>";
@@ -327,6 +331,7 @@
 				9993B8AF29762E6400C96C61 /* TaskDetailsViewController.swift in Sources */,
 				9993B8AB29762E4900C96C61 /* CategoryListViewController.swift in Sources */,
 				2C1438F82978CF0000938694 /* MediaFileCell.swift in Sources */,
+				B4CACA2A2981A0E200A1C9A4 /* MoveTableViewController.swift in Sources */,
 				2CA52794297DB54100000780 /* PlaceObject.swift in Sources */,
 				99AE8797297F299800A544D6 /* SubTaskTableViewCell.swift in Sources */,
 				9949B63229713F1600BA0FFB /* DataModel.xcdatamodeld in Sources */,
@@ -338,6 +343,7 @@
 				9945FB6729709BCB005463ED /* SceneDelegate.swift in Sources */,
 				9993B8AD29762E5700C96C61 /* TaskAddEditViewController.swift in Sources */,
 				2C25D180297394AD00E38BF6 /* MediaManager.swift in Sources */,
+				B4BFE9A629805E6C0028A55B /* TaskListViewController.swift in Sources */,
 				99B8DC59297E1C3200A06BB2 /* DatePicker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

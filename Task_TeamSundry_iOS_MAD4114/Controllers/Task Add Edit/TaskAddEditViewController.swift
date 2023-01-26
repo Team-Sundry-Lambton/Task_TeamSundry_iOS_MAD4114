@@ -44,6 +44,7 @@ class TaskAddEditViewController: UIViewController {
     var addSubTaskCell = 1
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    weak var delegate: TaskListViewController?
     
     //MARK: - View life cycle
     override func viewDidLoad() {
