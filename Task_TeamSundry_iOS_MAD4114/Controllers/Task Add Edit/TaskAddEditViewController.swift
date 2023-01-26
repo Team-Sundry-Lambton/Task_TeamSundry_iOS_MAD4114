@@ -44,6 +44,7 @@ class TaskAddEditViewController: UIViewController {
     var addSubTaskCell = 1
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    weak var delegate: TaskListViewController?
     
     //MARK: - View life cycle
     override func viewDidLoad() {
@@ -90,7 +91,7 @@ class TaskAddEditViewController: UIViewController {
                 return
             }
             strongSelf.datePicker.isHidden = true
-            strongSelf.buttonTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = DatePicker.getStringFromDate(date: pickedDate)
+            strongSelf.buttonTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = DatePicker.getStringFromDate(date: pickedDate) 
             strongSelf.selectedDueDate = pickedDate
         }
     }
@@ -201,6 +202,11 @@ class TaskAddEditViewController: UIViewController {
         context.delete(mediaFile)
 //        saveAllContextCoreData()
         mediaFileCollectionView.reloadData()
+    }
+    
+    
+    func deleteSubTask(subTask: SubTask) {
+        context.delete(subTask)
     }
     
     //MARK: - Core data interaction methods
@@ -324,6 +330,43 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
                 tableView.insertRows(at: [indexPath], with: .automatic)
                 tableView.endUpdates()
             }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        if tableView == subTaskTableView {
+            if indexPath.row != (subTasks.count) {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            return false
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            print("delete")
+            deleteSubTask(subTask: subTasks[indexPath.row])
+            saveAllContextCoreData()
+            subTasks.remove(at: indexPath.row)
+            let indexPath:IndexPath = IndexPath(row:indexPath.row, section: 0)
+            tableView.beginUpdates()
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.endUpdates()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        if tableView == subTaskTableView {
+            if indexPath.row != (subTasks.count) {
+                return .delete
+            } else {
+                return .none
+            }
+        } else {
+            return .none
         }
     }
 }
