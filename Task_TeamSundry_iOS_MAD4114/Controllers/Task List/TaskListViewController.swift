@@ -38,10 +38,13 @@ class TaskListViewController: UIViewController {
         moveBtn.isHidden = true
         deleteBtn.isHidden = true
         doneBtn.isHidden = true
-        
-        loadTasks()
+               
         showSearchBar()
         showMoreSettings()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        loadTasks()
     }
     
     //MARK: - Core data interaction functions
@@ -69,7 +72,7 @@ class TaskListViewController: UIViewController {
     func showSearchBar() {
         searchController.searchBar.delegate = self
         searchController.obscuresBackgroundDuringPresentation = false
-        searchController.searchBar.placeholder = "Search Task"
+        searchController.searchBar.placeholder = "Search Task or Note"
         navigationItem.searchController = searchController
         definesPresentationContext = true
         searchController.searchBar.searchTextField.textColor = .lightGray
@@ -117,20 +120,41 @@ class TaskListViewController: UIViewController {
         
     }
     
-    private func openTaskAddEditView() {
+    private func openTaskAddEditView(addNote : Bool, task : Task?) {
         let taskAddEditViewController:TaskAddEditViewController = UIStoryboard(name: "TaskAddEdit", bundle: nil).instantiateViewController(withIdentifier: "TaskAddEditView") as? TaskAddEditViewController ?? TaskAddEditViewController()
-        taskAddEditViewController.delegate = self
+        taskAddEditViewController.addNote = addNote
+        if let selectedTask = task {
+            taskAddEditViewController.task = selectedTask
+        }
         navigationController?.pushViewController(taskAddEditViewController, animated: true)
     }
     
     
     @IBAction func addTaskBtnAction(_ sender: UIBarButtonItem) {
-        openTaskAddEditView()
+        addNoteOrTask()
     }
     
     
     @IBAction func getStartedBtnAction() {
-        openTaskAddEditView()
+        addNoteOrTask()
+    }
+    
+    private func addNoteOrTask(){
+        
+        let alert = UIAlertController(title: "Select Option ", message: "Please select the option to continue", preferredStyle: .actionSheet)
+        let taskAction = UIAlertAction(title: "Add Task", style: .default) { (action) in
+            self.openTaskAddEditView(addNote: false, task: nil)
+        }
+        
+        let noteAction = UIAlertAction(title: "Add Note", style: .default) { (action) in
+            self.openTaskAddEditView(addNote: true, task: nil)
+        }
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(taskAction)
+        alert.addAction(noteAction)
+        alert.addAction(cancelAction)
+        self.present(alert, animated: true, completion: nil)
     }
     
     //MARK: - delete task
