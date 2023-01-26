@@ -24,6 +24,7 @@ class TaskListViewController: UIViewController {
     
     var tasks = [Task]()
     var selectedCategory: Category?
+    var subTasks = [SubTask]()
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -224,6 +225,19 @@ class TaskListViewController: UIViewController {
         showHideToolbarOptions()
     }
     
+    //MARK: fetch sub tasks by task title
+    private func loadOpenSubTaskList(title: String) {
+        let request: NSFetchRequest<SubTask> = SubTask.fetchRequest()
+        let folderPredicate = NSPredicate(format: "status=%@", NSNumber(booleanLiteral: false))
+        request.predicate = folderPredicate
+        
+        do {
+            subTasks = try context.fetch(request)
+        } catch {
+            print("Error loading subTasks \(error.localizedDescription)")
+        }
+    }
+    
 }
 
 extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -285,13 +299,46 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
     
     //MARK: swipe right action
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let markDone = UIContextualAction(style: .normal, title: "Done") {  (contextualAction, view, boolValue) in
+        let selectedTask = self.tasks[indexPath.row]
+        if selectedTask.isTask {
+            var bgColor = UIColor()
+            var bgImage = UIImage()
+            if !selectedTask.status {
+                bgImage = UIImage(named: "doneTask") ?? UIImage()
+                bgColor = #colorLiteral(red: 0.05831826478, green: 0.8438417912, blue: 0.004987356719, alpha: 1)
+            }else{
+                bgImage = UIImage(named: "undoneTask") ?? UIImage()
+                bgColor = #colorLiteral(red: 1, green: 0.8123160005, blue: 0.3646123409, alpha: 1)
+            }
+            
+            let markDone = UIContextualAction(style: .normal, title: nil ) {  (contextualAction, view, boolValue) in
+                self.loadOpenSubTaskList(title: selectedTask.title ?? "")
+                if self.subTasks.count > 0 {
+                    let alert = UIAlertController(title: "Something went wrong!", message: "Please make sure all sub tasks are done", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                else{
+                    let newStatus = !selectedTask.status
+                    selectedTask.status = newStatus
+                    self.saveTasks()
+                }
+                
+                self.loadTasks()
+               
+            }
+            
+            markDone.image = bgImage
+            markDone.backgroundColor = bgColor
+            
+            let swipeActions = UISwipeActionsConfiguration(actions: [markDone])
+            return swipeActions
         }
-        let markDoneImg = UIImage(named: <#T##String#>)
-    
+        else{
+            return nil
+        }
         
-        let swipeActions = UISwipeActionsConfiguration(actions: [markDone])
-        return swipeActions
     }
 
     

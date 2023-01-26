@@ -251,7 +251,7 @@ class TaskAddEditViewController: UIViewController {
     private func loadMediaList() {
         let request: NSFetchRequest<MediaFile> = MediaFile.fetchRequest()
         if let title = task?.title {
-            let folderPredicate = NSPredicate(format: "parent_Task.name=%@", title)
+            let folderPredicate = NSPredicate(format: "parent_Task.title=%@", title)
             request.predicate = folderPredicate
         }
         do {
@@ -273,7 +273,7 @@ class TaskAddEditViewController: UIViewController {
     private func loadSubTaskList() {
         let request: NSFetchRequest<SubTask> = SubTask.fetchRequest()
         if let title = task?.title {
-            let folderPredicate = NSPredicate(format: "task.name=%@", title)
+            let folderPredicate = NSPredicate(format: "task.title=%@", title)
             request.predicate = folderPredicate
         }
         do {
@@ -294,7 +294,7 @@ class TaskAddEditViewController: UIViewController {
     private func getLocationData() {
         let request: NSFetchRequest<Location> = Location.fetchRequest()
         if let title = task?.title {
-            let folderPredicate = NSPredicate(format: "task.name=%@", title)
+            let folderPredicate = NSPredicate(format: "task.title=%@", title)
             request.predicate = folderPredicate
         }
         do {
@@ -509,5 +509,6 @@ extension TaskAddEditViewController: MapViewDelegate {
 extension TaskAddEditViewController: SubTaskTableViewCellDelegate {
     func subTaskDescriptionShouldChangeCharactersIn(subTaskDescription: String, indexPath: IndexPath) {
         subTasks[indexPath.row].descriptionSubTask = subTaskDescription
+        subTasks[indexPath.row].status = false
     }
 }
