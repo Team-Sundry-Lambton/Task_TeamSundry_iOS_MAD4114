@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let customNavBarAppearance = UINavigationBarAppearance()
         
         customNavBarAppearance.configureWithTransparentBackground()
-        customNavBarAppearance.backgroundColor = .white
+        customNavBarAppearance.backgroundColor = .white 
         
         customNavBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.darkYellow ?? UIColor.yellow]
         customNavBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.darkPurple ?? UIColor.purple]
