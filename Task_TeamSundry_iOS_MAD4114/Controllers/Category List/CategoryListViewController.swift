@@ -106,7 +106,7 @@ class CategoryListViewController: UIViewController {
         navigationController?.pushViewController(viewController, animated: true)
     }
     
-    func openTaskListVC() {
+    func openTaskListVC(indexPath: IndexPath) {
 //        let viewController:UIViewController = UIStoryboard(name: "TaskList", bundle: nil).instantiateViewController(withIdentifier: "TaskAddEditView") as TaskListViewController
 //        navigationController?.pushViewController(viewController, animated: true)
     }
@@ -167,7 +167,7 @@ extension CategoryListViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        openTaskListVC(indexPath: indexPath)
     }
     
     // to support conditional editing of the table view.
