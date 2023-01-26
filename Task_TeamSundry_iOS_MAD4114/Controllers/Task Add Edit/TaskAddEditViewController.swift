@@ -22,7 +22,9 @@ class TaskAddEditViewController: UIViewController {
     @IBOutlet weak var subTaskStackView: UIStackView!
     
     @IBOutlet weak var createDateLabel: UILabel!
-    
+    @IBOutlet weak var buttonTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var addMediaSwitch: UISwitch!
+    @IBOutlet weak var addSubTaskSwitch: UISwitch!
     //MARK: - Variables
     let datePicker: DatePicker = {
         let v = DatePicker()
@@ -36,15 +38,19 @@ class TaskAddEditViewController: UIViewController {
     var subTasks = [SubTask]()
     var task: Task? {
         didSet {
+            loadTaskData()
             loadMediaList()
+            loadSubTaskList()
+            editMode = true
         }
     }
     var selectedDueDate: Date?
     var selectedCategory: Category?
     var addSubTaskCell = 1
+    var editMode: Bool = false
+    var addNote : Bool = false
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    weak var delegate: TaskListViewController?
     
     //MARK: - View life cycle
     override func viewDidLoad() {
@@ -55,6 +61,11 @@ class TaskAddEditViewController: UIViewController {
         
         configureDatePicker()
         configureView()
+        
+        if task != nil{
+            
+        }
+        
     }
     
     private func registerNib() {
@@ -67,9 +78,17 @@ class TaskAddEditViewController: UIViewController {
     
     //MARK: - Configure View
     private func configureView() {
-        createDateLabel.text = DatePicker.getStringCurrentDate()
-        mediaStackView.isHidden = true
-        subTaskStackView.isHidden = true
+        if addNote{
+            buttonTableHeight.constant = CGFloat(105)
+        }else{
+            buttonTableHeight.constant = CGFloat(209)
+        }
+        
+        if !editMode {
+            createDateLabel.text = DatePicker.getStringCurrentDate()
+            mediaStackView.isHidden = true
+            subTaskStackView.isHidden = true
+        }
     }
     
     private func configureDatePicker() {
@@ -136,6 +155,16 @@ class TaskAddEditViewController: UIViewController {
     
     private func saveTask() {
         if checkInput() {
+            if editMode {
+                context.delete(task!)
+                for  media in self.mediaList {
+                    context.delete(media)
+                }
+                
+                for  subTask in self.subTasks {
+                    context.delete(subTask)
+                }
+            }
             let taskObj = Task(context: context)
             taskObj.createDate = Date()
             taskObj.parent_Category = selectedCategory
@@ -150,6 +179,11 @@ class TaskAddEditViewController: UIViewController {
             
             for  subTask in self.subTasks {
                 subTask.task = taskObj
+            }
+            if addNote{
+                taskObj.isTask = false
+            }else{
+                taskObj.isTask = true
             }
             saveAllContextCoreData()
         }
@@ -221,18 +255,86 @@ class TaskAddEditViewController: UIViewController {
         do {
             mediaList = try context.fetch(request)
         } catch {
-            print("Error loading folders \(error.localizedDescription)")
+            print("Error loading medias \(error.localizedDescription)")
         }
-        mediaFileCollectionView.reloadData()
+        if mediaList.count > 0{
+            addMediaSwitch.isOn = true
+            mediaFileCollectionView.reloadData()
+            mediaStackView.isHidden = false
+            subTaskStackView.isHidden = true
+        }else{
+            addMediaSwitch.isOn = false
+            mediaStackView.isHidden = true
+        }
+    }
+    
+    private func loadSubTaskList() {
+        let request: NSFetchRequest<SubTask> = SubTask.fetchRequest()
+        if let title = task?.title {
+            let folderPredicate = NSPredicate(format: "task.name=%@", title)
+            request.predicate = folderPredicate
+        }
+        do {
+            subTasks = try context.fetch(request)
+        } catch {
+            print("Error loading subTasks \(error.localizedDescription)")
+        }
+        if mediaList.count > 0{
+            addSubTaskSwitch.isOn = true
+            subTaskTableView.reloadData()
+            subTaskStackView.isHidden = false
+        }else{
+            addSubTaskSwitch.isOn = false
+            mediaStackView.isHidden = true
+        }
+    }
+    
+    private func getLocationData() {
+        let request: NSFetchRequest<Location> = Location.fetchRequest()
+        if let title = task?.title {
+            let folderPredicate = NSPredicate(format: "task.name=%@", title)
+            request.predicate = folderPredicate
+        }
+        do {
+             let location = try context.fetch(request)
+            selectedLocation = location.first
+        } catch {
+            print("Error loading location data \(error.localizedDescription)")
+        }
+    }
+    
+    private func loadTaskData() {
+        titleTextField.text = task?.title
+        descriptionTextField.text = task?.descriptionTask
+        if let createdDate = task?.createDate{
+            createDateLabel.text = DatePicker.getStringFromDate(date: createdDate)
+        }
+        if let dueDate = task?.dueDate{
+            buttonTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = DatePicker.getStringFromDate(date: dueDate)
+        }
+        getLocationData()
+        let locationRow = addNote ? 0 : 1
+        buttonTableView.cellForRow(at: IndexPath(row: locationRow, section: 0))?.detailTextLabel?.text = selectedLocation?.address
+       
     }
     
     private func saveAllContextCoreData() {
         do {
             try context.save()
+            clearFieldAndNavigateBack()
             popupAlert(title : "Success",message: "Successfully Saved..")
         } catch {
-            print("Error saving the folder \(error.localizedDescription)")
+            print("Error saving the data \(error.localizedDescription)")
         }
+    }
+    
+    private func clearFieldAndNavigateBack(){
+        titleTextField.text = ""
+        descriptionTextField.text = ""
+        mediaList.removeAll()
+        mediaFileCollectionView.reloadData()
+        subTasks.removeAll()
+        subTaskTableView.reloadData()
     }
 }
 
@@ -270,7 +372,7 @@ extension TaskAddEditViewController
 extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == buttonTableView {
-            return 4
+            return addNote ? 2 : 4
         } else {
             subTaskTableHeight.constant = CGFloat(((subTasks.count) + addSubTaskCell) * 50)
             return (subTasks.count) + addSubTaskCell// count
@@ -282,17 +384,28 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
         var id = "cell1"
         
         if tableView == buttonTableView {
-            switch indexPath.row {
-            case 0:
-                id = "cell1"
-            case 1:
-                id = "cell2"
-            case 2:
-                id = "cell3"
-            case 3:
-                id = "cell4"
-            default:
-                break
+            if addNote {
+                switch indexPath.row {
+                case 0:
+                    id = "cell2"
+                case 1:
+                    id = "cell3"
+                default:
+                    break
+                }
+            }else{
+                switch indexPath.row {
+                case 0:
+                    id = "cell1"
+                case 1:
+                    id = "cell2"
+                case 2:
+                    id = "cell3"
+                case 3:
+                    id = "cell4"
+                default:
+                    break
+                }
             }
         } else {
             if indexPath.row == (subTasks.count) {
@@ -313,12 +426,19 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == buttonTableView {
-            if indexPath.row == 0 { //due date
-                print("due date click")
-                datePicker.isHidden = false
-            } else if indexPath.row == 1 { //location
-                print("location click")
-                openMapView()
+            if addNote {
+                if indexPath.row == 0 { //due date
+                    print("location click")
+                    openMapView()
+                }
+            }else{
+                if indexPath.row == 0 { //due date
+                    print("due date click")
+                    datePicker.isHidden = false
+                } else if indexPath.row == 1 { //location
+                    print("location click")
+                    openMapView()
+                }
             }
         } else {
             if indexPath.row == (subTasks.count) { //Add subtask
@@ -378,7 +498,8 @@ extension TaskAddEditViewController: MapViewDelegate {
         selectedLocation?.latitude = place.coordinate.latitude
         selectedLocation?.longitude = place.coordinate.longitude
         selectedLocation?.address = place.title
-        buttonTableView.cellForRow(at: IndexPath(row: 1, section: 0))?.detailTextLabel?.text = place.title
+        var row = addNote ? 0 : 1
+        buttonTableView.cellForRow(at: IndexPath(row: row, section: 0))?.detailTextLabel?.text = place.title
         
     }
 }
