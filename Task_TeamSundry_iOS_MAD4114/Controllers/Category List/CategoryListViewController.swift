@@ -130,6 +130,7 @@ class CategoryListViewController: UIViewController {
     
     func openTaskListVC(indexPath: IndexPath) {
         let viewController:TaskListViewController = UIStoryboard(name: "TaskList", bundle: nil).instantiateViewController(withIdentifier: "TaskListView") as? TaskListViewController ?? TaskListViewController()
+        viewController.selectedCategory = categories[indexPath.row]
         navigationController?.pushViewController(viewController, animated: true)
     }
     
@@ -167,7 +168,6 @@ extension CategoryListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        showNoTaskView()
         return categories.count
     }
 
@@ -198,6 +198,7 @@ extension CategoryListViewController: UITableViewDelegate, UITableViewDataSource
             strongSelf.categories.remove(at: indexPath.row)
             // Delete the row from the data source
             tableView.deleteRows(at: [indexPath], with: .fade)
+            strongSelf.showNoTaskView()
         }
         
         let editAction = UIContextualAction(style: .normal, title: "Edit") {

@@ -23,6 +23,7 @@ class TaskListViewController: UIViewController {
     @IBOutlet weak var doneBtn: UIBarButtonItem!
     
     var tasks = [Task]()
+    var selectedCategory: Category?
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
