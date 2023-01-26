@@ -10,6 +10,7 @@ import CoreData
 class CategoryListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var noTaskView: UIView!
     
     // create a Category array to populate the table
     var categories = [Category]()
@@ -19,11 +20,24 @@ class CategoryListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        loadCategories()
+        showNoTaskView()
         // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
         tableView.reloadData()
+    }
+    
+    //MARK: - show empty table view
+    func showNoTaskView() {
+        if categories.count == 0 {
+            tableView.isHidden = true
+            noTaskView.isHidden = false
+        }else{
+            tableView.isHidden = false
+            noTaskView.isHidden = true
+        }
     }
     
     private func createNewCategory() {
@@ -75,7 +89,12 @@ class CategoryListViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    private func saveNewCategory(name: String) {
+    private func saveNewCategory(name _name: String) {
+        var name = _name
+        if name.isEmpty {
+            name = "New Category"
+        }
+        
         let categoryNames = self.categories.map {$0.name?.lowercased()}
         guard !categoryNames.contains(name.lowercased()) else {self.showAlert(); return}
         let newCategory = Category(context: self.context)
@@ -84,7 +103,12 @@ class CategoryListViewController: UIViewController {
         saveCategories()
     }
     
-    private func updateCategory(newName: String, indexPath: IndexPath) {
+    private func updateCategory(newName _newName: String, indexPath: IndexPath) {
+        var newName = _newName
+        if newName.isEmpty {
+            newName = "New Category"
+        }
+        
         let categoryNames = self.categories.map {$0.name?.lowercased()}
         guard !categoryNames.contains(newName.lowercased()) else {self.showAlert(); return}
         categories[indexPath.row].name = newName
@@ -101,14 +125,12 @@ class CategoryListViewController: UIViewController {
     
     
     @IBAction func action(_ sender: Any) {
-        let viewController:UIViewController = UIStoryboard(name: "TaskAddEdit", bundle: nil).instantiateViewController(withIdentifier: "TaskAddEditView") as UIViewController
-        // .instantiatViewControllerWithIdentifier() returns AnyObject! this must be downcast to utilize it
-        navigationController?.pushViewController(viewController, animated: true)
+        createNewCategory()
     }
     
     func openTaskListVC(indexPath: IndexPath) {
-//        let viewController:UIViewController = UIStoryboard(name: "TaskList", bundle: nil).instantiateViewController(withIdentifier: "TaskAddEditView") as TaskListViewController
-//        navigationController?.pushViewController(viewController, animated: true)
+        let viewController:TaskListViewController = UIStoryboard(name: "TaskList", bundle: nil).instantiateViewController(withIdentifier: "TaskListView") as? TaskListViewController ?? TaskListViewController()
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     //MARK: - core data interaction methods
@@ -145,19 +167,13 @@ extension CategoryListViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return categories.count + 1
+        showNoTaskView()
+        return categories.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "category_cell", for: indexPath)
-        
-//        cell.textLabel?.text = categories[indexPath.row].name
-//        cell.textLabel?.textColor = .lightGray
-//        cell.detailTextLabel?.textColor = .lightGray
-//        cell.detailTextLabel?.text = "\(categories[indexPath.row].tasks?.count ?? 0)"
-//        cell.imageView?.image = UIImage(systemName: "folder")
-//        cell.selectionStyle = .none
-        
+        cell.textLabel?.text = categories[indexPath.row].name
         return cell
     }
     
