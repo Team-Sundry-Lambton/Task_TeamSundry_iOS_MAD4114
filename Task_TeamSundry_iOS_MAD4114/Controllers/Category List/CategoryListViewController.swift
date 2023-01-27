@@ -31,7 +31,7 @@ class CategoryListViewController: UIViewController {
     
     //MARK: - show empty table view
     func showNoTaskView() {
-        if categories.count == 0 {
+        if categories.count == 0, let searhBar =  searchBar.text, searhBar.isEmpty {
             tableView.isHidden = true
             noTaskView.isHidden = false
         }else{
