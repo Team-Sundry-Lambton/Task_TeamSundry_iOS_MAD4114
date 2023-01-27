@@ -312,18 +312,19 @@ extension TaskDetailsViewController : UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "subTaskCell", for: indexPath)
         let model = subTaskList[indexPath.row]
-        cell.textLabel?.text = model.descriptionSubTask
         if(model.status){
             cell.imageView?.image = UIImage(named: "check")
+            cell.textLabel?.textColor = .lightGray
+            cell.textLabel?.text = "[Done] " + (model.descriptionSubTask ?? "")
         }
         else{
             cell.imageView?.image = UIImage(named: "uncheck")
+            cell.textLabel?.textColor = .black
+            cell.textLabel?.text = model.descriptionSubTask
         }
         
         return cell
     }
-    
-    
 }
 
 

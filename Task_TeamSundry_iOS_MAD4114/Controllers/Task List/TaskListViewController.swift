@@ -309,6 +309,16 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         cell.textLabel?.text = task.title
         cell.detailTextLabel?.text = task.descriptionTask
 
+        if !task.isTask {
+            let image = UIImageView(image: UIImage(named: "isNote"))
+            cell.accessoryView = image
+        } else if task.status {
+            let image = UIImageView(image: UIImage(named: "TaskDone"))
+            cell.accessoryView = image
+        } else {
+            cell.accessoryView = .none
+        }
+        
         return cell
     }
     
