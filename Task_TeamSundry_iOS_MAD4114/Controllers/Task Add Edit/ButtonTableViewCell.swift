@@ -10,8 +10,7 @@ import UIKit
 class ButtonTableViewCell: UITableViewCell {
 
     @IBOutlet weak var titleTextLbl: UILabel!
-    @IBOutlet weak var detailTextLbl: UILabel!
-    @IBOutlet weak var subTaskDescription: UISwitch!
+    @IBOutlet weak var statusSwitch: UISwitch!
     
     override func awakeFromNib() {
         super.awakeFromNib()

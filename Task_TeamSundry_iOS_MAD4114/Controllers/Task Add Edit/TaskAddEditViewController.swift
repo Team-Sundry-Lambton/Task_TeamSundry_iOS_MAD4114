@@ -416,6 +416,9 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
                     return cell ?? UITableViewCell()
                 case 1:
                     id = "cell3"
+                    let cell = tableView.dequeueReusableCell(withIdentifier: id) as? ButtonTableViewCell
+                    cell?.statusSwitch.isOn = mediaList.count > 0 ? true : false
+                    return cell ?? UITableViewCell()
                 default:
                     break
                 }
@@ -433,8 +436,14 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
                     return cell ?? UITableViewCell()
                 case 2:
                     id = "cell3"
+                    let cell = tableView.dequeueReusableCell(withIdentifier: id) as? ButtonTableViewCell
+                    cell?.statusSwitch.isOn = mediaList.count > 0 ? true : false
+                    return cell ?? UITableViewCell()
                 case 3:
                     id = "cell4"
+                    let cell = tableView.dequeueReusableCell(withIdentifier: id) as? ButtonTableViewCell
+                    cell?.statusSwitch.isOn = subTasks.count > 0 ? true : false
+                    return cell ?? UITableViewCell()
                 default:
                     break
                 }
