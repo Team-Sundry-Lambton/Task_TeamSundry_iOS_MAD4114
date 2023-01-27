@@ -53,7 +53,7 @@ class TaskListViewController: UIViewController {
     func loadTasks(predicate: NSPredicate? = nil , sortKey : String = "title") {
         let request: NSFetchRequest<Task> = Task.fetchRequest()
         let folderPredicate = NSPredicate(format: "parent_Category.name=%@", selectedCategory!.name!)
-        request.sortDescriptors = [NSSortDescriptor(key: sortKey, ascending: true)]
+        request.sortDescriptors = [NSSortDescriptor(key: sortKey, ascending: false)]
 
         if let additionalPredicate = predicate {
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [folderPredicate, additionalPredicate])
@@ -263,7 +263,7 @@ class TaskListViewController: UIViewController {
     func openMapVC() {
         let viewController:MapViewController = UIStoryboard(name: "MapView", bundle: nil).instantiateViewController(withIdentifier: "MapViewController") as? MapViewController ?? MapViewController()
         viewController.selectedCategory = selectedCategory
-        navigationController?.pushViewController(viewController, animated: true)
+        self.present(viewController, animated: true)
     }
     
     private func sortCLicked() {
