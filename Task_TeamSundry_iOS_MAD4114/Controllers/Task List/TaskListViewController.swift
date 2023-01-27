@@ -256,7 +256,7 @@ class TaskListViewController: UIViewController {
     func openTaskDetailVC(indexPath: IndexPath) {
         let viewController:TaskDetailsViewController = UIStoryboard(name: "TaskDetails", bundle: nil).instantiateViewController(withIdentifier: "TaskDetailViewController") as? TaskDetailsViewController ?? TaskDetailsViewController()
         viewController.task = tasks[indexPath.row]
-        self.present(viewController, animated: true)
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     //MARK: prepare map view
