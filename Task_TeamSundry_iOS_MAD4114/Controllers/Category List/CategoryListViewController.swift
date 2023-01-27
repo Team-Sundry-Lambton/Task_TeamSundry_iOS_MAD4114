@@ -223,9 +223,16 @@ extension CategoryListViewController: UISearchBarDelegate {
     /// - Parameter searchBar: search bar is passed to this function
     /// 
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // add predicate
-        let predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchBar.text ?? "")
-        loadCategoriesFromSearch(predicate: predicate)
+        if searchBar.text?.count == 0 {
+            loadCategoriesFromSearch()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }else{ // add predicate
+            let predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchBar.text ?? "")
+            loadCategoriesFromSearch(predicate: predicate)
+        }
     }
     
     
@@ -240,6 +247,9 @@ extension CategoryListViewController: UISearchBarDelegate {
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
             }
+        }else{ // add predicate
+            let predicate = NSPredicate(format: "name CONTAINS[cd] %@", searchBar.text ?? "")
+            loadCategoriesFromSearch(predicate: predicate)
         }
     }
 }

@@ -7,22 +7,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "F9A37C26-124E-4333-9188-05242C0FC014"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
-            landmarkName = "configureDatePicker()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "22CA47F7-8EF7-4617-ACCD-293F88CD9739"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
@@ -30,74 +14,10 @@
             filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "336"
-            endingLineNumber = "336"
-            landmarkName = "setTaskLocation(place:)"
+            startingLineNumber = "357"
+            endingLineNumber = "357"
+            landmarkName = "clearFieldAndNavigateBack()"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "0EC7BBE1-1B7D-43AC-AA7C-FAED6557D3D1"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/MapView/MapViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "51"
-            endingLineNumber = "51"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1F8CB2A3-1706-4A4B-A038-0B71DB9E5F60"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/MapView/MapViewController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
-            landmarkName = "viewDidLoad()"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "1F8CB2A3-1706-4A4B-A038-0B71DB9E5F60 - 576086c425166917"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Task_TeamSundry_iOS_MAD4114.MapViewController.viewDidLoad() -&gt; ()"
-                  moduleName = "Task_TeamSundry_iOS_MAD4114"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/malshalambton/Documents/GitHub/MAD4114-Final%20Project/Task_TeamSundry_iOS_MAD4114/Controllers/MapView/MapViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "1052">
-               </Location>
-               <Location
-                  uuid = "1F8CB2A3-1706-4A4B-A038-0B71DB9E5F60 - 576086c425166917"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "Task_TeamSundry_iOS_MAD4114.MapViewController.viewDidLoad() -&gt; ()"
-                  moduleName = "Task_TeamSundry_iOS_MAD4114"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/malshalambton/Documents/GitHub/MAD4114-Final%20Project/Task_TeamSundry_iOS_MAD4114/Controllers/MapView/MapViewController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "52"
-                  endingLineNumber = "52"
-                  offsetFromSymbolStart = "1148">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -209,6 +129,470 @@
                   offsetFromSymbolStart = "804">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "99B11EC0-4D30-4FEC-B1FB-F6EC98320D6C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "296"
+            endingLineNumber = "296"
+            landmarkName = "loadSubTaskList()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "41702711-4CE1-42CF-AF0E-3D425C9B73B6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "299"
+            endingLineNumber = "299"
+            landmarkName = "loadSubTaskList()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F4ED601F-BF9B-4144-AFB3-BC3EC8D689BB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "319"
+            endingLineNumber = "319"
+            landmarkName = "loadTaskData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "75C4D0C4-9AC9-4C3D-9278-43AE33D3CA45"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "325"
+            endingLineNumber = "325"
+            landmarkName = "loadTaskData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A580121A-4BDD-40C9-BFEC-230E4046E0C2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "178"
+            endingLineNumber = "178"
+            landmarkName = "saveTask()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C3443AAD-D81C-4969-BCCF-F20289058085"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
+            landmarkName = "configureDatePicker()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "48FCF4D1-35F9-4CB8-A07E-A8275B11351E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "276"
+            endingLineNumber = "276"
+            landmarkName = "loadMediaList()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "95E3B0D6-9743-4A80-ACEA-9850950022D2"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "280"
+            endingLineNumber = "280"
+            landmarkName = "loadMediaList()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2DEDC58B-8FD0-4D17-AAA0-91C5DF8514F7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "265"
+            endingLineNumber = "265"
+            landmarkName = "loadMediaList()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2DEDC58B-8FD0-4D17-AAA0-91C5DF8514F7 - 4e0956459a6f7a80"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Task_TeamSundry_iOS_MAD4114.TaskAddEditViewController.loadMediaList() -&gt; ()"
+                  moduleName = "Task_TeamSundry_iOS_MAD4114"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/malshalambton/Documents/GitHub/MAD4114-Final%20Project/Task_TeamSundry_iOS_MAD4114/Controllers/Task%20Add%20Edit/TaskAddEditViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "265"
+                  endingLineNumber = "265"
+                  offsetFromSymbolStart = "180">
+               </Location>
+               <Location
+                  uuid = "2DEDC58B-8FD0-4D17-AAA0-91C5DF8514F7 - 4e0956459a6f7a80"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Task_TeamSundry_iOS_MAD4114.TaskAddEditViewController.loadMediaList() -&gt; ()"
+                  moduleName = "Task_TeamSundry_iOS_MAD4114"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/malshalambton/Documents/GitHub/MAD4114-Final%20Project/Task_TeamSundry_iOS_MAD4114/Controllers/Task%20Add%20Edit/TaskAddEditViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "265"
+                  endingLineNumber = "265"
+                  offsetFromSymbolStart = "564">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6CED0889-6B20-4C8D-9F72-089470464B91"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "286"
+            endingLineNumber = "286"
+            landmarkName = "loadSubTaskList()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "6CED0889-6B20-4C8D-9F72-089470464B91 - 28c4482e371aae12"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Task_TeamSundry_iOS_MAD4114.TaskAddEditViewController.loadSubTaskList() -&gt; ()"
+                  moduleName = "Task_TeamSundry_iOS_MAD4114"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/malshalambton/Documents/GitHub/MAD4114-Final%20Project/Task_TeamSundry_iOS_MAD4114/Controllers/Task%20Add%20Edit/TaskAddEditViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "286"
+                  endingLineNumber = "286"
+                  offsetFromSymbolStart = "180">
+               </Location>
+               <Location
+                  uuid = "6CED0889-6B20-4C8D-9F72-089470464B91 - 28c4482e371aae12"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Task_TeamSundry_iOS_MAD4114.TaskAddEditViewController.loadSubTaskList() -&gt; ()"
+                  moduleName = "Task_TeamSundry_iOS_MAD4114"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/malshalambton/Documents/GitHub/MAD4114-Final%20Project/Task_TeamSundry_iOS_MAD4114/Controllers/Task%20Add%20Edit/TaskAddEditViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "286"
+                  endingLineNumber = "286"
+                  offsetFromSymbolStart = "564">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "11AEF765-A80C-414C-A042-07E431EAD013"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "328"
+            endingLineNumber = "328"
+            landmarkName = "loadTaskData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1E589965-0739-4AD0-A40B-08EAADD9EE32"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "310"
+            endingLineNumber = "310"
+            landmarkName = "getLocationData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "80989A15-09C1-40F1-8E70-3A71929677D7"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "311"
+            endingLineNumber = "311"
+            landmarkName = "getLocationData()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "531039D8-E2B9-4F9E-8E9F-B04DA619EAE6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "527"
+            endingLineNumber = "527"
+            landmarkName = "setTaskLocation(place:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "01DFD346-F912-4BE5-95DA-6F011C656545"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "523"
+            endingLineNumber = "523"
+            landmarkName = "setTaskLocation(place:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5203F662-4A28-458B-B053-FC60EEBFA21C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "291"
+            endingLineNumber = "291"
+            landmarkName = "loadSubTaskList()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A3793FAF-15A8-4BFD-AB84-9C45DA635690"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Add Edit/TaskAddEditViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
+            landmarkName = "loadMediaList()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "A3793FAF-15A8-4BFD-AB84-9C45DA635690 - 4e0956459a6f7b5a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Task_TeamSundry_iOS_MAD4114.TaskAddEditViewController.loadMediaList() -&gt; ()"
+                  moduleName = "Task_TeamSundry_iOS_MAD4114"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/malshalambton/Documents/GitHub/MAD4114-Final%20Project/Task_TeamSundry_iOS_MAD4114/Controllers/Task%20Add%20Edit/TaskAddEditViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "271"
+                  endingLineNumber = "271"
+                  offsetFromSymbolStart = "1132">
+               </Location>
+               <Location
+                  uuid = "A3793FAF-15A8-4BFD-AB84-9C45DA635690 - 4e0956459a6f7b5a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Task_TeamSundry_iOS_MAD4114.TaskAddEditViewController.loadMediaList() -&gt; ()"
+                  moduleName = "Task_TeamSundry_iOS_MAD4114"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/malshalambton/Documents/GitHub/MAD4114-Final%20Project/Task_TeamSundry_iOS_MAD4114/Controllers/Task%20Add%20Edit/TaskAddEditViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "271"
+                  endingLineNumber = "271"
+                  offsetFromSymbolStart = "2640">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "472743F5-E9E5-424D-A43C-B25956ACFC46"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Views/Task Details/TaskDetailAudioViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "18"
+            endingLineNumber = "18"
+            landmarkName = "configureCell(file:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CB04DBDC-E20B-4A28-8BDC-D72FB6A2ABBF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Details/TaskDetailsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "245"
+            endingLineNumber = "245"
+            landmarkName = "collectionView(_:cellForItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "47E268D9-5B4C-4EC3-9946-A388840DE6A1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Details/TaskDetailsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8E011093-EE02-4F38-84CE-8114A9FB95A0"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/ManagerFiles/MediaManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
+            landmarkName = "startPlaying(fileName:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F13E70B3-41F9-4E99-8C89-66C94FA05A2D"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task Details/TaskDetailsViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "271"
+            endingLineNumber = "271"
+            landmarkName = "collectionView(_:didSelectItemAt:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CDAE34AC-A8DB-465B-9F1C-897BB9B17845"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Task_TeamSundry_iOS_MAD4114/Controllers/Task List/TaskListViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "loadTasks(predicate:sortKey:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
