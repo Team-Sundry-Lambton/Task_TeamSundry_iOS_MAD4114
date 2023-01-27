@@ -82,13 +82,15 @@ class TaskListViewController: UIViewController {
     //MARK: - show empty table view
     func showNoTaskView(){
         if tasks.count == 0 {
-            tableView.backgroundView = noTaskView
-            taskToolbar.isHidden = true
+            tableView.isHidden = true
+            noTaskView.isHidden = false
         }else{
-            tableView.backgroundView = nil
-            taskToolbar.isHidden = false
+            tableView.isHidden = false
+            noTaskView.isHidden = true
             taskTotalCount.title = "\(tasks.count) Tasks"
         }
+        
+        taskToolbar.isHidden = tableView.isHidden
     }
     
     //MARK: - show empty table view
