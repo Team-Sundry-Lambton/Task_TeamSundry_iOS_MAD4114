@@ -62,7 +62,7 @@
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                <color key="value" name="DarkPurple"/>
+                                                                <color key="value" name="MediumPurple"/>
                                                             </userDefinedRuntimeAttribute>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                                 <real key="value" value="1"/>
@@ -182,20 +182,20 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="353" height="57"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
-                                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ZSO-b6-iWo">
+                                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ZSO-b6-iWo">
                                                                             <rect key="frame" x="276" y="13" width="51" height="31"/>
                                                                             <connections>
                                                                                 <action selector="subTaskSwitchAction:" destination="xRO-dv-4F2" eventType="valueChanged" id="S3s-Xx-qdv"/>
                                                                             </connections>
                                                                         </switch>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sub task" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dro-su-MX2">
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Sub task" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dro-su-MX2">
                                                                             <rect key="frame" x="54.999999999999993" y="18.333333333333336" width="66.333333333333314" height="20.333333333333336"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AddSubTaskIcon" translatesAutoresizingMaskIntoConstraints="NO" id="7pa-R1-ZKP">
-                                                                            <rect key="frame" x="20" y="19.666666666666668" width="22" height="18.000000000000004"/>
+                                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="AddSubTaskIcon" translatesAutoresizingMaskIntoConstraints="NO" id="7pa-R1-ZKP">
+                                                                            <rect key="frame" x="20" y="19.666666666666671" width="22" height="18"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="18" id="5W2-Lt-m6I"/>
                                                                                 <constraint firstAttribute="width" constant="22" id="sr2-nJ-v2D"/>
@@ -401,9 +401,6 @@
         <image name="AddLocationIcon" width="18" height="19"/>
         <image name="AddPhotoIcon" width="23" height="18"/>
         <image name="AddSubTaskIcon" width="22" height="18"/>
-        <namedColor name="DarkPurple">
-            <color red="0.42399999499320984" green="0.47499999403953552" blue="0.94099998474121094" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-        </namedColor>
         <namedColor name="MediumPurple">
             <color red="0.61599999666213989" green="0.65100002288818359" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
