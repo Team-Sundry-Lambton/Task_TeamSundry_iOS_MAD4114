@@ -9,7 +9,7 @@ import CoreData
 
 class TaskDetailsViewController: UIViewController {
     
-   
+    
     var task:Task?
     var subTaskList = [SubTask]()
     var mediaList = [MediaFile]()
@@ -21,7 +21,7 @@ class TaskDetailsViewController: UIViewController {
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet weak var audioCollectionView: UICollectionView!
-
+    
     
     @IBOutlet weak var subTaskStack: UIStackView!
     @IBOutlet weak var subTaskTableView: UITableView!
@@ -34,22 +34,11 @@ class TaskDetailsViewController: UIViewController {
     @IBOutlet weak var dueDateLbl: UILabel!
     
     
-    func getTask() -> Task {
-        let task = Task(context: context)
-        task.title = "Task Title Here"
-        task.descriptionTask = "a quick brown fox jumps over the lazy dog."
-        let location = Location(context: context)
-        location.address = "New York"
-        task.location = location
-        
-        return task
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         initUI()
-        initData(task: task ?? getTask())
+        initData()
         
     }
     
@@ -58,13 +47,11 @@ class TaskDetailsViewController: UIViewController {
         imageCollectionView.register(UINib.init(nibName: "TaskDetailImageViewCell", bundle: nil), forCellWithReuseIdentifier: "TaskDetailImageViewCell")
         imageCollectionView.dataSource = self
         imageCollectionView.delegate = self
-        imageCollectionView.reloadData()
         
         
         audioCollectionView.register(UINib.init(nibName: "TaskDetailAudioViewCell", bundle: nil), forCellWithReuseIdentifier: "TaskDetailAudioViewCell")
         audioCollectionView.dataSource = self
         audioCollectionView.delegate = self
-        audioCollectionView.reloadData()
         
         
         subTaskTableView.delegate = self
@@ -73,7 +60,12 @@ class TaskDetailsViewController: UIViewController {
         
     }
     
-    func initData(task:Task){
+    func initData(){
+        
+        guard let task = task  else {
+            return
+        }
+        
         locationLbl.text = task.location?.address
         taskTitleLbl.text = task.title
         descLbl.text = task.descriptionTask
@@ -85,11 +77,6 @@ class TaskDetailsViewController: UIViewController {
         loadSubTaskList()
         
         
-        
-//        let formatter = DateFormatter()
-//        formatter.dateStyle = .short
-//        createdDateLbl.text = formatter.string(from: task.createDate)
-//        dueDateLbl.text = formatter.string(from: task.dueDate)
         
         if(mediaList.isEmpty){
             imageView.isHidden = true
@@ -132,7 +119,7 @@ class TaskDetailsViewController: UIViewController {
             request.predicate = folderPredicate
         }
         do {
-             let location = try context.fetch(request)
+            let location = try context.fetch(request)
             selectedLocation = location.first
         } catch {
             print("Error loading location data \(error.localizedDescription)")
@@ -161,7 +148,7 @@ class TaskDetailsViewController: UIViewController {
     private func loadAudioList() {
         let request: NSFetchRequest<MediaFile> = MediaFile.fetchRequest()
         if let title = task?.title {
-            let folderPredicate = NSPredicate(format: "parent_Task.title=%@ AND isImage=%@", title, false)
+            let folderPredicate = NSPredicate(format: "parent_Task.title=%@ AND isImage=false", title)
             request.predicate = folderPredicate
         }
         do {
@@ -198,7 +185,14 @@ class TaskDetailsViewController: UIViewController {
         }
     }
     
-
+    @IBAction func navigateToMapView(){
+           let storyBoard : UIStoryboard = UIStoryboard(name: "MapView", bundle:nil)
+           let nextViewController = storyBoard.instantiateViewController(withIdentifier: "MapViewController") as! MapViewController
+           nextViewController.selectedTask = task
+           nextViewController.selectLocation = false
+            self.present(nextViewController, animated: true)
+        
+    }
 }
 
 
@@ -217,14 +211,14 @@ extension TaskDetailsViewController :UICollectionViewDataSource, UICollectionVie
         
         if(collectionView == self.imageCollectionView){
             
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TaskDetailImageViewCell", for: indexPath) as! TaskDetailImageViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TaskDetailImageViewCell", for: indexPath) as? TaskDetailImageViewCell ?? TaskDetailImageViewCell()
             let mediaFile = mediaList[indexPath.row]
             cell.configureCell(model: mediaFile)
             return cell
         }
         
         else{
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TaskDetailAudioViewCell", for: indexPath) as! TaskDetailAudioViewCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TaskDetailAudioViewCell", for: indexPath) as? TaskDetailAudioViewCell ?? TaskDetailAudioViewCell()
             let audioFile = audioList[indexPath.row]
             cell.configureCell(file: audioFile)
             return cell
@@ -262,6 +256,16 @@ extension TaskDetailsViewController :UICollectionViewDataSource, UICollectionVie
 
 extension TaskDetailsViewController : UITableViewDelegate, UITableViewDataSource {
     
+    private func saveContextCoreData(){
+        do{
+            try context.save()
+            loadSubTaskList()
+        }
+        catch{
+            print("Error saving data \(error.localizedDescription)")
+        }
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -270,6 +274,11 @@ extension TaskDetailsViewController : UITableViewDelegate, UITableViewDataSource
         return subTaskList.count
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
+        let model = subTaskList[indexPath.row]
+        model.status = !model.status
+        saveContextCoreData()
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "subTaskCell", for: indexPath)
