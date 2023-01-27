@@ -14,12 +14,10 @@ class TaskDetailImageViewCell : UICollectionViewCell{
     @IBOutlet weak var image: UIImageView!
 
     
-    func configureCell(model:MediaFile?){
+    func configureCell(model:MediaFile){
         image.layer.cornerRadius = 12
-        if model != nil {
-            self.image.image = FolderManager.shared.getImageFromDocumentDirectory(fileName: model?.name ?? "")
+            if let imageName = model.name{
+                self.image.image = FolderManager.shared.getImageFromDocumentDirectory(fileName: imageName )
         }
     }
-    
-    
 }
