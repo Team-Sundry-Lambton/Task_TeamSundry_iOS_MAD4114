@@ -248,7 +248,6 @@ class TaskAddEditViewController: UIViewController {
     private func deleteMediaFile(mediaFile: MediaFile) {
         FolderManager.shared.clearSelectedFile(filePath: mediaFile.path ?? "")
         context.delete(mediaFile)
-//        saveAllContextCoreData()
         mediaFileCollectionView.reloadData()
     }
     
@@ -505,7 +504,7 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
         if editingStyle == .delete {
             print("delete")
             deleteSubTask(subTask: subTasks[indexPath.row])
-            saveAllContextCoreData()
+            saveSingleCoreData()
             subTasks.remove(at: indexPath.row)
             let indexPath:IndexPath = IndexPath(row:indexPath.row, section: 0)
             tableView.beginUpdates()
