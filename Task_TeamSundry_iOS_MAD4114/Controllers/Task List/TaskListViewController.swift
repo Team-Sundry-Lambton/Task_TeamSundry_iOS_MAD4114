@@ -87,10 +87,12 @@ class TaskListViewController: UIViewController {
         if tasks.count == 0 {
             tableView.isHidden = true
             noTaskView.isHidden = false
+            showMoreBtn.isHidden = true
         }else{
             tableView.isHidden = false
             noTaskView.isHidden = true
             taskTotalCount.title = "\(tasks.count) Tasks"
+            showMoreBtn.isHidden = false
         }
         
         taskToolbar.isHidden = tableView.isHidden
