@@ -235,6 +235,7 @@ class TaskDetailsViewController: UIViewController {
             let deleteAction = UIAlertAction(title: "Yes", style: .default){
                 UIAlertAction in
                 subTask.status = !subTask.status
+                self.task?.status = false
                 self.saveContextCoreData()
             }
             controller.addAction(deleteAction)
