@@ -33,6 +33,7 @@ class TaskDetailsViewController: UIViewController {
     @IBOutlet weak var createdDateLbl: UILabel!
     @IBOutlet weak var dueDateLbl: UILabel!
     @IBOutlet weak var dueDateTitleLbl: UILabel!
+    @IBOutlet weak var locationView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,6 +125,12 @@ class TaskDetailsViewController: UIViewController {
         }
         else{
             subTaskStack.isHidden = false
+        }
+        
+        if (selectedLocation != nil){
+            locationView.isHidden = false
+        }else{
+            locationView.isHidden = true
         }
     }
     
