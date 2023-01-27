@@ -258,7 +258,7 @@ class TaskListViewController: UIViewController {
     func openTaskDetailVC(indexPath: IndexPath) {
         let viewController:TaskDetailsViewController = UIStoryboard(name: "TaskDetails", bundle: nil).instantiateViewController(withIdentifier: "TaskDetailViewController") as? TaskDetailsViewController ?? TaskDetailsViewController()
         viewController.task = tasks[indexPath.row]
-        navigationController?.pushViewController(viewController, animated: true)
+        self.present(viewController, animated: true)
     }
     
     //MARK: prepare map view
@@ -318,7 +318,8 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
        }
         
         let EditItem = UIContextualAction(style: .normal , title: "Edit") {  (contextualAction, view, boolValue) in
-            
+            var selectedTask = self.tasks[indexPath.row]
+            self.openTaskAddEditView(addNote: selectedTask.isTask , task: selectedTask)
         }
        EditItem.backgroundColor = UIColor.systemBlue
         

@@ -23,8 +23,7 @@ class TaskAddEditViewController: UIViewController {
     
     @IBOutlet weak var createDateLabel: UILabel!
     @IBOutlet weak var buttonTableHeight: NSLayoutConstraint!
-    @IBOutlet weak var addMediaSwitch: UISwitch!
-    @IBOutlet weak var addSubTaskSwitch: UISwitch!
+
     //MARK: - Variables
     let datePicker: DatePicker = {
         let v = DatePicker()
@@ -38,9 +37,6 @@ class TaskAddEditViewController: UIViewController {
     var subTasks = [SubTask]()
     var task: Task? {
         didSet {
-            loadTaskData()
-            loadMediaList()
-            loadSubTaskList()
             editMode = true
         }
     }
@@ -62,8 +58,10 @@ class TaskAddEditViewController: UIViewController {
         configureDatePicker()
         configureView()
         
-        if task != nil{
-            
+        if editMode{
+            loadTaskData()
+            loadMediaList()
+            loadSubTaskList()
         }
         
     }
@@ -260,12 +258,12 @@ class TaskAddEditViewController: UIViewController {
             print("Error loading medias \(error.localizedDescription)")
         }
         if mediaList.count > 0{
-            addMediaSwitch.isOn = true
+           
             mediaFileCollectionView.reloadData()
             mediaStackView.isHidden = false
             subTaskStackView.isHidden = true
         }else{
-            addMediaSwitch.isOn = false
+        
             mediaStackView.isHidden = true
         }
     }
@@ -282,11 +280,9 @@ class TaskAddEditViewController: UIViewController {
             print("Error loading subTasks \(error.localizedDescription)")
         }
         if mediaList.count > 0{
-            addSubTaskSwitch.isOn = true
             subTaskTableView.reloadData()
             subTaskStackView.isHidden = false
         }else{
-            addSubTaskSwitch.isOn = false
             mediaStackView.isHidden = true
         }
     }
@@ -306,17 +302,19 @@ class TaskAddEditViewController: UIViewController {
     }
     
     private func loadTaskData() {
-        titleTextField.text = task?.title
-        descriptionTextField.text = task?.descriptionTask
-        if let createdDate = task?.createDate{
-            createDateLabel.text = DatePicker.getStringFromDate(date: createdDate)
+        if let task = task {
+            self.titleTextField.text = task.title
+            self.descriptionTextField.text = task.descriptionTask
+            if let createdDate = task.createDate{
+                createDateLabel.text = DatePicker.getStringFromDate(date: createdDate)
+            }
+            if let dueDate = task.dueDate{
+                buttonTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = DatePicker.getStringFromDate(date: dueDate)
+            }
+            getLocationData()
+            let locationRow = addNote ? 0 : 1
+            buttonTableView.cellForRow(at: IndexPath(row: locationRow, section: 0))?.detailTextLabel?.text = selectedLocation?.address
         }
-        if let dueDate = task?.dueDate{
-            buttonTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = DatePicker.getStringFromDate(date: dueDate)
-        }
-        getLocationData()
-        let locationRow = addNote ? 0 : 1
-        buttonTableView.cellForRow(at: IndexPath(row: locationRow, section: 0))?.detailTextLabel?.text = selectedLocation?.address
        
     }
     
@@ -395,6 +393,11 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
                 default:
                     break
                 }
+                
+                let cell = tableView.dequeueReusableCell(withIdentifier: id) as? SubTaskTableViewCell
+                cell?.delegate = self
+                cell?.indexPath = indexPath
+                return cell ?? UITableViewCell()
             }else{
                 switch indexPath.row {
                 case 0:

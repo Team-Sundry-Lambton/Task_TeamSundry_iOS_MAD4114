@@ -8,7 +8,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--TasK-->
+        <!--Task-->
         <scene sceneID="G3L-d9-aCW">
             <objects>
                 <viewController storyboardIdentifier="TaskListView" id="1LV-Ek-MNV" customClass="TaskListViewController" customModule="Task_TeamSundry_iOS_MAD4114" customModuleProvider="target" sceneMemberID="viewController">
@@ -162,7 +162,7 @@
                             <constraint firstAttribute="bottomMargin" secondItem="ymh-RY-0dw" secondAttribute="bottom" id="yvV-7y-2ed"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="TasK" id="ofM-qE-b2E">
+                    <navigationItem key="navigationItem" title="Task" id="ofM-qE-b2E">
                         <rightBarButtonItems>
                             <barButtonItem style="plain" systemItem="done" id="D9T-Gh-dzF">
                                 <color key="tintColor" red="0.96841138599999999" green="0.80132024830000004" blue="0.18762987680000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
