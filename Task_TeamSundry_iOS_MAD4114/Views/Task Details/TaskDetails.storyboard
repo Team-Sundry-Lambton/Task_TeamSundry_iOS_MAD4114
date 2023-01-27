@@ -329,6 +329,7 @@
                         <outlet property="locationView" destination="Acl-us-bFO" id="OEJ-Oi-JWu"/>
                         <outlet property="noteImgIV" destination="G1G-JI-pgr" id="Zdc-g8-MXg"/>
                         <outlet property="subTaskStack" destination="wKq-xS-dlL" id="IbX-AB-7Nb"/>
+                        <outlet property="subTaskTableHeight" destination="iHj-At-r0s" id="9W5-BI-x31"/>
                         <outlet property="subTaskTableView" destination="ckS-r6-X1y" id="L43-sB-K3n"/>
                         <outlet property="taskTitleLbl" destination="Hwm-EO-a01" id="Ge8-mb-A6a"/>
                     </connections>

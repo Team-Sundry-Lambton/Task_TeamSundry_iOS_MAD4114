@@ -35,6 +35,7 @@ class TaskDetailsViewController: UIViewController {
     @IBOutlet weak var dueDateTitleLbl: UILabel!
     @IBOutlet weak var locationView: UIView!
     
+    @IBOutlet weak var subTaskTableHeight: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -293,11 +294,8 @@ extension TaskDetailsViewController : UITableViewDelegate, UITableViewDataSource
         }
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        subTaskTableHeight.constant = CGFloat(subTaskList.count * 50)
         return subTaskList.count
     }
     
