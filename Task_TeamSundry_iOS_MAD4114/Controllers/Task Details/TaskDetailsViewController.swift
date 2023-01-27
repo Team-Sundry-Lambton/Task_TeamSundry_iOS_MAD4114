@@ -221,6 +221,29 @@ class TaskDetailsViewController: UIViewController {
             self.present(nextViewController, animated: true)
         
     }
+    
+    private func markSubTaskCompleteConfirmation(subTask: SubTask) {
+        var message = ""
+        if(subTask.status){
+            message = "This task is already completed. Are you sure you want to mark this as incomplete?"
+        }else{
+            message = "Are you sure you want to complete this task?"
+        }
+        let alertController: UIAlertController = {
+            let controller = UIAlertController(title: "Warning", message: message , preferredStyle: .alert)
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+            let deleteAction = UIAlertAction(title: "Yes", style: .default){
+                UIAlertAction in
+                subTask.status = !subTask.status
+                self.saveContextCoreData()
+            }
+            controller.addAction(deleteAction)
+            controller.addAction(cancelAction)
+            return controller
+        }()
+        self.present(alertController, animated: true)
+    }
+    
 }
 
 
@@ -305,25 +328,26 @@ extension TaskDetailsViewController : UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath){
         let model = subTaskList[indexPath.row]
-        model.status = !model.status
-        saveContextCoreData()
+        markSubTaskCompleteConfirmation(subTask: model)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "subTaskCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "subTaskCell", for: indexPath) as? SubTaskDetailTableViewCell
         let model = subTaskList[indexPath.row]
         if(model.status){
-            cell.imageView?.image = UIImage(named: "check")
-            cell.textLabel?.textColor = .lightGray
-            cell.textLabel?.text = "[Done] " + (model.descriptionSubTask ?? "")
+            cell?.subTaskStatusImage?.image = UIImage(named: "check")
+            cell?.subTaskTitle?.textColor = .lightGray
+            cell?.subTaskTitle?.text = model.descriptionSubTask ?? ""
+            cell?.subTaskStatus.text = "Completed"
         }
         else{
-            cell.imageView?.image = UIImage(named: "uncheck")
-            cell.textLabel?.textColor = .black
-            cell.textLabel?.text = model.descriptionSubTask
+            cell?.subTaskStatusImage?.image = UIImage(named: "uncheck")
+            cell?.subTaskTitle?.textColor = .black
+            cell?.subTaskTitle?.text = model.descriptionSubTask
+            cell?.subTaskStatus.text = ""
         }
         
-        return cell
+        return cell ?? UITableViewCell()
     }
 }
 
