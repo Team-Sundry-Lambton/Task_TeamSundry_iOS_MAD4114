@@ -26,7 +26,7 @@ class PlaceObject: NSObject, MKAnnotation {
         for task in taskList {
             let request: NSFetchRequest<Location> = Location.fetchRequest()
             if let title = task.title {
-                let folderPredicate = NSPredicate(format: "task.name=%@", title)
+                let folderPredicate = NSPredicate(format: "task.title=%@", title)
                 request.predicate = folderPredicate
             }
             do {
@@ -63,7 +63,7 @@ class PlaceObject: NSObject, MKAnnotation {
     static func getLocationForTask(task : Task, context: NSManagedObjectContext) -> PlaceObject? {
         let request: NSFetchRequest<Location> = Location.fetchRequest()
         if let title = task.title {
-            let folderPredicate = NSPredicate(format: "task.name=%@", title)
+            let folderPredicate = NSPredicate(format: "task.title=%@", title)
             request.predicate = folderPredicate
         }
         

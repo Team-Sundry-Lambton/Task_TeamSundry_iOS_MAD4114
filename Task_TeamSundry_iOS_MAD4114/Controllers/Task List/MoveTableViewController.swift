@@ -17,13 +17,13 @@ class MoveTaskViewController: UIViewController {
         }
     }
     
+    weak var delegate: TaskListViewController?
+    
     // context
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
     
     //MARK: - core data interaction methods
@@ -54,7 +54,7 @@ extension MoveTaskViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell  = UITableViewCell(style: .default, reuseIdentifier: "")
+        let cell  = tableView.dequeueReusableCell(withIdentifier: "move_cell", for: indexPath)
         cell.textLabel?.text = categories[indexPath.row].name
         return cell
     }
@@ -68,6 +68,8 @@ extension MoveTaskViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 // dismiss the vc
                 self.dismiss(animated: true, completion: nil)
+                self.delegate?.saveTasks()
+                self.delegate?.loadTasks()
             }
         }
         

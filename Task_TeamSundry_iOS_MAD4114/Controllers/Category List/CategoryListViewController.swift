@@ -162,6 +162,7 @@ class CategoryListViewController: UIViewController {
     func deleteCategory(category: Category) {
         context.delete(category)
     }
+    
 }
 
 extension CategoryListViewController: UITableViewDelegate, UITableViewDataSource {

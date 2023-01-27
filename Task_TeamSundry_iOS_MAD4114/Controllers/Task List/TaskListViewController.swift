@@ -24,6 +24,7 @@ class TaskListViewController: UIViewController {
     
     var tasks = [Task]()
     var selectedCategory: Category?
+    var subTasks = [SubTask]()
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
@@ -31,6 +32,7 @@ class TaskListViewController: UIViewController {
     let searchController = UISearchController(searchResultsController: nil)
     
     var deletingMovingOption: Bool = false
+    var sortBy: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,11 +53,13 @@ class TaskListViewController: UIViewController {
     //MARK: - Core data interaction functions
     func loadTasks(predicate: NSPredicate? = nil) {
         let request: NSFetchRequest<Task> = Task.fetchRequest()
-        
-        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: true)]
+        let folderPredicate = NSPredicate(format: "parent_Category.name=%@", selectedCategory!.name!)
+        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: sortBy)]
         
         if let additionalPredicate = predicate {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [additionalPredicate])
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [folderPredicate, additionalPredicate])
+        } else {
+            request.predicate = folderPredicate
         }
         
         do {
@@ -107,10 +111,13 @@ class TaskListViewController: UIViewController {
                 UIAction(title: "Sort By",
                          image: UIImage(systemName: "arrow.up.arrow.down.circle.fill")?.withTintColor(#colorLiteral(red: 0.4109354019, green: 0.4765244722, blue: 0.9726889729, alpha: 1) , renderingMode: .alwaysOriginal),
                          handler: { (_) in
+                             self.sortBy = !self.sortBy
+                             self.loadTasks()
                 }),
                 UIAction(title: "View on map ",
                          image: UIImage(systemName: "map.circle.fill")?.withTintColor(#colorLiteral(red: 0.4109354019, green: 0.4765244722, blue: 0.9726889729, alpha: 1) , renderingMode: .alwaysOriginal),
                          handler: { (_) in
+                             self.openMapVC()
                 })
             ]
         }
@@ -129,6 +136,7 @@ class TaskListViewController: UIViewController {
         if let selectedTask = task {
             taskAddEditViewController.task = selectedTask
         }
+        taskAddEditViewController.selectedCategory = selectedCategory
         navigationController?.pushViewController(taskAddEditViewController, animated: true)
     }
     
@@ -221,6 +229,45 @@ class TaskListViewController: UIViewController {
         showHideToolbarOptions()
     }
     
+    //MARK: fetch sub tasks by task title
+    private func loadOpenSubTaskList(title: String) {
+        let request: NSFetchRequest<SubTask> = SubTask.fetchRequest()
+        let folderPredicate = NSPredicate(format: "status=%@", NSNumber(booleanLiteral: false))
+        request.predicate = folderPredicate
+        
+        do {
+            subTasks = try context.fetch(request)
+        } catch {
+            print("Error loading subTasks \(error.localizedDescription)")
+        }
+    }
+    
+    //MARK: prepare segue for move
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? MoveTaskViewController {
+            if let index = tableView.indexPathsForSelectedRows {
+                let rows = index.map {$0.row}
+                destination.selectedTasks = rows.map {tasks[$0]}
+                destination.delegate = self
+            }
+        }
+    }
+    
+    //MARK: prepare task details view controller
+    func openTaskDetailVC(indexPath: IndexPath) {
+        let viewController:TaskDetailsViewController = UIStoryboard(name: "TaskDetails", bundle: nil).instantiateViewController(withIdentifier: "TaskDetailViewController") as? TaskDetailsViewController ?? TaskDetailsViewController()
+        viewController.task = tasks[indexPath.row]
+        self.present(viewController, animated: true)
+    }
+    
+    //MARK: prepare map view
+    func openMapVC() {
+        let viewController:MapViewController = UIStoryboard(name: "MapView", bundle: nil).instantiateViewController(withIdentifier: "MapViewController") as? MapViewController ?? MapViewController()
+        viewController.selectedCategory = selectedCategory
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
 }
 
 extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -249,6 +296,7 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         return true
     }
     
+    //MARK: swipe left action
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
        let DeleteItem = UIContextualAction(style: .destructive, title: "Delete") {  (contextualAction, view, boolValue) in
            
@@ -270,7 +318,8 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
        }
         
         let EditItem = UIContextualAction(style: .normal , title: "Edit") {  (contextualAction, view, boolValue) in
-            //Code I want to do here
+            var selectedTask = self.tasks[indexPath.row]
+            self.openTaskAddEditView(addNote: selectedTask.isTask , task: selectedTask)
         }
        EditItem.backgroundColor = UIColor.systemBlue
         
@@ -279,6 +328,55 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
        return swipeActions
    }
     
+    //MARK: swipe right action
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let selectedTask = self.tasks[indexPath.row]
+        if selectedTask.isTask {
+            var bgColor = UIColor()
+            var bgImage = UIImage()
+            if !selectedTask.status {
+                bgImage = UIImage(named: "doneTask") ?? UIImage()
+                bgColor = #colorLiteral(red: 0.05831826478, green: 0.8438417912, blue: 0.004987356719, alpha: 1)
+            }else{
+                bgImage = UIImage(named: "undoneTask") ?? UIImage()
+                bgColor = #colorLiteral(red: 1, green: 0.8123160005, blue: 0.3646123409, alpha: 1)
+            }
+            
+            let markDone = UIContextualAction(style: .normal, title: nil ) {  (contextualAction, view, boolValue) in
+                self.loadOpenSubTaskList(title: selectedTask.title ?? "")
+                if self.subTasks.count > 0 {
+                    let alert = UIAlertController(title: "Something went wrong!", message: "Please make sure all sub tasks are done", preferredStyle: .alert)
+                    let okAction = UIAlertAction(title: "Ok", style: .cancel, handler: nil)
+                    alert.addAction(okAction)
+                    self.present(alert, animated: true, completion: nil)
+                }
+                else{
+                    let newStatus = !selectedTask.status
+                    selectedTask.status = newStatus
+                    self.saveTasks()
+                }
+                
+                self.loadTasks()
+               
+            }
+            
+            markDone.image = bgImage
+            markDone.backgroundColor = bgColor
+            
+            let swipeActions = UISwipeActionsConfiguration(actions: [markDone])
+            return swipeActions
+        }
+        else{
+            return nil
+        }
+        
+    }
+    
+    //MARK: redirect task to task detail view
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        openTaskDetailVC(indexPath: indexPath)
+    }
+
     
 }
 
