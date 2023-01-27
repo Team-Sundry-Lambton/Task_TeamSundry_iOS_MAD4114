@@ -45,7 +45,7 @@ class TaskAddEditViewController: UIViewController {
     var addSubTaskCell = 1
     var editMode: Bool = false
     var addNote : Bool = false
-    
+    var dueDateString = "Today"
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     //MARK: - View life cycle
@@ -323,6 +323,7 @@ class TaskAddEditViewController: UIViewController {
             }
             if let dueDate = task.dueDate{
                 buttonTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = DatePicker.getStringFromDate(date: dueDate)
+                dueDateString = DatePicker.getStringFromDate(date: dueDate)
             }
             getLocationData()
             let locationRow = addNote ? 0 : 1
@@ -356,8 +357,8 @@ class TaskAddEditViewController: UIViewController {
         mediaFileCollectionView.reloadData()
         subTasks.removeAll()
         subTaskTableView.reloadData()
-        buttonTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = ""
-        buttonTableView.cellForRow(at: IndexPath(row: 1, section: 0))?.detailTextLabel?.text = ""
+        buttonTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = dueDateString
+        buttonTableView.cellForRow(at: IndexPath(row: 1, section: 0))?.detailTextLabel?.text = "Current Location"
     }
 }
 
@@ -411,6 +412,9 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
                 switch indexPath.row {
                 case 0:
                     id = "cell2"
+                    let cell = tableView.dequeueReusableCell(withIdentifier: id)
+                    cell?.detailTextLabel?.text = selectedLocation?.address
+                    return cell ?? UITableViewCell()
                 case 1:
                     id = "cell3"
                 default:
@@ -420,8 +424,14 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
                 switch indexPath.row {
                 case 0:
                     id = "cell1"
+                    let cell = tableView.dequeueReusableCell(withIdentifier: id)
+                    cell?.detailTextLabel?.text = dueDateString
+                    return cell ?? UITableViewCell()
                 case 1:
                     id = "cell2"
+                    let cell = tableView.dequeueReusableCell(withIdentifier: id)
+                    cell?.detailTextLabel?.text = selectedLocation?.address
+                    return cell ?? UITableViewCell()
                 case 2:
                     id = "cell3"
                 case 3:

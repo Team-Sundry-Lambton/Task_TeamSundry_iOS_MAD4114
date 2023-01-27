@@ -11,6 +11,7 @@
 		2C1438F92978CF0000938694 /* MediaFileCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2C1438F72978CF0000938694 /* MediaFileCell.xib */; };
 		2C25D180297394AD00E38BF6 /* MediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C25D17F297394AD00E38BF6 /* MediaManager.swift */; };
 		2C25D1822973960600E38BF6 /* FolderManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C25D1812973960600E38BF6 /* FolderManager.swift */; };
+		2C76246229844B350084D95D /* ButtonTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C76246129844B350084D95D /* ButtonTableViewCell.swift */; };
 		2CA5278E297DAADC00000780 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA5278D297DAADC00000780 /* MapViewController.swift */; };
 		2CA52790297DAAF300000780 /* MapView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CA5278F297DAAF300000780 /* MapView.storyboard */; };
 		2CA52792297DAD0000000780 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CA52791297DAD0000000780 /* LocationSearchTableViewController.swift */; };
@@ -46,6 +47,7 @@
 		2C1438F72978CF0000938694 /* MediaFileCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MediaFileCell.xib; sourceTree = "<group>"; };
 		2C25D17F297394AD00E38BF6 /* MediaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaManager.swift; sourceTree = "<group>"; };
 		2C25D1812973960600E38BF6 /* FolderManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FolderManager.swift; sourceTree = "<group>"; };
+		2C76246129844B350084D95D /* ButtonTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonTableViewCell.swift; sourceTree = "<group>"; };
 		2CA5278D297DAADC00000780 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		2CA5278F297DAAF300000780 /* MapView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MapView.storyboard; sourceTree = "<group>"; };
 		2CA52791297DAD0000000780 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
@@ -217,6 +219,7 @@
 				2C1438F62978CF0000938694 /* MediaFileCell.swift */,
 				2C1438F72978CF0000938694 /* MediaFileCell.xib */,
 				99AE8796297F299800A544D6 /* SubTaskTableViewCell.swift */,
+				2C76246129844B350084D95D /* ButtonTableViewCell.swift */,
 			);
 			path = "Task Add Edit";
 			sourceTree = "<group>";
@@ -347,6 +350,7 @@
 				2CA52792297DAD0000000780 /* LocationSearchTableViewController.swift in Sources */,
 				4199516C297F606C008EF6B4 /* TaskDetailAudioViewCell.swift in Sources */,
 				9993B8AF29762E6400C96C61 /* TaskDetailsViewController.swift in Sources */,
+				2C76246229844B350084D95D /* ButtonTableViewCell.swift in Sources */,
 				9993B8AB29762E4900C96C61 /* CategoryListViewController.swift in Sources */,
 				2C1438F82978CF0000938694 /* MediaFileCell.swift in Sources */,
 				B4CACA2A2981A0E200A1C9A4 /* MoveTableViewController.swift in Sources */,
