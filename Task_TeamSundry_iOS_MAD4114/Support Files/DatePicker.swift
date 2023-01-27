@@ -16,6 +16,7 @@ class DatePicker: UIView {
         let v = UIDatePicker()
         v.locale = Locale(identifier: "en_US_POSIX")
         v.tintColor = .darkPurple
+        v.minimumDate = Date.now
         return v
     }()
     

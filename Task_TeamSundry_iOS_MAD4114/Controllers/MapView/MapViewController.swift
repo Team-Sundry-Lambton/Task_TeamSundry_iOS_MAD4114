@@ -36,7 +36,6 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView.showsUserLocation = true
         locationMnager.delegate = self
         locationMnager.desiredAccuracy = kCLLocationAccuracyBest
         locationMnager.requestWhenInUseAuthorization()
@@ -49,18 +48,21 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
             mapView.isZoomEnabled = false
             addDoubleTap()
             setUpforSearch()
+            mapView.showsUserLocation = true
         }
 
         if let selectedTask = selectedTask {
             currentLocationBtn.setTitle("Done", for: .normal)
             if let place = PlaceObject.getLocationForTask(task: selectedTask, context: context) {
                 places.append(place )
+                displaySelectedPlaces()
             }
         }
         
         if let selectedCategoryName = selectedCategory?.name {
             currentLocationBtn.setTitle("Done", for: .normal)
             places = PlaceObject.getLocationForAllTask(categoryName: selectedCategoryName,context: context)
+            displaySelectedPlaces()
         }
         // Do any additional setup after loading the view.
     }
@@ -84,6 +86,14 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
         locationSearchTable.mapView = mapView
         locationSearchTable.handleLocationSearchDelegate = self
     }
+    
+    //MARK: - Display Selected Places On Map
+    func displaySelectedPlaces(){
+        for place in places{
+            getLocationAddressAndAddPin(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+        }
+    }
+
     
     //MARK: - Double Tap
     func addDoubleTap() {
@@ -131,16 +141,17 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
     //MARK: - didupdatelocation method
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        removePin()
-
-        let userLocation = locations[0]
-        if selectLocation{
-            destination = userLocation.coordinate
+        if selectLocation {
+            removePin()
+            
+            let userLocation = locations[0]
+            if selectLocation{
+                destination = userLocation.coordinate
+            }
+            let latitude = userLocation.coordinate.latitude
+            let longitude = userLocation.coordinate.longitude
+            getLocationAddressAndAddPin(latitude: latitude, longitude: longitude)
         }
-        let latitude = userLocation.coordinate.latitude
-        let longitude = userLocation.coordinate.longitude
-        getLocationAddressAndAddPin(latitude: latitude, longitude: longitude)
-//        self.displayLocation(latitude: latitude, longitude: longitude, title: "User Location")
     }
     
     @IBAction func useCurrentLocation() {
