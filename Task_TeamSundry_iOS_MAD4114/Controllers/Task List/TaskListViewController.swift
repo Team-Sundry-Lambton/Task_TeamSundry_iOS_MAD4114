@@ -70,7 +70,6 @@ class TaskListViewController: UIViewController {
         
         tableView.reloadData()
         showNoTaskView()
-        
     }
     
     //MARK: - show search bar func
@@ -231,7 +230,7 @@ class TaskListViewController: UIViewController {
     //MARK: fetch sub tasks by task title
     private func loadOpenSubTaskList(title: String) {
         let request: NSFetchRequest<SubTask> = SubTask.fetchRequest()
-        let folderPredicate = NSPredicate(format: "status=%@", NSNumber(booleanLiteral: false))
+        let folderPredicate = NSPredicate(format: "status=false AND task.title=%@", title)
         request.predicate = folderPredicate
         
         do {
@@ -380,7 +379,6 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 
                 self.loadTasks()
-               
             }
             
             markDone.image = bgImage
