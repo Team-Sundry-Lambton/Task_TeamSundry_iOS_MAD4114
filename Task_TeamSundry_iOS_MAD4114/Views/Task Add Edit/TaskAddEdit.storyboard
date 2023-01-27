@@ -51,13 +51,15 @@
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
                                                     </textField>
-                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="roundedRect" placeholder="Type here..." minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="07m-FT-4N8" customClass="BorderTextField" customModule="Task_TeamSundry_iOS_MAD4114" customModuleProvider="target">
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Type Here....." textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zyZ-eQ-uOX" customClass="BorderTextView" customModule="Task_TeamSundry_iOS_MAD4114" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="104.33333333333334" width="353" height="140"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="140" id="qty-zA-YM1"/>
+                                                            <constraint firstAttribute="height" constant="140" id="fwm-H3-qUi"/>
                                                         </constraints>
+                                                        <color key="textColor" systemColor="labelColor"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                        <textInputTraits key="textInputTraits"/>
+                                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                                 <color key="value" name="MediumPurple"/>
@@ -69,7 +71,7 @@
                                                                 <real key="value" value="5"/>
                                                             </userDefinedRuntimeAttribute>
                                                         </userDefinedRuntimeAttributes>
-                                                    </textField>
+                                                    </textView>
                                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="pU8-2P-Lii">
                                                         <rect key="frame" x="0.0" y="264.33333333333331" width="353" height="209"/>
                                                         <color key="backgroundColor" red="0.97254908080000002" green="0.97254908080000002" blue="0.97254908080000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -375,7 +377,7 @@
                         <outlet property="buttonTableHeight" destination="b0Q-D6-ypM" id="m9X-R0-EEd"/>
                         <outlet property="buttonTableView" destination="pU8-2P-Lii" id="EtU-5B-79y"/>
                         <outlet property="createDateLabel" destination="0f2-Cf-6Tx" id="B8y-JH-pv8"/>
-                        <outlet property="descriptionTextField" destination="07m-FT-4N8" id="Q7o-J5-BSh"/>
+                        <outlet property="descriptionTextView" destination="zyZ-eQ-uOX" id="soh-Ih-G0R"/>
                         <outlet property="mediaFileCollectionView" destination="Oyd-jB-6mf" id="eJS-yf-o9L"/>
                         <outlet property="mediaStackView" destination="63x-az-bB1" id="sa2-tc-icR"/>
                         <outlet property="subTaskStackView" destination="Unw-re-Alp" id="k1i-cr-4Qy"/>
@@ -390,9 +392,6 @@
         </scene>
     </scenes>
     <designables>
-        <designable name="07m-FT-4N8">
-            <size key="intrinsicContentSize" width="104.33333333333333" height="34"/>
-        </designable>
         <designable name="WlS-HQ-WBL">
             <size key="intrinsicContentSize" width="56.333333333333336" height="34"/>
         </designable>
@@ -405,6 +404,9 @@
         <namedColor name="MediumPurple">
             <color red="0.61599999666213989" green="0.65100002288818359" blue="0.9570000171661377" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
+        <systemColor name="labelColor">
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

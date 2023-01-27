@@ -12,12 +12,7 @@ protocol MapViewDelegate {
     func setTaskLocation(place:PlaceObject)
 }
 
-protocol HandleMapSearch: AnyObject {
-    func setSearchLocation(coordinate : CLLocationCoordinate2D,
-                              title: String)
-}
-
-class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSearch {
+class MapViewController: UIViewController,CLLocationManagerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     var locationMnager = CLLocationManager()
@@ -28,6 +23,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
     var selectLocation = false
     var resultSearchController: UISearchController?
     
+    @IBOutlet weak var searchBar: UISearchBar!
     var selectedTask: Task?
     var selectedCategory: Category?
     var places : [PlaceObject] = []
@@ -52,19 +48,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
             currentLocationBtn.setTitle("Use Current Location", for: .normal)
             mapView.isZoomEnabled = false
             addDoubleTap()
-            
-            let locationSearchTable = storyboard?.instantiateViewController(withIdentifier: "LocationSearchTableViewController") as! LocationSearchTableViewController
-            resultSearchController = UISearchController(searchResultsController: locationSearchTable)
-            resultSearchController?.searchResultsUpdater = locationSearchTable
-            let searchBar = resultSearchController?.searchBar
-            searchBar?.sizeToFit()
-            searchBar?.placeholder = "Search for places"
-            navigationItem.titleView = resultSearchController?.searchBar
-            resultSearchController?.hidesNavigationBarDuringPresentation = false
-            resultSearchController?.obscuresBackgroundDuringPresentation = true
-            definesPresentationContext = true
-            locationSearchTable.mapView = mapView
-            locationSearchTable.handleLocationSearchDelegate = self
+            setUpforSearch()
         }
 
         if let selectedTask = selectedTask {
@@ -79,6 +63,26 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
             places = PlaceObject.getLocationForAllTask(categoryName: selectedCategoryName,context: context)
         }
         // Do any additional setup after loading the view.
+    }
+    
+    func setUpforSearch() {
+        let locationSearchTable = storyboard?.instantiateViewController(withIdentifier: "LocationSearchTableViewController") as? LocationSearchTableViewController ?? LocationSearchTableViewController()
+
+        resultSearchController = UISearchController(searchResultsController: locationSearchTable)
+        resultSearchController?.searchResultsUpdater = locationSearchTable
+        
+        searchBar?.delegate = self
+        searchBar?.isUserInteractionEnabled = true
+        navigationItem.searchController = resultSearchController
+        searchBar?.sizeToFit()
+        searchBar?.placeholder = "Search for places"
+        
+        resultSearchController?.hidesNavigationBarDuringPresentation = false
+        resultSearchController?.obscuresBackgroundDuringPresentation = true
+        definesPresentationContext = true
+        
+        locationSearchTable.mapView = mapView
+        locationSearchTable.handleLocationSearchDelegate = self
     }
     
     //MARK: - Double Tap
@@ -138,15 +142,6 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
         getLocationAddressAndAddPin(latitude: latitude, longitude: longitude)
 //        self.displayLocation(latitude: latitude, longitude: longitude, title: "User Location")
     }
-    
-    func setSearchLocation(coordinate : CLLocationCoordinate2D,
-                           title: String){
-        citySelection = true
-        getLocationAddressAndAddPin(latitude: coordinate.latitude, longitude: coordinate.longitude)
-//        self.displayLocation(latitude: coordinate.latitude, longitude: coordinate.longitude, title: title)
-        destination = coordinate
-    }
-    
     
     @IBAction func useCurrentLocation() {
         if selectLocation {
@@ -260,4 +255,19 @@ extension MapViewController: MKMapViewDelegate {
             return annotationView
         }
     }
+}
+
+extension MapViewController: HandleMapSearch {
+    func setSearchLocation(coordinate : CLLocationCoordinate2D,
+                           title: String){
+        citySelection = true
+        getLocationAddressAndAddPin(latitude: coordinate.latitude, longitude: coordinate.longitude)
+//        self.displayLocation(latitude: coordinate.latitude, longitude: coordinate.longitude, title: title)
+        destination = coordinate
+    }
+}
+
+
+extension MapViewController: UISearchBarDelegate {
+    
 }

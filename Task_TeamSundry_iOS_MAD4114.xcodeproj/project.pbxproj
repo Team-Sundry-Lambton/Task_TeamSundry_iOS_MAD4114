@@ -26,6 +26,7 @@
 		9945FB6E29709BCC005463ED /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9945FB6D29709BCC005463ED /* Assets.xcassets */; };
 		9945FB7129709BCC005463ED /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9945FB6F29709BCC005463ED /* LaunchScreen.storyboard */; };
 		9949B63229713F1600BA0FFB /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9949B63029713F1600BA0FFB /* DataModel.xcdatamodeld */; };
+		995FBF1129844166006E6D8A /* BorderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 995FBF1029844166006E6D8A /* BorderTextView.swift */; };
 		9993B8A229762D9B00C96C61 /* CategoryList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9993B8A129762D9B00C96C61 /* CategoryList.storyboard */; };
 		9993B8A629762DC900C96C61 /* TaskAddEdit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9993B8A529762DC900C96C61 /* TaskAddEdit.storyboard */; };
 		9993B8A829762DD200C96C61 /* TaskDetails.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9993B8A729762DD200C96C61 /* TaskDetails.storyboard */; };
@@ -62,6 +63,7 @@
 		9945FB7029709BCC005463ED /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9945FB7229709BCC005463ED /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9949B63129713F1600BA0FFB /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
+		995FBF1029844166006E6D8A /* BorderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderTextView.swift; sourceTree = "<group>"; };
 		9993B8A129762D9B00C96C61 /* CategoryList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CategoryList.storyboard; sourceTree = "<group>"; };
 		9993B8A529762DC900C96C61 /* TaskAddEdit.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TaskAddEdit.storyboard; sourceTree = "<group>"; };
 		9993B8A729762DD200C96C61 /* TaskDetails.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = TaskDetails.storyboard; sourceTree = "<group>"; };
@@ -186,6 +188,7 @@
 				99B8DC58297E1C3200A06BB2 /* DatePicker.swift */,
 				99B8DC5C297E20D200A06BB2 /* UIColorExtension.swift */,
 				992A9447297E5C4C008259B3 /* BorderTextField.swift */,
+				995FBF1029844166006E6D8A /* BorderTextView.swift */,
 			);
 			path = "Support Files";
 			sourceTree = "<group>";
@@ -355,6 +358,7 @@
 				992A9448297E5C4C008259B3 /* BorderTextField.swift in Sources */,
 				2CA5278E297DAADC00000780 /* MapViewController.swift in Sources */,
 				2C25D1822973960600E38BF6 /* FolderManager.swift in Sources */,
+				995FBF1129844166006E6D8A /* BorderTextView.swift in Sources */,
 				9945FB6729709BCB005463ED /* SceneDelegate.swift in Sources */,
 				9993B8AD29762E5700C96C61 /* TaskAddEditViewController.swift in Sources */,
 				2C25D180297394AD00E38BF6 /* MediaManager.swift in Sources */,

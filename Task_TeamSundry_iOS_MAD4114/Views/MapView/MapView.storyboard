@@ -18,6 +18,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="CGt-jc-G0R">
+                                <rect key="frame" x="0.0" y="103" width="393" height="56"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Y6W-OH-hqX" id="oJn-80-kVf"/>
+                                </connections>
+                            </searchBar>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hnd-xI-Exh">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="818"/>
                                 <standardMapConfiguration key="preferredConfiguration"/>
@@ -49,12 +56,15 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="CGt-jc-G0R" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="AhQ-fd-2Ul"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="S9g-yM-zcq" secondAttribute="trailing" constant="20" id="K37-fm-1VY"/>
                             <constraint firstItem="Hnd-xI-Exh" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="SRs-FT-6IZ"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="Hnd-xI-Exh" secondAttribute="trailing" id="aNh-OK-BkX"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Hnd-xI-Exh" secondAttribute="bottom" id="bEW-Np-KJL"/>
                             <constraint firstItem="Hnd-xI-Exh" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="bdA-AF-QnP"/>
                             <constraint firstItem="S9g-yM-zcq" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="jRx-0x-di6"/>
+                            <constraint firstItem="CGt-jc-G0R" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="oUt-PH-bKT"/>
+                            <constraint firstItem="CGt-jc-G0R" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="tQ2-Ba-cdo"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="S9g-yM-zcq" secondAttribute="bottom" constant="30" id="zEc-9q-GcC"/>
                         </constraints>
                     </view>
@@ -62,6 +72,7 @@
                     <connections>
                         <outlet property="currentLocationBtn" destination="S9g-yM-zcq" id="nIZ-iT-9BR"/>
                         <outlet property="mapView" destination="Hnd-xI-Exh" id="xN2-SH-5o7"/>
+                        <outlet property="searchBar" destination="CGt-jc-G0R" id="VDr-su-HH4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
