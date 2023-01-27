@@ -40,7 +40,19 @@ class TaskDetailsViewController: UIViewController {
         
         initUI()
         initData()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = false
+    }
+    
+    @IBAction func backAction(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
     }
     
     func initUI(){
@@ -49,16 +61,12 @@ class TaskDetailsViewController: UIViewController {
         imageCollectionView.dataSource = self
         imageCollectionView.delegate = self
         
-        
         audioCollectionView.register(UINib.init(nibName: "TaskDetailAudioViewCell", bundle: nil), forCellWithReuseIdentifier: "TaskDetailAudioViewCell")
         audioCollectionView.dataSource = self
         audioCollectionView.delegate = self
         
-        
         subTaskTableView.delegate = self
         subTaskTableView.dataSource = self
-        
-        
     }
     
     func initData(){
@@ -86,13 +94,10 @@ class TaskDetailsViewController: UIViewController {
             dueDateTitleLbl.isHidden = true
         }
         
-        
         getLocationData()
         loadMediaList()
         loadAudioList()
         loadSubTaskList()
-        
-        
         
         if(mediaList.isEmpty){
             imageView.isHidden = false
