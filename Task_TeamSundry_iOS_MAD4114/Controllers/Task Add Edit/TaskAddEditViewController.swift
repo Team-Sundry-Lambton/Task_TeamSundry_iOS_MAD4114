@@ -430,7 +430,7 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
                 case 1:
                     id = "cell2"
                     let cell = tableView.dequeueReusableCell(withIdentifier: id)
-                    cell?.detailTextLabel?.text = selectedLocation?.address
+                    cell?.detailTextLabel?.text = selectedLocation?.address ?? "Curent Location"
                     return cell ?? UITableViewCell()
                 case 2:
                     id = "cell3"
