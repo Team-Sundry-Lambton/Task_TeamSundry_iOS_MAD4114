@@ -15,7 +15,6 @@ class TaskDetailAudioViewCell:UICollectionViewCell{
     
     func configureCell(file: MediaFile) {
         if let title = file.name {
-            self.playPause.image = UIImage(named: "pause.circle.fill")
             self.audioTitle.text = "Name : " + title
         }
     }

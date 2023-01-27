@@ -32,7 +32,7 @@ class TaskDetailsViewController: UIViewController {
     @IBOutlet weak var locationLbl: UILabel!
     @IBOutlet weak var createdDateLbl: UILabel!
     @IBOutlet weak var dueDateLbl: UILabel!
-    
+    @IBOutlet weak var dueDateTitleLbl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,6 +69,21 @@ class TaskDetailsViewController: UIViewController {
         locationLbl.text = task.location?.address
         taskTitleLbl.text = task.title
         descLbl.text = task.descriptionTask
+        if let createdDate = task.createDate{
+            createdDateLbl.isHidden = false
+            createdDateLbl.text = DatePicker.getStringFromDate(date: createdDate)
+        }
+        else{
+            createdDateLbl.isHidden = true
+        }
+        if let dueDate = task.dueDate{
+            dueDateLbl.isHidden = false
+            dueDateTitleLbl.isHidden = false
+            dueDateLbl.text = DatePicker.getStringFromDate(date: dueDate)
+        }else{
+            dueDateLbl.isHidden = true
+            dueDateTitleLbl.isHidden = true
+        }
         
         
         getLocationData()
@@ -79,7 +94,7 @@ class TaskDetailsViewController: UIViewController {
         
         
         if(mediaList.isEmpty){
-            imageView.isHidden = true
+            imageView.isHidden = false
             imageCollectionView.isHidden = true
             noteImgIV.isHidden = true
         }
@@ -243,9 +258,9 @@ extension TaskDetailsViewController :UICollectionViewDataSource, UICollectionVie
             if let fileName = file.name {
                 MediaManager.shared.audioPlaying(fileName: fileName,self){ success in
                     if success{
-                        
+                        print("sucess")
                     }else{
-                        //error
+                        print("error")
                     }
                 }
             }

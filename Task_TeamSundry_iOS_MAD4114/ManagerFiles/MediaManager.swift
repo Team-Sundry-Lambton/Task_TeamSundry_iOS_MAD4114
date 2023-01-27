@@ -193,8 +193,9 @@ class MediaManager: NSObject, UIImagePickerControllerDelegate, UINavigationContr
     func preparePlayer(fileName : String) {
         var error: NSError?
         do {
-            let audioFilename = URL(string: fileName)
-            audioPlayer = try AVAudioPlayer(contentsOf: audioFilename!)
+            let audioFilename = FolderManager.shared.getRecordingFileURL(fileName: fileName)
+            //  URL(string: fileName)
+            audioPlayer = try AVAudioPlayer(contentsOf: audioFilename)
         } catch let error1 as NSError {
             error = error1
             audioPlayer = nil

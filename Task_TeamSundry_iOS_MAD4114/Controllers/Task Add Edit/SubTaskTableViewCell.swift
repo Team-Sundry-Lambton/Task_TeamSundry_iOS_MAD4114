@@ -16,7 +16,6 @@ class SubTaskTableViewCell: UITableViewCell {
     @IBOutlet weak var subTaskDescription: UITextField!
     var delegate: SubTaskTableViewCellDelegate?
     var indexPath: IndexPath?
-    @IBOutlet weak var addMediaSwitch: UISwitch!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

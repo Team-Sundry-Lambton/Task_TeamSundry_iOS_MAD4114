@@ -129,10 +129,15 @@ class TaskAddEditViewController: UIViewController {
     
     
     //MARK: - View Controller Logic
-    private func popupAlert(title: String, message: String) {
+    private func popupAlert(title: String, message: String , dissmossView : Bool) {
         let alertController: UIAlertController = {
             let controller = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            let okAction = UIAlertAction(title: "OK", style: .default)
+            let okAction = UIAlertAction(title: "OK", style: .default){
+                UIAlertAction in
+                if dissmossView {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }
             controller.addAction(okAction)
             return controller
         }()
@@ -141,10 +146,10 @@ class TaskAddEditViewController: UIViewController {
     
     private func checkInput() -> Bool {
         if titleTextField.text == "" {
-            popupAlert(title : "Error",message: "Please fill title of task")
+            popupAlert(title : "Error",message: "Please fill title of task", dissmossView: false)
             return false
         } else if descriptionTextField.text == "" {
-            popupAlert(title : "Error",message: "Please fill description of task")
+            popupAlert(title : "Error",message: "Please fill description of task", dissmossView: false)
             return false
         } else {
             return true
@@ -165,25 +170,34 @@ class TaskAddEditViewController: UIViewController {
                     context.delete(subTask)
                 }
             }
-            let taskObj = Task(context: context)
-            taskObj.createDate = Date()
-            taskObj.parent_Category = selectedCategory
-            taskObj.title = titleTextField.text
-            taskObj.descriptionTask = descriptionTextField.text ?? ""
-            taskObj.dueDate = selectedDueDate
-            selectedLocation?.task = taskObj
-            taskObj.status = false
-            for  media in self.mediaList {
-                media.parent_Task = taskObj
-            }
+            let newTask = Task(context: context)
+            newTask.createDate = Date()
+            newTask.parent_Category = selectedCategory
+            newTask.title = titleTextField.text
+            newTask.descriptionTask = descriptionTextField.text ?? ""
+            newTask.dueDate = selectedDueDate
+            selectedLocation?.task = newTask
+            newTask.status = false
+        
             
+            for  media in self.mediaList {
+                let mediaFile = MediaFile(context: context)
+                mediaFile.parent_Task = newTask
+                mediaFile.name = media.name
+                mediaFile.isImage = media.isImage
+                mediaFile.path = media.path
+            }
+
             for  subTask in self.subTasks {
-                subTask.task = taskObj
+                let newSubTask = SubTask(context: context)
+                newSubTask.status = subTask.status
+                newSubTask.descriptionSubTask = subTask.descriptionSubTask
+                newSubTask.task = newTask
             }
             if addNote{
-                taskObj.isTask = false
+                newTask.isTask = false
             }else{
-                taskObj.isTask = true
+                newTask.isTask = true
             }
             saveAllContextCoreData()
         }
@@ -209,7 +223,7 @@ class TaskAddEditViewController: UIViewController {
                 mediaFile.isImage = object.isImage
                 mediaFile.path = object.filePath
                 strongSelf.mediaList.append(mediaFile)                
-//                strongSelf.saveAllContextCoreData()
+                strongSelf.saveSingleCoreData()
                 strongSelf.mediaFileCollectionView.reloadData()
             }
         }
@@ -261,7 +275,6 @@ class TaskAddEditViewController: UIViewController {
            
             mediaFileCollectionView.reloadData()
             mediaStackView.isHidden = false
-            subTaskStackView.isHidden = true
         }else{
         
             mediaStackView.isHidden = true
@@ -275,15 +288,15 @@ class TaskAddEditViewController: UIViewController {
             request.predicate = folderPredicate
         }
         do {
-            subTasks = try context.fetch(request)
+           subTasks = try context.fetch(request)
         } catch {
             print("Error loading subTasks \(error.localizedDescription)")
         }
-        if mediaList.count > 0{
+        if subTasks.count > 0{
             subTaskTableView.reloadData()
             subTaskStackView.isHidden = false
         }else{
-            mediaStackView.isHidden = true
+            subTaskStackView.isHidden = true
         }
     }
     
@@ -322,7 +335,15 @@ class TaskAddEditViewController: UIViewController {
         do {
             try context.save()
             clearFieldAndNavigateBack()
-            popupAlert(title : "Success",message: "Successfully Saved..")
+            popupAlert(title : "Success",message: "Successfully Saved..", dissmossView: true)
+        } catch {
+            print("Error saving the data \(error.localizedDescription)")
+        }
+    }
+    
+    private func saveSingleCoreData() {
+        do {
+            try context.save()
         } catch {
             print("Error saving the data \(error.localizedDescription)")
         }
@@ -335,6 +356,8 @@ class TaskAddEditViewController: UIViewController {
         mediaFileCollectionView.reloadData()
         subTasks.removeAll()
         subTaskTableView.reloadData()
+        buttonTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = ""
+        buttonTableView.cellForRow(at: IndexPath(row: 1, section: 0))?.detailTextLabel?.text = ""
     }
 }
 
@@ -393,11 +416,6 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
                 default:
                     break
                 }
-                
-                let cell = tableView.dequeueReusableCell(withIdentifier: id) as? SubTaskTableViewCell
-                cell?.delegate = self
-                cell?.indexPath = indexPath
-                return cell ?? UITableViewCell()
             }else{
                 switch indexPath.row {
                 case 0:
@@ -416,10 +434,12 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
             if indexPath.row == (subTasks.count) {
                 id = "addSubTaskCell"
             } else {
+                let subTask = subTasks[indexPath.row]
                 id = "subTaskCell"
                 let cell = tableView.dequeueReusableCell(withIdentifier: id) as? SubTaskTableViewCell
                 cell?.delegate = self
                 cell?.indexPath = indexPath
+                cell?.subTaskDescription.text = subTask.descriptionSubTask
                 return cell ?? UITableViewCell()
             }
         }
@@ -449,6 +469,7 @@ extension TaskAddEditViewController: UITableViewDelegate, UITableViewDataSource 
             if indexPath.row == (subTasks.count) { //Add subtask
                 print("Add subtask")
                 let subtask = SubTask(context: self.context)
+                subtask.status = false
                 subTasks.append(subtask)
                 let indexPath:IndexPath = IndexPath(row:((self.subTasks.count) - addSubTaskCell), section: 0)
                 tableView.beginUpdates()
@@ -503,7 +524,7 @@ extension TaskAddEditViewController: MapViewDelegate {
         selectedLocation?.latitude = place.coordinate.latitude
         selectedLocation?.longitude = place.coordinate.longitude
         selectedLocation?.address = place.title
-        var row = addNote ? 0 : 1
+        let row = addNote ? 0 : 1
         buttonTableView.cellForRow(at: IndexPath(row: row, section: 0))?.detailTextLabel?.text = place.title
         
     }
@@ -512,6 +533,5 @@ extension TaskAddEditViewController: MapViewDelegate {
 extension TaskAddEditViewController: SubTaskTableViewCellDelegate {
     func subTaskDescriptionShouldChangeCharactersIn(subTaskDescription: String, indexPath: IndexPath) {
         subTasks[indexPath.row].descriptionSubTask = subTaskDescription
-        subTasks[indexPath.row].status = false
     }
 }

@@ -35,6 +35,8 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var delegate: MapViewDelegate?
     
+    @IBOutlet var currentLocationBtn: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -47,6 +49,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
         mapView.delegate = self
         
         if selectLocation{
+            currentLocationBtn.setTitle("Use Current Location", for: .normal)
             mapView.isZoomEnabled = false
             addDoubleTap()
             
@@ -65,12 +68,14 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
         }
 
         if let selectedTask = selectedTask {
+            currentLocationBtn.setTitle("Done", for: .normal)
             if let place = PlaceObject.getLocationForTask(task: selectedTask, context: context) {
                 places.append(place )
             }
         }
         
         if let selectedCategoryName = selectedCategory?.name {
+            currentLocationBtn.setTitle("Done", for: .normal)
             places = PlaceObject.getLocationForAllTask(categoryName: selectedCategoryName,context: context)
         }
         // Do any additional setup after loading the view.
@@ -144,8 +149,12 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
     
     
     @IBAction func useCurrentLocation() {
-        if let navController = self.navigationController {
-            navController.popViewController(animated: true)
+        if selectLocation {
+            if let navController = self.navigationController {
+                navController.popViewController(animated: true)
+            }
+        }else{
+            self.dismiss(animated: true)
         }
     }
     

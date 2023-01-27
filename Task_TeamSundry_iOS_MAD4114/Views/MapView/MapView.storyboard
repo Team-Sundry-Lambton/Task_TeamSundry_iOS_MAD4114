@@ -60,6 +60,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="haw-up-gHh"/>
                     <connections>
+                        <outlet property="currentLocationBtn" destination="S9g-yM-zcq" id="nIZ-iT-9BR"/>
                         <outlet property="mapView" destination="Hnd-xI-Exh" id="xN2-SH-5o7"/>
                     </connections>
                 </viewController>

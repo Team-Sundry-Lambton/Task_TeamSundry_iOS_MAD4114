@@ -32,7 +32,6 @@ class TaskListViewController: UIViewController {
     let searchController = UISearchController(searchResultsController: nil)
     
     var deletingMovingOption: Bool = false
-    var sortBy: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,11 +50,11 @@ class TaskListViewController: UIViewController {
     }
     
     //MARK: - Core data interaction functions
-    func loadTasks(predicate: NSPredicate? = nil) {
+    func loadTasks(predicate: NSPredicate? = nil , sortKey : String = "title") {
         let request: NSFetchRequest<Task> = Task.fetchRequest()
         let folderPredicate = NSPredicate(format: "parent_Category.name=%@", selectedCategory!.name!)
-        request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: sortBy)]
-        
+        request.sortDescriptors = [NSSortDescriptor(key: sortKey, ascending: true)]
+
         if let additionalPredicate = predicate {
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [folderPredicate, additionalPredicate])
         } else {
@@ -111,8 +110,7 @@ class TaskListViewController: UIViewController {
                 UIAction(title: "Sort By",
                          image: UIImage(systemName: "arrow.up.arrow.down.circle.fill")?.withTintColor(#colorLiteral(red: 0.4109354019, green: 0.4765244722, blue: 0.9726889729, alpha: 1) , renderingMode: .alwaysOriginal),
                          handler: { (_) in
-                             self.sortBy = !self.sortBy
-                             self.loadTasks()
+                             self.sortCLicked()
                 }),
                 UIAction(title: "View on map ",
                          image: UIImage(systemName: "map.circle.fill")?.withTintColor(#colorLiteral(red: 0.4109354019, green: 0.4765244722, blue: 0.9726889729, alpha: 1) , renderingMode: .alwaysOriginal),
@@ -268,6 +266,29 @@ class TaskListViewController: UIViewController {
         navigationController?.pushViewController(viewController, animated: true)
     }
     
+    private func sortCLicked() {
+        let actionSheetController: UIAlertController = UIAlertController(title: "Please select", message: "Option to sort", preferredStyle: .actionSheet)
+
+           let cancelActionButton = UIAlertAction(title: "Cancel", style: .cancel) { _ in
+               print("Cancel")
+           }
+        actionSheetController.addAction(cancelActionButton)
+
+           let saveActionButton = UIAlertAction(title: "By Title", style: .default)
+               { _ in
+                   self.loadTasks(predicate: nil , sortKey: "title")
+           }
+        actionSheetController.addAction(saveActionButton)
+
+           let deleteActionButton = UIAlertAction(title: "By Created Date", style: .default)
+               { _ in
+                   self.loadTasks(predicate: nil , sortKey: "createDate")
+           }
+        actionSheetController.addAction(deleteActionButton)
+           self.present(actionSheetController, animated: true, completion: nil)
+    }
+
+    
 }
 
 extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -319,7 +340,8 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
         
         let EditItem = UIContextualAction(style: .normal , title: "Edit") {  (contextualAction, view, boolValue) in
             var selectedTask = self.tasks[indexPath.row]
-            self.openTaskAddEditView(addNote: selectedTask.isTask , task: selectedTask)
+            let addNote = selectedTask.isTask ? false : true
+            self.openTaskAddEditView(addNote: addNote , task: selectedTask)
         }
        EditItem.backgroundColor = UIColor.systemBlue
         
@@ -387,9 +409,29 @@ extension TaskListViewController: UISearchBarDelegate {
     /// search button on keypad functionality
     /// - Parameter searchBar: search bar is passed to this function
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        // add predicate
-        let predicate = NSPredicate(format: "title CONTAINS[cd] %@", searchBar.text ?? "")
-        loadTasks(predicate: predicate)
+        if searchBar.text?.count == 0 {
+            loadTasks()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }else{
+            let predicate = NSPredicate(format: "title CONTAINS[cd] %@ OR descriptionTask CONTAINS[cd] %@", searchBar.text!, searchBar.text!)
+            loadTasks(predicate: predicate)
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        if searchBar.text?.count == 0 {
+            loadTasks()
+            
+            DispatchQueue.main.async {
+                searchBar.resignFirstResponder()
+            }
+        }else{
+            let predicate = NSPredicate(format: "title CONTAINS[cd] %@ OR descriptionTask CONTAINS[cd] %@", searchBar.text!, searchBar.text!)
+            loadTasks(predicate: predicate)
+        }
     }
     
     
@@ -404,6 +446,9 @@ extension TaskListViewController: UISearchBarDelegate {
             DispatchQueue.main.async {
                 searchBar.resignFirstResponder()
             }
+        }else{
+            let predicate = NSPredicate(format: "title CONTAINS[cd] %@ OR descriptionTask CONTAINS[cd] %@", searchBar.text!, searchBar.text!)
+            loadTasks(predicate: predicate)
         }
     }
 }
