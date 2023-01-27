@@ -53,11 +53,13 @@ class TaskListViewController: UIViewController {
     //MARK: - Core data interaction functions
     func loadTasks(predicate: NSPredicate? = nil) {
         let request: NSFetchRequest<Task> = Task.fetchRequest()
-        
+        let folderPredicate = NSPredicate(format: "parent_Category.name=%@", selectedCategory!.name!)
         request.sortDescriptors = [NSSortDescriptor(key: "title", ascending: sortBy)]
         
         if let additionalPredicate = predicate {
-            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [additionalPredicate])
+            request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [folderPredicate, additionalPredicate])
+        } else {
+            request.predicate = folderPredicate
         }
         
         do {
@@ -115,6 +117,7 @@ class TaskListViewController: UIViewController {
                 UIAction(title: "View on map ",
                          image: UIImage(systemName: "map.circle.fill")?.withTintColor(#colorLiteral(red: 0.4109354019, green: 0.4765244722, blue: 0.9726889729, alpha: 1) , renderingMode: .alwaysOriginal),
                          handler: { (_) in
+                             self.openMapVC()
                 })
             ]
         }
@@ -133,6 +136,7 @@ class TaskListViewController: UIViewController {
         if let selectedTask = task {
             taskAddEditViewController.task = selectedTask
         }
+        taskAddEditViewController.selectedCategory = selectedCategory
         navigationController?.pushViewController(taskAddEditViewController, animated: true)
     }
     
@@ -238,6 +242,32 @@ class TaskListViewController: UIViewController {
         }
     }
     
+    //MARK: prepare segue for move
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destination = segue.destination as? MoveTaskViewController {
+            if let index = tableView.indexPathsForSelectedRows {
+                let rows = index.map {$0.row}
+                destination.selectedTasks = rows.map {tasks[$0]}
+                destination.delegate = self
+            }
+        }
+    }
+    
+    //MARK: prepare task details view controller
+    func openTaskDetailVC(indexPath: IndexPath) {
+        let viewController:TaskDetailsViewController = UIStoryboard(name: "TaskDetails", bundle: nil).instantiateViewController(withIdentifier: "TaskDetailViewController") as? TaskDetailsViewController ?? TaskDetailsViewController()
+        viewController.task = tasks[indexPath.row]
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
+    //MARK: prepare map view
+    func openMapVC() {
+        let viewController:MapViewController = UIStoryboard(name: "MapView", bundle: nil).instantiateViewController(withIdentifier: "MapViewController") as? MapViewController ?? MapViewController()
+        viewController.selectedCategory = selectedCategory
+        navigationController?.pushViewController(viewController, animated: true)
+    }
+    
 }
 
 extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
@@ -288,7 +318,7 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
        }
         
         let EditItem = UIContextualAction(style: .normal , title: "Edit") {  (contextualAction, view, boolValue) in
-            //Code I want to do here
+            
         }
        EditItem.backgroundColor = UIColor.systemBlue
         
@@ -339,6 +369,11 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
             return nil
         }
         
+    }
+    
+    //MARK: redirect task to task detail view
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        openTaskDetailVC(indexPath: indexPath)
     }
 
     

@@ -29,7 +29,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
     var resultSearchController: UISearchController?
     
     var selectedTask: Task?
-    var selectedCategory: String?
+    var selectedCategory: Category?
     var places : [PlaceObject] = []
     
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
@@ -70,8 +70,8 @@ class MapViewController: UIViewController,CLLocationManagerDelegate,HandleMapSea
             }
         }
         
-        if let selectedCategory = selectedCategory {
-            places = PlaceObject.getLocationForAllTask(categoryName: selectedCategory,context: context)
+        if let selectedCategoryName = selectedCategory?.name {
+            places = PlaceObject.getLocationForAllTask(categoryName: selectedCategoryName,context: context)
         }
         // Do any additional setup after loading the view.
     }
