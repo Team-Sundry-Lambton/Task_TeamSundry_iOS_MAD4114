@@ -364,7 +364,7 @@
                             <constraint firstItem="VrC-Ft-4J2" firstAttribute="bottom" secondItem="SR4-8y-eW5" secondAttribute="bottom" id="y3N-NQ-GfI"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="gIU-vJ-VDK">
+                    <navigationItem key="navigationItem" largeTitleDisplayMode="never" id="gIU-vJ-VDK">
                         <barButtonItem key="rightBarButtonItem" style="done" systemItem="save" id="Ibg-dD-Ylt">
                             <connections>
                                 <action selector="saveAction:" destination="xRO-dv-4F2" id="gfo-8M-TjJ"/>
