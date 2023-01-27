@@ -267,15 +267,19 @@ extension TaskDetailsViewController :UICollectionViewDataSource, UICollectionVie
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
     {
         if(collectionView == self.audioCollectionView){
-            let file = mediaList[indexPath.row]
+            let file = audioList[indexPath.row]
             if let fileName = file.name {
-                MediaManager.shared.audioPlaying(fileName: fileName,self){ success in
-                    if success{
-                        print("sucess")
-                    }else{
-                        print("error")
-                    }
-                }
+                playAudio(fileName: fileName)
+            }
+        }
+    }
+    
+    private func playAudio(fileName : String){
+        MediaManager.shared.audioPlaying(fileName: fileName,self){ success in
+            if success{
+                print("sucess")
+            }else{
+                print("error")
             }
         }
     }

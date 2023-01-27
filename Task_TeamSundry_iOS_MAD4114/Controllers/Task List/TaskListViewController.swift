@@ -51,9 +51,10 @@ class TaskListViewController: UIViewController {
     
     //MARK: - Core data interaction functions
     func loadTasks(predicate: NSPredicate? = nil , sortKey : String = "title") {
+        tasks.removeAll()
         let request: NSFetchRequest<Task> = Task.fetchRequest()
         let folderPredicate = NSPredicate(format: "parent_Category.name=%@", selectedCategory!.name!)
-        request.sortDescriptors = [NSSortDescriptor(key: sortKey, ascending: false)]
+        request.sortDescriptors = [NSSortDescriptor(key: sortKey, ascending: true)]
 
         if let additionalPredicate = predicate {
             request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: [folderPredicate, additionalPredicate])
