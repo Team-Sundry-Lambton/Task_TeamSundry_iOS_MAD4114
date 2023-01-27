@@ -8,6 +8,11 @@
 import UIKit
 import MapKit
 
+protocol HandleMapSearch: AnyObject {
+    func setSearchLocation(coordinate : CLLocationCoordinate2D,
+                              title: String)
+}
+
 class LocationSearchTableViewController: UITableViewController {
     
     weak var handleLocationSearchDelegate: HandleMapSearch?
