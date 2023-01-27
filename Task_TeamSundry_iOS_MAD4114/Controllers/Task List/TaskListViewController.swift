@@ -396,7 +396,9 @@ extension TaskListViewController: UITableViewDelegate, UITableViewDataSource {
     
     //MARK: redirect task to task detail view
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        openTaskDetailVC(indexPath: indexPath)
+        if !deletingMovingOption{
+            openTaskDetailVC(indexPath: indexPath)
+        }
     }
 
     
