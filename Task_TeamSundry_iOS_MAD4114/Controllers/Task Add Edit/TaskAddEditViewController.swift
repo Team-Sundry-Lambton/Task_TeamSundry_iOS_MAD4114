@@ -16,7 +16,7 @@ class TaskAddEditViewController: UIViewController {
     @IBOutlet weak var mediaFileCollectionView: UICollectionView!
     
     @IBOutlet weak var titleTextField: UITextField!
-    @IBOutlet weak var descriptionTextField: UITextField!
+    @IBOutlet weak var descriptionTextView: UITextView!
     
     @IBOutlet weak var mediaStackView: UIStackView!
     @IBOutlet weak var subTaskStackView: UIStackView!
@@ -148,7 +148,7 @@ class TaskAddEditViewController: UIViewController {
         if titleTextField.text == "" {
             popupAlert(title : "Error",message: "Please fill title of task", dissmossView: false)
             return false
-        } else if descriptionTextField.text == "" {
+        } else if descriptionTextView.text == "" {
             popupAlert(title : "Error",message: "Please fill description of task", dissmossView: false)
             return false
         } else {
@@ -174,7 +174,7 @@ class TaskAddEditViewController: UIViewController {
             newTask.createDate = Date()
             newTask.parent_Category = selectedCategory
             newTask.title = titleTextField.text
-            newTask.descriptionTask = descriptionTextField.text ?? ""
+            newTask.descriptionTask = descriptionTextView.text ?? ""
             newTask.dueDate = selectedDueDate
             selectedLocation?.task = newTask
             newTask.status = false
@@ -317,7 +317,7 @@ class TaskAddEditViewController: UIViewController {
     private func loadTaskData() {
         if let task = task {
             self.titleTextField.text = task.title
-            self.descriptionTextField.text = task.descriptionTask
+            self.descriptionTextView.text = task.descriptionTask
             if let createdDate = task.createDate{
                 createDateLabel.text = DatePicker.getStringFromDate(date: createdDate)
             }
@@ -351,7 +351,7 @@ class TaskAddEditViewController: UIViewController {
     
     private func clearFieldAndNavigateBack(){
         titleTextField.text = ""
-        descriptionTextField.text = ""
+        descriptionTextView.text = ""
         mediaList.removeAll()
         mediaFileCollectionView.reloadData()
         subTasks.removeAll()
