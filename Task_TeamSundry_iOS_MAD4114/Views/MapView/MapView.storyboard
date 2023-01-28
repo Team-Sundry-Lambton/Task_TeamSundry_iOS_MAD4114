@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Map View Controller-->
+        <!--Select Location-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
                 <viewController storyboardIdentifier="MapViewController" id="Y6W-OH-hqX" customClass="MapViewController" customModule="Task_TeamSundry_iOS_MAD4114" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="CGt-jc-G0R">
-                                <rect key="frame" x="0.0" y="103" width="393" height="56"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="56"/>
                                 <textInputTraits key="textInputTraits"/>
                                 <connections>
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="oJn-80-kVf"/>
@@ -68,7 +68,7 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="S9g-yM-zcq" secondAttribute="bottom" constant="30" id="zEc-9q-GcC"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="haw-up-gHh"/>
+                    <navigationItem key="navigationItem" title="Select Location" id="haw-up-gHh"/>
                     <connections>
                         <outlet property="currentLocationBtn" destination="S9g-yM-zcq" id="nIZ-iT-9BR"/>
                         <outlet property="mapView" destination="Hnd-xI-Exh" id="xN2-SH-5o7"/>
@@ -122,24 +122,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fha-Cz-XLF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2540" y="11"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="AIP-yv-bCh">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="le6-bA-k3d" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="lZi-mb-Kmv">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Y6W-OH-hqX" kind="relationship" relationship="rootViewController" id="30G-od-jJv"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="QNk-oB-mKB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="20.610687022900763" y="3.5211267605633805"/>
         </scene>
     </scenes>
     <resources>

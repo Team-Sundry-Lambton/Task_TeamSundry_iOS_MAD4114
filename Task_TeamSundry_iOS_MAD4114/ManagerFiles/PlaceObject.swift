@@ -22,21 +22,22 @@ class PlaceObject: NSObject, MKAnnotation {
     
     static func getLocationForAllTask(categoryName : String, context : NSManagedObjectContext) -> [PlaceObject] {
         var places = [PlaceObject]()
+        var taskTitle = ""
         let taskList = getTaskList(categoryName: categoryName,context: context)
         for task in taskList {
             let request: NSFetchRequest<Location> = Location.fetchRequest()
             if let title = task.title {
-                let folderPredicate = NSPredicate(format: "task.title=%@", title)
+                taskTitle = title
+                let folderPredicate = NSPredicate(format: "task.title=%@", taskTitle)
                 request.predicate = folderPredicate
             }
             do {
                let location = try context.fetch(request)
                 if let item = location.first {
-                    let title = item.address
-                    let subtitle = ""
+                    let subtitle = item.address
                     let latitude = item.latitude, longitude = item.longitude
                     
-                    let place = PlaceObject(title: title, subtitle: subtitle, coordinate: CLLocationCoordinate2DMake(latitude, longitude))
+                    let place = PlaceObject(title: taskTitle, subtitle: subtitle, coordinate: CLLocationCoordinate2DMake(latitude, longitude))
                     places.append(place)
                 }
             } catch {
@@ -62,14 +63,16 @@ class PlaceObject: NSObject, MKAnnotation {
     
     static func getLocationForTask(task : Task, context: NSManagedObjectContext) -> PlaceObject? {
         let request: NSFetchRequest<Location> = Location.fetchRequest()
+        var taskTitle = ""
         if let title = task.title {
+            taskTitle = title
             let folderPredicate = NSPredicate(format: "task.title=%@", title)
             request.predicate = folderPredicate
         }
         
         do {
            var location = try context.fetch(request)
-            return PlaceObject(title:location.first?.address, subtitle: "", coordinate: CLLocationCoordinate2DMake(location.first?.latitude ?? 0, location.first?.longitude ?? 0))
+            return PlaceObject(title:taskTitle, subtitle: location.first?.address, coordinate: CLLocationCoordinate2DMake(location.first?.latitude ?? 0, location.first?.longitude ?? 0))
             
         } catch {
             print("Error loading folders \(error.localizedDescription)")
