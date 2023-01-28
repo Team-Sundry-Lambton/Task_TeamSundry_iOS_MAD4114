@@ -323,7 +323,7 @@ extension TaskDetailsViewController : UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        subTaskTableHeight.constant = CGFloat(subTaskList.count * 50)
+        subTaskTableHeight.constant = CGFloat(subTaskList.count * 150)
         return subTaskList.count
     }
     

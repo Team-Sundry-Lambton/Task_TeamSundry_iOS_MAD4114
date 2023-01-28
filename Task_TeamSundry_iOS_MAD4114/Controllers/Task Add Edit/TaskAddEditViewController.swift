@@ -23,7 +23,7 @@ class TaskAddEditViewController: UIViewController {
     
     @IBOutlet weak var createDateLabel: UILabel!
     @IBOutlet weak var buttonTableHeight: NSLayoutConstraint!
-
+    
     //MARK: - Variables
     let datePicker: DatePicker = {
         let v = DatePicker()
@@ -32,7 +32,7 @@ class TaskAddEditViewController: UIViewController {
     }()
     
     var mediaList = [MediaFile]()
-
+    
     var selectedLocation: Location?
     var subTasks = [SubTask]()
     var task: Task? {
@@ -108,7 +108,7 @@ class TaskAddEditViewController: UIViewController {
                 return
             }
             strongSelf.datePicker.isHidden = true
-            strongSelf.buttonTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = DatePicker.getStringFromDate(date: pickedDate) 
+            strongSelf.buttonTableView.cellForRow(at: IndexPath(row: 0, section: 0))?.detailTextLabel?.text = DatePicker.getStringFromDate(date: pickedDate)
             strongSelf.selectedDueDate = pickedDate
         }
     }
@@ -178,7 +178,7 @@ class TaskAddEditViewController: UIViewController {
             newTask.dueDate = selectedDueDate
             selectedLocation?.task = newTask
             newTask.status = false
-        
+            
             
             for  media in self.mediaList {
                 let mediaFile = MediaFile(context: context)
@@ -187,7 +187,7 @@ class TaskAddEditViewController: UIViewController {
                 mediaFile.isImage = media.isImage
                 mediaFile.path = media.path
             }
-
+            
             for  subTask in self.subTasks {
                 let newSubTask = SubTask(context: context)
                 newSubTask.status = subTask.status
@@ -222,7 +222,7 @@ class TaskAddEditViewController: UIViewController {
                 mediaFile.name = object.fileName
                 mediaFile.isImage = object.isImage
                 mediaFile.path = object.filePath
-                strongSelf.mediaList.append(mediaFile)                
+                strongSelf.mediaList.append(mediaFile)
                 strongSelf.saveSingleCoreData()
                 strongSelf.mediaFileCollectionView.reloadData()
             }
@@ -271,11 +271,11 @@ class TaskAddEditViewController: UIViewController {
             print("Error loading medias \(error.localizedDescription)")
         }
         if mediaList.count > 0{
-           
+            
             mediaFileCollectionView.reloadData()
             mediaStackView.isHidden = false
         }else{
-        
+            
             mediaStackView.isHidden = true
         }
     }
@@ -287,7 +287,7 @@ class TaskAddEditViewController: UIViewController {
             request.predicate = folderPredicate
         }
         do {
-           subTasks = try context.fetch(request)
+            subTasks = try context.fetch(request)
         } catch {
             print("Error loading subTasks \(error.localizedDescription)")
         }
@@ -306,7 +306,7 @@ class TaskAddEditViewController: UIViewController {
             request.predicate = folderPredicate
         }
         do {
-             let location = try context.fetch(request)
+            let location = try context.fetch(request)
             selectedLocation = location.first
         } catch {
             print("Error loading location data \(error.localizedDescription)")
@@ -328,7 +328,7 @@ class TaskAddEditViewController: UIViewController {
             let locationRow = addNote ? 0 : 1
             buttonTableView.cellForRow(at: IndexPath(row: locationRow, section: 0))?.detailTextLabel?.text = selectedLocation?.address
         }
-       
+        
     }
     
     private func saveAllContextCoreData() {
