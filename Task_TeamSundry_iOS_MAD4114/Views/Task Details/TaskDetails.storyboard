@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21225" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21207"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,10 +23,10 @@
                                 <rect key="frame" x="0.0" y="99" width="393" height="719"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X7b-Xe-eUC">
-                                        <rect key="frame" x="0.0" y="16" width="393" height="604.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="16" width="393" height="854.33333333333337"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="toI-Jt-S3R">
-                                                <rect key="frame" x="20" y="0.0" width="353" height="604.33333333333337"/>
+                                                <rect key="frame" x="20" y="0.0" width="353" height="654.33333333333337"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zd0-cp-tZd">
                                                         <rect key="frame" x="0.0" y="0.0" width="353" height="180"/>
@@ -226,7 +226,7 @@
                                                         <cells/>
                                                     </collectionView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="wKq-xS-dlL">
-                                                        <rect key="frame" x="0.0" y="464.33333333333337" width="353" height="140"/>
+                                                        <rect key="frame" x="0.0" y="464.33333333333337" width="353" height="190"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sub Task" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Taq-I8-0xP">
                                                                 <rect key="frame" x="0.0" y="0.0" width="353" height="20"/>
@@ -238,10 +238,10 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="ckS-r6-X1y">
-                                                                <rect key="frame" x="0.0" y="40" width="353" height="100"/>
+                                                                <rect key="frame" x="0.0" y="40" width="353" height="150"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
-                                                                    <constraint firstAttribute="height" constant="100" id="OD4-sA-R7Q"/>
+                                                                    <constraint firstAttribute="height" constant="150" id="OD4-sA-R7Q"/>
                                                                 </constraints>
                                                                 <prototypes>
                                                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="subTaskCell" rowHeight="66" id="oDv-6w-Iko" customClass="SubTaskDetailTableViewCell" customModule="Task_TeamSundry_iOS_MAD4114" customModuleProvider="target">
@@ -333,7 +333,7 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="toI-Jt-S3R" firstAttribute="top" secondItem="X7b-Xe-eUC" secondAttribute="top" id="20a-1a-z74"/>
-                                            <constraint firstAttribute="bottom" secondItem="toI-Jt-S3R" secondAttribute="bottom" id="OxO-hi-sD0"/>
+                                            <constraint firstAttribute="bottom" secondItem="toI-Jt-S3R" secondAttribute="bottom" constant="200" id="OxO-hi-sD0"/>
                                             <constraint firstAttribute="trailing" secondItem="toI-Jt-S3R" secondAttribute="trailing" constant="20" id="Yeb-a9-lzR"/>
                                             <constraint firstItem="toI-Jt-S3R" firstAttribute="leading" secondItem="X7b-Xe-eUC" secondAttribute="leading" constant="20" id="pkd-nb-Wdu"/>
                                         </constraints>
