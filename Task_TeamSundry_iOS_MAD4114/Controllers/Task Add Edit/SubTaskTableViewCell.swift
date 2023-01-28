@@ -24,11 +24,10 @@ class SubTaskTableViewCell: UITableViewCell {
 }
 
 extension SubTaskTableViewCell: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    func textFieldDidChangeSelection(_ textField: UITextField) {
         if let text = textField.text, let indexPath = indexPath {
             delegate?.subTaskDescriptionShouldChangeCharactersIn(subTaskDescription: text, indexPath: indexPath)
         }
-        return true
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
