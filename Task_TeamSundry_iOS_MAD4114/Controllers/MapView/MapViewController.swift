@@ -44,6 +44,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
         mapView.delegate = self
         
         if selectLocation{
+            navigationController?.title = "Select Location"
             currentLocationBtn.setTitle("Use Current Location", for: .normal)
             mapView.isZoomEnabled = false
             addDoubleTap()
@@ -52,6 +53,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
         }
 
         if let selectedTask = selectedTask {
+            navigationController?.title = "Task Location"
             currentLocationBtn.setTitle("Done", for: .normal)
             if let place = PlaceObject.getLocationForTask(task: selectedTask, context: context) {
                 places.append(place )
@@ -60,6 +62,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
         }
         
         if let selectedCategoryName = selectedCategory?.name {
+            navigationController?.title = "Task Location"
             currentLocationBtn.setTitle("Done", for: .normal)
             places = PlaceObject.getLocationForAllTask(categoryName: selectedCategoryName,context: context)
             displaySelectedPlaces()
@@ -90,7 +93,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
     //MARK: - Display Selected Places On Map
     func displaySelectedPlaces(){
         for place in places{
-            getLocationAddressAndAddPin(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+            getLocationAddressAndAddPin(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude, title: place.title ?? "Selected Task")
         }
     }
 
@@ -109,7 +112,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
         let touchPoint = sender.location(in: mapView)
         let coordinate = mapView.convert(touchPoint, toCoordinateFrom: mapView)
         
-        getLocationAddressAndAddPin(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        getLocationAddressAndAddPin(latitude: coordinate.latitude, longitude: coordinate.longitude,title: "Task Location")
         destination = coordinate
     }
     
@@ -123,7 +126,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
     //MARK: - display user location method
     func displayLocation(latitude: CLLocationDegrees,
                          longitude: CLLocationDegrees,
-                         title: String) {
+                         title: String, subTitle : String) {
         let latDelta: CLLocationDegrees = 0.05
         let lngDelta: CLLocationDegrees = 0.05
         
@@ -134,6 +137,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
         
         let annotation = MKPointAnnotation()
         annotation.title = title
+        annotation.subtitle = subTitle
         annotation.coordinate = location
         mapView.addAnnotation(annotation)
     }
@@ -150,8 +154,22 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
             }
             let latitude = userLocation.coordinate.latitude
             let longitude = userLocation.coordinate.longitude
-            getLocationAddressAndAddPin(latitude: latitude, longitude: longitude)
+            getLocationAddressAndAddPin(latitude: latitude, longitude: longitude, title: "Current Location")
         }
+    }
+    
+    //MARK: - callout accessory control tapped
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        let anno = view.annotation
+        let title = anno?.title as? String ?? ""
+        let annotaionCoordinate = anno?.coordinate
+        var subtitle = anno?.subtitle as? String ?? ""
+            
+        let alertController = UIAlertController(title: title, message: subtitle, preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        present(alertController, animated: true, completion: nil)
+        
     }
     
     @IBAction func useCurrentLocation() {
@@ -174,7 +192,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
     }
     
     
-    func getLocationAddressAndAddPin(latitude: CLLocationDegrees, longitude : CLLocationDegrees) {
+    func getLocationAddressAndAddPin(latitude: CLLocationDegrees, longitude : CLLocationDegrees, title : String) {
 
             var center : CLLocationCoordinate2D = CLLocationCoordinate2D()
             let ceo: CLGeocoder = CLGeocoder()
@@ -225,7 +243,7 @@ class MapViewController: UIViewController,CLLocationManagerDelegate {
                                 self.address += placemark.country! + "\n"
                             }
                             
-                            self.displayLocation(latitude: latitude, longitude:longitude, title: self.address)
+                            self.displayLocation(latitude: latitude, longitude:longitude, title: title, subTitle: self.address)
                         }
                   }
             })
@@ -272,7 +290,7 @@ extension MapViewController: HandleMapSearch {
     func setSearchLocation(coordinate : CLLocationCoordinate2D,
                            title: String){
         citySelection = true
-        getLocationAddressAndAddPin(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        getLocationAddressAndAddPin(latitude: coordinate.latitude, longitude: coordinate.longitude, title: title)
 //        self.displayLocation(latitude: coordinate.latitude, longitude: coordinate.longitude, title: title)
         destination = coordinate
     }

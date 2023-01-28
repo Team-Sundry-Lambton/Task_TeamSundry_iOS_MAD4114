@@ -36,7 +36,6 @@ class DatePicker: UIView {
         
         let pickerHolderView: UIView = {
             let v = UIView()
-            v.backgroundColor = .white
             v.layer.cornerRadius = 8
             return v
         }()
