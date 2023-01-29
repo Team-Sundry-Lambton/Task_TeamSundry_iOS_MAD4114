@@ -17,7 +17,7 @@ class TaskDetailsViewController: UIViewController {
     var selectedLocation: Location?
     var selectedAudioFile = ""
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    
+    var isPlaying = false
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet weak var audioCollectionView: UICollectionView!
@@ -49,7 +49,9 @@ class TaskDetailsViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        playAudio(fileName: selectedAudioFile)
+        if isPlaying {
+            playAudio(fileName: selectedAudioFile)
+        }
         navigationController?.navigationBar.isHidden = false
     }
     
@@ -301,11 +303,14 @@ extension TaskDetailsViewController :UICollectionViewDataSource, UICollectionVie
     }
     
     private func playAudio(fileName : String){
+        isPlaying = true
         MediaManager.shared.audioPlaying(fileName: fileName,self){ success in
             if success{
                 print("sucess")
+                self.isPlaying = false
             }else{
                 print("error")
+                self.isPlaying = false
             }
         }
     }
