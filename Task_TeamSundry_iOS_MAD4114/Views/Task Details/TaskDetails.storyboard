@@ -23,7 +23,7 @@
                                 <rect key="frame" x="0.0" y="99" width="393" height="719"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="X7b-Xe-eUC">
-                                        <rect key="frame" x="0.0" y="16" width="393" height="854.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="16" width="393" height="674.33333333333337"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="toI-Jt-S3R">
                                                 <rect key="frame" x="20" y="0.0" width="353" height="654.33333333333337"/>
@@ -337,7 +337,7 @@
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="toI-Jt-S3R" firstAttribute="top" secondItem="X7b-Xe-eUC" secondAttribute="top" id="20a-1a-z74"/>
-                                            <constraint firstAttribute="bottom" secondItem="toI-Jt-S3R" secondAttribute="bottom" constant="200" id="OxO-hi-sD0"/>
+                                            <constraint firstAttribute="bottom" secondItem="toI-Jt-S3R" secondAttribute="bottom" constant="20" id="OxO-hi-sD0"/>
                                             <constraint firstAttribute="trailing" secondItem="toI-Jt-S3R" secondAttribute="trailing" constant="20" id="Yeb-a9-lzR"/>
                                             <constraint firstItem="toI-Jt-S3R" firstAttribute="leading" secondItem="X7b-Xe-eUC" secondAttribute="leading" constant="20" id="pkd-nb-Wdu"/>
                                         </constraints>

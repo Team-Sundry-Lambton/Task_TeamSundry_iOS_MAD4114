@@ -142,13 +142,11 @@
                                     </barButtonItem>
                                 </items>
                                 <color key="tintColor" red="0.96841138599999999" green="0.80132024830000004" blue="0.18762987680000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <toolbarAppearance key="standardAppearance">
-                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </toolbarAppearance>
+                                <toolbarAppearance key="standardAppearance"/>
                             </toolbar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Xnh-Mo-LY9"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Xnh-Mo-LY9" firstAttribute="trailing" secondItem="VgP-eZ-zKc" secondAttribute="trailing" id="3wy-WD-2Vi"/>
                             <constraint firstItem="ymh-RY-0dw" firstAttribute="leading" secondItem="Xnh-Mo-LY9" secondAttribute="leading" id="632-EQ-Z2w"/>
