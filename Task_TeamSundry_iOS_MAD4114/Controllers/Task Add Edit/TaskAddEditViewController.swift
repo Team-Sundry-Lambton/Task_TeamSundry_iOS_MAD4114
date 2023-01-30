@@ -64,6 +64,12 @@ class TaskAddEditViewController: UIViewController {
             loadSubTaskList()
         }
         
+        //MARK: dismiss keyboard
+        
+        let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
+         view.addGestureRecognizer(tapGesture)
+        tapGesture.cancelsTouchesInView = false
+        
     }
     
     private func registerNib() {
@@ -553,3 +559,4 @@ extension TaskAddEditViewController: SubTaskTableViewCellDelegate {
         subTasks[indexPath.row].descriptionSubTask = subTaskDescription
     }
 }
+
