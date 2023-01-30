@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="usg-Xv-KbA">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1179"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="899"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="RgE-qJ-1hg">
                                                 <rect key="frame" x="20" y="0.0" width="353" height="879"/>
@@ -320,8 +320,8 @@
                                                                             <rect key="frame" x="0.0" y="0.0" width="353" height="50"/>
                                                                             <autoresizingMask key="autoresizingMask"/>
                                                                             <subviews>
-                                                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Add more..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e5V-2d-6TA">
-                                                                                    <rect key="frame" x="20" y="0.0" width="313" height="50"/>
+                                                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" text="Add more..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e5V-2d-6TA">
+                                                                                    <rect key="frame" x="8" y="0.0" width="337" height="50"/>
                                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                     <color key="textColor" systemColor="systemYellowColor"/>
@@ -349,7 +349,7 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="RgE-qJ-1hg" secondAttribute="bottom" constant="300" id="2UA-q3-0Xd"/>
+                                            <constraint firstAttribute="bottom" secondItem="RgE-qJ-1hg" secondAttribute="bottom" constant="20" id="2UA-q3-0Xd"/>
                                             <constraint firstAttribute="trailing" secondItem="RgE-qJ-1hg" secondAttribute="trailing" constant="20" id="MU3-oL-zc1"/>
                                             <constraint firstItem="RgE-qJ-1hg" firstAttribute="leading" secondItem="usg-Xv-KbA" secondAttribute="leading" constant="20" id="eJf-bL-iMt"/>
                                             <constraint firstItem="RgE-qJ-1hg" firstAttribute="top" secondItem="usg-Xv-KbA" secondAttribute="top" id="fWa-GC-zMP"/>
