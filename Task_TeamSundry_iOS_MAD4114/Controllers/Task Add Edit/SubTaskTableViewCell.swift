@@ -9,6 +9,9 @@ import UIKit
 
 protocol SubTaskTableViewCellDelegate {
     func subTaskDescriptionShouldChangeCharactersIn(subTaskDescription: String, indexPath: IndexPath)
+    func subTaskDidBeginEditing(textField: UITextField!)
+    func subTaskDidDidEndEditing(textField: UITextField!)
+    
 }
 
 class SubTaskTableViewCell: UITableViewCell {
@@ -26,12 +29,23 @@ class SubTaskTableViewCell: UITableViewCell {
 extension SubTaskTableViewCell: UITextFieldDelegate {
     func textFieldDidChangeSelection(_ textField: UITextField) {
         if let text = textField.text, let indexPath = indexPath {
-            delegate?.subTaskDescriptionShouldChangeCharactersIn(subTaskDescription: text, indexPath: indexPath)
+                delegate?.subTaskDescriptionShouldChangeCharactersIn(subTaskDescription: text, indexPath: indexPath)
+            
         }
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
             textField.resignFirstResponder() // dismiss keyboard
             return true
-        }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField)
+    {
+        delegate?.subTaskDidBeginEditing(textField: textField)
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField)
+    {
+        delegate?.subTaskDidDidEndEditing(textField: textField)
+    }
 }

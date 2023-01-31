@@ -23,6 +23,9 @@ class TaskAddEditViewController: UIViewController {
     
     @IBOutlet weak var createDateLabel: UILabel!
     @IBOutlet weak var buttonTableHeight: NSLayoutConstraint!
+    @IBOutlet weak var scrollView: UIScrollView!
+    var activeField: UITextField?
+    let placeHolder = "Type Here...."
     
     //MARK: - Variables
     let datePicker: DatePicker = {
@@ -64,6 +67,9 @@ class TaskAddEditViewController: UIViewController {
             loadSubTaskList()
         }
         
+        descriptionTextView.delegate = self
+        descriptionTextView.text = placeHolder
+        descriptionTextView.textColor = UIColor.systemGray3
         //MARK: dismiss keyboard
         
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(UIView.endEditing))
@@ -73,19 +79,45 @@ class TaskAddEditViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        deregisterFromKeyboardNotifications()
+    }
 
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
+        self.scrollView.isScrollEnabled = true
+           let info = notification.userInfo!
+           let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+           let contentInsets : UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: keyboardSize!.height, right: 0.0)
+
+           self.scrollView.contentInset = contentInsets
+           self.scrollView.scrollIndicatorInsets = contentInsets
+
+           var aRect : CGRect = self.view.frame
+           aRect.size.height -= keyboardSize!.height
+           if let activeField = self.activeField {
+               if (!aRect.contains(activeField.frame.origin)){
+                   self.scrollView.scrollRectToVisible(activeField.frame, animated: true)
+               }
+           }
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
-        }
+        //Once keyboard disappears, restore original positions
+        let info : NSDictionary = notification.userInfo! as NSDictionary
+        let keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+        let contentInsets : UIEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: -keyboardSize!.height, right: 0.0)
+        self.scrollView.contentInset = contentInsets
+        self.scrollView.scrollIndicatorInsets = contentInsets
+        self.view.endEditing(true)
+        self.scrollView.isScrollEnabled = false
+    }
+    
+    func deregisterFromKeyboardNotifications()
+    {
+        //Removing notifies on keyboard appearing
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     private func registerNib() {
@@ -196,7 +228,9 @@ class TaskAddEditViewController: UIViewController {
             newTask.createDate = Date()
             newTask.parent_Category = selectedCategory
             newTask.title = titleTextField.text
-            newTask.descriptionTask = descriptionTextView.text ?? ""
+            if placeHolder != descriptionTextView.text {
+                newTask.descriptionTask = descriptionTextView.text
+            }
             newTask.dueDate = selectedDueDate
             selectedLocation?.task = newTask
             newTask.status = false
@@ -211,10 +245,14 @@ class TaskAddEditViewController: UIViewController {
             }
             
             for  subTask in self.subTasks {
-                let newSubTask = SubTask(context: context)
-                newSubTask.status = subTask.status
-                newSubTask.descriptionSubTask = subTask.descriptionSubTask
-                newSubTask.task = newTask
+                if let descriptionSubTask = subTask.descriptionSubTask {
+                    if descriptionSubTask != "" || !descriptionSubTask.isEmpty {
+                        let newSubTask = SubTask(context: context)
+                        newSubTask.status = subTask.status
+                        newSubTask.descriptionSubTask = subTask.descriptionSubTask
+                        newSubTask.task = newTask
+                    }
+                }
             }
             if addNote{
                 newTask.isTask = false
@@ -574,5 +612,35 @@ extension TaskAddEditViewController: SubTaskTableViewCellDelegate {
     func subTaskDescriptionShouldChangeCharactersIn(subTaskDescription: String, indexPath: IndexPath) {
         subTasks[indexPath.row].descriptionSubTask = subTaskDescription
     }
+    
+    func subTaskDidBeginEditing(textField: UITextField!){
+        activeField = textField
+    }
+    func subTaskDidDidEndEditing(textField: UITextField!){
+        activeField = nil
+    }
+}
+
+extension TaskAddEditViewController : UITextViewDelegate{
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.systemGray3 {
+            textView.text = nil
+            if self.traitCollection.userInterfaceStyle == .dark {
+                textView.textColor = UIColor.white
+            } else {
+                textView.textColor = UIColor.black
+            }
+           
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = placeHolder
+            textView.textColor = UIColor.systemGray3
+        }
+    }
+    
 }
 

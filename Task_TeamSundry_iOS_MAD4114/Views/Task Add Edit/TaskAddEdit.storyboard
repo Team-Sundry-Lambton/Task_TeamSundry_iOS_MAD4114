@@ -388,6 +388,7 @@
                         <outlet property="descriptionTextView" destination="zyZ-eQ-uOX" id="soh-Ih-G0R"/>
                         <outlet property="mediaFileCollectionView" destination="Oyd-jB-6mf" id="eJS-yf-o9L"/>
                         <outlet property="mediaStackView" destination="63x-az-bB1" id="sa2-tc-icR"/>
+                        <outlet property="scrollView" destination="SR4-8y-eW5" id="aTG-7t-Giq"/>
                         <outlet property="subTaskStackView" destination="Unw-re-Alp" id="k1i-cr-4Qy"/>
                         <outlet property="subTaskTableHeight" destination="QUO-U5-m1D" id="Bq1-GR-cTA"/>
                         <outlet property="subTaskTableView" destination="LSV-p7-Q1h" id="xKI-TG-FoT"/>
