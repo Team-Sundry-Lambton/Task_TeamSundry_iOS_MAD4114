@@ -34,9 +34,15 @@ class DatePicker: UIView {
         let blurEffect = UIBlurEffect(style: .dark)
         let blurredEffectView = UIVisualEffectView(effect: blurEffect)
         
+
         let pickerHolderView: UIView = {
             let v = UIView()
             v.layer.cornerRadius = 8
+            if self.traitCollection.userInterfaceStyle == .light {
+                v.backgroundColor = .white
+            } else {
+                v.backgroundColor = .darkGray
+            }
             return v
         }()
         
